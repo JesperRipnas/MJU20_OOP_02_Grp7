@@ -5,33 +5,36 @@ namespace MJU20_OOP_02_Grp7
 {
     public class UI
     {
-        private int _height;
-        private int _width;
-        private char[,] window;
-
-        public static Dictionary<string, char> objects = new Dictionary<string, char> {
-            {"Life", '♥'},
-            {"Wall", '#'},
-            {"Door", '∏'}
-        };
+        // view window size
+        private static int _height;
+        private static int _width;
 
         public UI(int height, int width)
         {
             _height = height;
             _width = width;
-            window = new char[width, height];
         }
 
-        public void DrawScreen(Player player, Creature[] entities)
+        public void DrawScreen(char[,] map, Player player, Creature[] entities)
         {
-            DrawBackground();
+            DrawMap(map, player.Position);
             DrawEntities(entities);
-            DrawPlayerUI(player);
+            DrawPlayer(player);
+            DrawUI(player);
         }
 
-        private static void DrawPlayerUI(Player player)
+        private static void DrawUI(Player player)
         {
-            Console.WriteLine(player.Hp);
+            Console.SetCursorPosition(5, _height + 1);
+            Console.WriteLine($"HP: {player.Hp}");
+            // not yet implemented
+            //Console.SetCursorPosition(5, _height + 2);
+            //Console.WriteLine($"Energy: {player.Energy}");
+        }
+
+        private static void DrawPlayer(Player player)
+        {
+            
             Console.SetCursorPosition(player.Position.X, player.Position.Y);
             Console.ForegroundColor = player.Color;
             Console.Write(player.Symbol);
@@ -47,17 +50,18 @@ namespace MJU20_OOP_02_Grp7
             }
         }
 
-        private void DrawBackground()
+        private void DrawMap(char[,] map, Point playerPosition)
         {
             string background = "";
             for (int y = 0; y < _height; y++)
             {
                 for (int x = 0; x < _width; x++)
                 {
-                    background += window[x, y];
+                    background += map[playerPosition.X - (_width / 2) + x, playerPosition.Y - (_height / 2) + y];
                 }
                 background += "\n";
             }
+
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write(background);
         }
