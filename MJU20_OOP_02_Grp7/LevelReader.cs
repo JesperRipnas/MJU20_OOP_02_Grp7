@@ -33,6 +33,10 @@ namespace MJU20_OOP_02_Grp7
                 { 
                     for (int j = 0; j < fileLines[i].Length; j++)
                     {
+                        if(fileLines[i][j] != ' ' && fileLines[i][j] != '#')
+                        {
+                            CreateEntity(fileLines[i][j], i, j);
+                        }
                         returnArr[i, j] = fileLines[i][j];
                     }                    
                 }                
@@ -44,6 +48,41 @@ namespace MJU20_OOP_02_Grp7
             }
 
             return returnArr;
+        }
+
+        /// <summary>
+        /// Takes a char, checks what entity is represented by this char and creates a new entity of that type,
+        /// with position of [row][column].
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <param name="row"></param>
+        /// <param name="column"></param>
+        public static void CreateEntity(char symbol, int row, int column)
+        {
+            Point position = new Point(column, row);
+
+            switch (symbol)
+            {
+                case ('%'):
+                    // Skapa en orc med position row, column
+
+                    break;
+                case ('@'):
+                    if (Game.PlayerExists == false)
+                    {
+                        // NYI Skapa det nya playerobjektet om vi inte redan har något
+                        // Player player = new Player();
+                    }
+                    else
+                    {
+                        // Sätt playerpositionen till positionen av row, column
+                    }
+
+                    break;
+            }
+
+            // Place the new entitiy in the entitiy list
+
         }
     }
 }
