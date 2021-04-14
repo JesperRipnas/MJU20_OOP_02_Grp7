@@ -1,0 +1,78 @@
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Squar</help_text><element><id>UMLClass</id><coordinates><x>513</x><y>310</y><w>210</w><h>190</h></coordinates><panel_attributes>Game
+--
+-GameOver: bool
+-PlayerName: string
+-PlayerScore: int
+-DefaultFolder: string
+-
+
+--
+Start()
+SaveScore()
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>900</x><y>314</y><w>210</w><h>190</h></coordinates><panel_attributes>Abstract
+&lt;&lt;Creature&gt;&gt;
+--
+-hp: int
+--
++Damage(dmg: int)
++Heal(heal: int)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>240</x><y>403</y><w>170</w><h>70</h></coordinates><panel_attributes>point
+--
++X: int
++Y: int
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>780</x><y>553</y><w>210</w><h>190</h></coordinates><panel_attributes>Player
+--
+-playerScore: int
+-playerLives: int
+--
+|</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1010</x><y>553</y><w>220</w><h>190</h></coordinates><panel_attributes>Abstract
+&lt;&lt;Enemy&gt;&gt;
+--
+
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1020</x><y>653</y><w>60</w><h>80</h></coordinates><panel_attributes>Orc
+--
+
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1090</x><y>653</y><w>60</w><h>80</h></coordinates><panel_attributes>Rat
+--
+
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1160</x><y>653</y><w>60</w><h>80</h></coordinates><panel_attributes>Bat
+--
+
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>522</x><y>513</y><w>180</w><h>90</h></coordinates><panel_attributes>Menu
+--
+-exitMenu: Bool
+-menuPage: int
+--
+MainMenu()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>522</x><y>623</y><w>180</w><h>90</h></coordinates><panel_attributes>Level
+--
+
+--
+LoadLevel()
+DrawLevel()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>522</x><y>733</y><w>180</w><h>100</h></coordinates><panel_attributes>UI
+--
+-windowWidth: int
+-windowHeight: int
+-
+
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>242</x><y>303</y><w>170</w><h>90</h></coordinates><panel_attributes>Enum
+Symbols
+--
+-char lifeChar: '♥'
+-char wallChar: '#'
+-char doorChar: ''[]'
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>990</x><y>500</y><w>150</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;30;130;30;130;50</additional_attributes></element><element><id>Relation</id><coordinates><x>874</x><y>520</y><w>150</w><h>50</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;30;10;10;130;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>900</x><y>80</y><w>210</w><h>190</h></coordinates><panel_attributes>Abstract
+&lt;&lt;Entity&gt;&gt;
+--
++Position: point
+-Symbol: char
+-Color: ConsoleColor
+--
++Move(movement: point)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>990</x><y>260</y><w>30</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;50</additional_attributes></element></diagram>
