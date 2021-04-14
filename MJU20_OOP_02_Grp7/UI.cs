@@ -31,7 +31,7 @@ namespace MJU20_OOP_02_Grp7
 
         private static void DrawPlayerUI(Player player)
         {
-            Console.WriteLine(player.HP);
+            Console.WriteLine(player.Hp);
             Console.SetCursorPosition(player.Position.X, player.Position.Y);
             Console.ForegroundColor = player.Color;
             Console.Write(player.Symbol);
