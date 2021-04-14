@@ -1,12 +1,15 @@
 <diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Squar</help_text><element><id>UMLClass</id><coordinates><x>273</x><y>10</y><w>210</w><h>190</h></coordinates><panel_attributes>Game
 --
--entities
--timer
--symbols[]: char
--board[,]: strings
+-GameOver: bool
+-PlayerName: string
+-PlayerScore: int
+-DefaultFolder: string
+-
 
 --
-GameLoop()
+Start()
+SaveScore()
+
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>660</x><y>14</y><w>210</w><h>190</h></coordinates><panel_attributes>Abstract
 &lt;&lt;Creatures&gt;&gt;
 --
