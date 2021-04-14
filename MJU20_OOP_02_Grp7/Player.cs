@@ -9,7 +9,7 @@ namespace MJU20_OOP_02_Grp7
         public int PlayerScore { get; private set; }
         public int PlayerLives { get; private set; }
 
-        public Player(int hp, Point position, char symbol, ConsoleColor color, int playerScore, int playerLives) : base(hp, position, symbol, color)
+        public Player(int hp, int dmg, Point position, char symbol, ConsoleColor color, int playerScore, int playerLives) : base(hp, dmg, position, symbol, color)
         {
             PlayerScore = playerScore;
             PlayerLives = playerLives;

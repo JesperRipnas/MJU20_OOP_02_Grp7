@@ -6,6 +6,7 @@ namespace MJU20_OOP_02_Grp7
 {
     public class Entity
     {
+        public static List<Entity> entities = new List<Entity>();
         public Point Position { get; set; }
         public char Symbol { get; private set; }
         public ConsoleColor Color { get; private set; }
