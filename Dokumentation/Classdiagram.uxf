@@ -1,4 +1,4 @@
-<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Squar</help_text><element><id>UMLClass</id><coordinates><x>273</x><y>10</y><w>210</w><h>190</h></coordinates><panel_attributes>Game
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Squar</help_text><element><id>UMLClass</id><coordinates><x>513</x><y>310</y><w>210</w><h>190</h></coordinates><panel_attributes>Game
 --
 -GameOver: bool
 -PlayerName: string
@@ -10,53 +10,50 @@
 Start()
 SaveScore()
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>660</x><y>14</y><w>210</w><h>190</h></coordinates><panel_attributes>Abstract
-&lt;&lt;Creatures&gt;&gt;
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>900</x><y>314</y><w>210</w><h>190</h></coordinates><panel_attributes>Abstract
+&lt;&lt;Creature&gt;&gt;
 --
 -hp: int
--position: point
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>103</y><w>170</w><h>70</h></coordinates><panel_attributes>point
++Damage(dmg: int)
++Heal(heal: int)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>240</x><y>403</y><w>170</w><h>70</h></coordinates><panel_attributes>point
 --
 +X: int
 +Y: int
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>540</x><y>253</y><w>210</w><h>190</h></coordinates><panel_attributes>Player
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>780</x><y>553</y><w>210</w><h>190</h></coordinates><panel_attributes>Player
 --
--playerChar:  '@'
 -playerScore: int
 -playerLives: int
 --
-|</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>770</x><y>253</y><w>220</w><h>190</h></coordinates><panel_attributes>Abstract
-&lt;&lt;Enemies&gt;&gt;
+|</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1010</x><y>553</y><w>220</w><h>190</h></coordinates><panel_attributes>Abstract
+&lt;&lt;Enemy&gt;&gt;
 --
--value: int
--enemyChars[]: string[]
--Symbol: Sym
---</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>780</x><y>353</y><w>60</w><h>80</h></coordinates><panel_attributes>Orc
+
+--</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1020</x><y>653</y><w>60</w><h>80</h></coordinates><panel_attributes>Orc
 --
 
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>850</x><y>353</y><w>60</w><h>80</h></coordinates><panel_attributes>Rat
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1090</x><y>653</y><w>60</w><h>80</h></coordinates><panel_attributes>Rat
 --
 
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>920</x><y>353</y><w>60</w><h>80</h></coordinates><panel_attributes>Bat
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1160</x><y>653</y><w>60</w><h>80</h></coordinates><panel_attributes>Bat
 --
 
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>282</x><y>213</y><w>180</w><h>90</h></coordinates><panel_attributes>Menu
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>522</x><y>513</y><w>180</w><h>90</h></coordinates><panel_attributes>Menu
 --
 -exitMenu: Bool
 -menuPage: int
 --
-MainMenu()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>282</x><y>323</y><w>180</w><h>90</h></coordinates><panel_attributes>Level
+MainMenu()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>522</x><y>623</y><w>180</w><h>90</h></coordinates><panel_attributes>Level
 --
 
 --
 LoadLevel()
 DrawLevel()
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>282</x><y>433</y><w>180</w><h>100</h></coordinates><panel_attributes>UI
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>522</x><y>733</y><w>180</w><h>100</h></coordinates><panel_attributes>UI
 --
 -windowWidth: int
 -windowHeight: int
@@ -64,11 +61,18 @@ DrawLevel()
 
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>2</x><y>3</y><w>170</w><h>90</h></coordinates><panel_attributes>Enum
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>242</x><y>303</y><w>170</w><h>90</h></coordinates><panel_attributes>Enum
 Symbols
 --
 -char lifeChar: '♥'
 -char wallChar: '#'
 -char doorChar: ''[]'
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>750</x><y>200</y><w>30</w><h>50</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;30</additional_attributes></element><element><id>Relation</id><coordinates><x>634</x><y>220</y><w>270</w><h>50</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;30;10;10;250;10;250;30</additional_attributes></element></diagram>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>990</x><y>500</y><w>150</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;30;130;30;130;50</additional_attributes></element><element><id>Relation</id><coordinates><x>874</x><y>520</y><w>150</w><h>50</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;30;10;10;130;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>900</x><y>80</y><w>210</w><h>190</h></coordinates><panel_attributes>Abstract
+&lt;&lt;Entity&gt;&gt;
+--
++Position: point
+-Symbol: char
+-Color: ConsoleColor
+--
++Move(movement: point)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>990</x><y>260</y><w>30</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;50</additional_attributes></element></diagram>
