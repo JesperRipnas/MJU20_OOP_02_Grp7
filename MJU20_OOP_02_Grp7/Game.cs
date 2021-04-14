@@ -11,7 +11,7 @@ namespace MJU20_OOP_02_Grp7
         public bool GameOver { get; set; }
         public string PlayerName { get; set; }  
         public int PlayerScore { get; private set; }    
-        public static bool PlayerExist { get; set;}
+        public static bool PlayerExists { get; set;}
         private Player player;         
         // string that will contain the root folder of the projekt folder
         private static string DefaultFolder = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"..\..\..\")) + @"scores\";
