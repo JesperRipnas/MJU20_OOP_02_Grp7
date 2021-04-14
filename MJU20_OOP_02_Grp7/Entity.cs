@@ -6,7 +6,7 @@ namespace MJU20_OOP_02_Grp7
 {
     public class Entity
     {
-        public Point Position { get; private set; }
+        public Point Position { get; set; }
         public char Symbol { get; private set; }
         public ConsoleColor Color { get; private set; }
 
@@ -21,5 +21,7 @@ namespace MJU20_OOP_02_Grp7
         {
             Position += movement;
         }
+
+
     }
 }
