@@ -1,4 +1,5 @@
 ﻿.vscode/**
 bin/**
 obj/**
+scores/**
 *.exe
