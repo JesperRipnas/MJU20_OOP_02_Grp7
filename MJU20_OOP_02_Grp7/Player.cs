@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MJU20_OOP_02_Grp7
 {
-    class Player : Creature
+    public class Player : Creature
     {
         public int PlayerScore { get; private set; }
         public int PlayerLives { get; private set; }
