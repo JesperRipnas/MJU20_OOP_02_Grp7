@@ -4,10 +4,10 @@ using System.Text;
 
 namespace MJU20_OOP_02_Grp7
 {
-    struct Point
+    public struct Point
     {
-        int X;
-        int Y;
+        public int X;
+        public int Y;
 
         public Point(int X, int Y)
         {

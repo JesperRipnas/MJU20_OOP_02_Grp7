@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MJU20_OOP_02_Grp7
 {
-    abstract class Creature
+    public abstract class Creature
     {
         public int Hp { get; private set; }
         public Point Position { get; private set; }
