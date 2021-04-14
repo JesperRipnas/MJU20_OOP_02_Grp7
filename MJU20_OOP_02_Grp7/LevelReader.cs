@@ -11,8 +11,10 @@ namespace MJU20_OOP_02_Grp7
         public static string directoryPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\..\MJU20_OOP_02_Grp7\")) + @"Levels\";
         
         /// <summary>
-        /// Takes the fileName of a textfile inside the levels folder, 
+        /// Takes the file name of a textfile inside the levels folder, 
         /// splits it into a 2D array of chars and returns the array.
+        /// Creates any entities in the level and puts the into
+        /// Entity.entities.
         /// </summary>
         public static char[,] LoadLevel(string fileName)
         {
@@ -59,25 +61,25 @@ namespace MJU20_OOP_02_Grp7
         /// <param name="column"></param>
         public static void CreateEntity(char symbol, int row, int column)
         {
+            // TODO: Kanske göra casen snyggare så dessa slipper hårdkodas?
             Point position = new Point(column, row);
-
             switch (symbol)
             {
-                case ('%'):
-                    // Skapa en orc med position row, column
+                case ('ö'):     // Create a new Goblin @ position
+                    Goblin newGoblin = new Goblin(position);
+                    Entity.entities.Add(newGoblin);
+                    break;
+
+                case ('Q'):     // Create a new Rat @ position
+                    Rat newRat = new Rat(position);
+                    Entity.entities.Add(newRat);
+                    break;
+
+                case ('@'):
+                    // Sätt playerposition till @ position
 
                     break;
-                case ('@'):
-                    if (Game.PlayerExists == false)
-                    {
-                        // NYI Skapa det nya playerobjektet om vi inte redan har något
-                        // Player player = new Player();
-                    }
-                    else
-                    {
-                        // Sätt playerpositionen till positionen av row, column
-                    }
-
+                default:
                     break;
             }
 
