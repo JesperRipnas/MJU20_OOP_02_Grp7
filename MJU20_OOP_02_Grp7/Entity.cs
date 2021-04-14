@@ -21,7 +21,5 @@ namespace MJU20_OOP_02_Grp7
         {
             Position += movement;
         }
-
-
     }
 }
