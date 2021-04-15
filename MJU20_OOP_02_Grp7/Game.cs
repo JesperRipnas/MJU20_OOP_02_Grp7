@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using static System.Console;
 using System.Timers;
+using System.Linq;
 
 namespace MJU20_OOP_02_Grp7
 {
@@ -42,8 +43,6 @@ namespace MJU20_OOP_02_Grp7
             updateTimer.Enabled = true;
             loadNextLevel = true;
 
-            
-
             while (!GameOver)
             {
                 if (loadNextLevel)
@@ -69,14 +68,54 @@ namespace MJU20_OOP_02_Grp7
         {
             player.Position = position;
         }
-        private static void SaveScore()
+        private static Dictionary<string, int> CreateHighScore()
         {
-            /*
-            Creates a directory named "scores" in root folder if it isnt already exsisting.
-            If file with the player name already exist, open that file and store the old scores.
-            Then print old scores + new score to same file
-            If file doesnt exist, just write the new score to file
-            */
+            /// <summary>
+            /// Reads all .txt files in the scores folder
+            /// To avoid errors, it will create a scores folder in root if not already created
+            /// Gather the name of the file (player) + the highest score in that file
+            /// Adds a string of highest point for the player + player name to a List
+            /// Sorts the list in desending order by score
+            /// </summary>
+            Dictionary<string, int> playerScores = new Dictionary<string, int>();
+            try
+            {
+                if(!Directory.Exists(DefaultFolder))
+                {
+                    Directory.CreateDirectory(DefaultFolder);
+                }
+                foreach (string file in Directory.EnumerateFiles(DefaultFolder, "*.txt"))
+                {
+                    List<int> personalScores = new List<int>();
+                    string[] text = File.ReadAllLines(file);
+                    foreach (var line in text)
+                    {
+                        string[] word = line.Split(' ');
+                        personalScores.Add(Convert.ToInt32(word[1]));
+                    }
+                    personalScores.Sort();
+                    personalScores.Reverse();
+                    playerScores.Add(Path.GetFileNameWithoutExtension(file),personalScores[0]);
+                }
+                var sortedPlayerScores = playerScores.OrderByDescending(u => u.Value).ToDictionary(z => z.Key, y => y.Value);
+
+                return sortedPlayerScores;
+            }
+            catch (Exception e)
+            {
+                WriteLine(e.Message);
+                return playerScores;
+            }
+        }
+        private static void SaveScore()
+        {   
+            /// <summary>
+            /// Creates a directory named "scores" in root folder if it isnt already exsisting.
+            /// If file with the player name already exist, open that file and store the old scores.
+            /// Then print old scores + new score to same file
+            /// If file doesnt exist, just write the new score to file
+            /// </summary>
+
             DateTime today = DateTime.Today;
             string _fullPath = DefaultFolder + PlayerName.ToLower() + ".txt";
             try
@@ -102,7 +141,7 @@ namespace MJU20_OOP_02_Grp7
                     {
                         foreach (var score in scores)
                         {
-                            w.WriteLine(score.ToString());
+                            w.WriteLine(score.ToString());           
                         }
                         w.Close();
                     }
