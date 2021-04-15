@@ -9,6 +9,14 @@ namespace MJU20_OOP_02_Grp7
         public static int height;
         public static int width;
 
+        public static void SetUISize(int x, int y)
+        {
+            width = x;
+            height = y - 5;
+            Console.SetWindowSize(x, y);
+            Console.SetBufferSize(x, y);
+        }
+
         public static void DrawScreen(char[,] map, Player player, Entity[] entities)
         {
             DrawMap(map, player.Position);
@@ -28,8 +36,8 @@ namespace MJU20_OOP_02_Grp7
 
         private static void DrawPlayer(Player player)
         {
-            
-            Console.SetCursorPosition(player.Position.X, player.Position.Y);
+
+            Console.SetCursorPosition(width / 2,height / 2);
             Console.ForegroundColor = player.Color;
             Console.Write(player.Symbol);
         }
@@ -51,11 +59,22 @@ namespace MJU20_OOP_02_Grp7
             {
                 for (int x = 0; x < width; x++)
                 {
-                    background += map[playerPosition.X - (width / 2) + x, playerPosition.Y - (height / 2) + y];
+                    int mapX = playerPosition.X - (width / 2) + x;
+                    int mapY = playerPosition.Y - (height / 2) + y;
+                    if (mapX < 0 || mapY < 0 || mapX >= map.GetLength(0) || mapY >= map.GetLength(1))
+                    {
+                        background += " ";
+                    }
+                    else
+                    {
+                        background += map[mapX, mapY];
+                    }
+
                 }
                 background += "\n";
             }
-
+            Console.CursorVisible = false;
+            Console.SetCursorPosition(0, 0);
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write(background);
         }

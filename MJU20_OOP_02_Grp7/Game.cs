@@ -12,6 +12,8 @@ namespace MJU20_OOP_02_Grp7
         public static string PlayerName { get; set; }
         public static int PlayerScore { get; private set; }
         public static bool PlayerExists { get; set; }
+        public static char[,] Map { get; private set; }
+
         private static Player player;
         private static bool loadNextLevel = false;
         private static string levelName = "Level";
@@ -32,6 +34,7 @@ namespace MJU20_OOP_02_Grp7
             Title = "MazeCrawler";
 
             player = new Player(100, 1, new Point(0, 0), '@', ConsoleColor.Green, 0, 1);
+            UI.SetUISize(80, 40);
 
             Timer updateTimer = new System.Timers.Timer(100);
             updateTimer.Elapsed += Update;
@@ -39,12 +42,14 @@ namespace MJU20_OOP_02_Grp7
             updateTimer.Enabled = true;
             loadNextLevel = true;
 
+            
+
             while (!GameOver)
             {
                 if (loadNextLevel)
                 {
                     currentLevel++;
-                    LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
+                    Map = LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
                     loadNextLevel = false;
                 }
             }
@@ -56,6 +61,8 @@ namespace MJU20_OOP_02_Grp7
         {
             ConsoleKey input = Input.Readkey();
             //player.Controll(input);
+            
+            UI.DrawScreen(Map, player, new Entity[0]);
         }
 
         public static void SetPlayerPosition(Point position)
