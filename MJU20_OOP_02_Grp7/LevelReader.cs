@@ -19,6 +19,7 @@ namespace MJU20_OOP_02_Grp7
         public static char[,] LoadLevel(string fileName)
         {
             // Delcare necessary variables
+            Enemy.activeEnemies = new List<Enemy>();
             string filePath = directoryPath + fileName;
             char[,] returnArr;
             int columns = 0;
@@ -63,24 +64,12 @@ namespace MJU20_OOP_02_Grp7
         {
             // TODO: Kanske göra casen snyggare så dessa slipper hårdkodas?
             Point position = new Point(column, row);
-            switch (symbol)
+            if (Enemy.enemyTypes.ContainsKey(symbol))
             {
-                case ('ö'):     // Create a new Goblin @ position
-                    Goblin newGoblin = new Goblin(position);
-                    Entity.entities.Add(newGoblin);
-                    break;
+                Enemy.activeEnemies.Add(new Enemy(symbol, position, Enemy.enemyTypes[symbol]));
+            } else if(symbol == '@')
+            {
 
-                case ('Q'):     // Create a new Rat @ position
-                    Rat newRat = new Rat(position);
-                    Entity.entities.Add(newRat);
-                    break;
-
-                case ('@'):
-                    // Sätt playerposition till @ position
-
-                    break;
-                default:
-                    break;
             }
 
             // Place the new entitiy in the entitiy list
