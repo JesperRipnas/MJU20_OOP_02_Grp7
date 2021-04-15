@@ -24,22 +24,26 @@ namespace MJU20_OOP_02_Grp7
         }
         public void Start()
         {
+            // # Create objects
+            // Menu
+            // Player
+            // LevelReader.LoadLevel(1)
+            // LevelReader.CreateEntity;
+
             Title = "MazeCrowler";
 
-            Timer aTimer = new System.Timers.Timer(100);
+            Timer aTimer = new System.Timers.Timer(500);
             aTimer.Elapsed += OnTimedEvent;
             aTimer.AutoReset = true;
             aTimer.Enabled = true;
-            GameOver = true; // change for live
 
-            while(!GameOver){}
+            // while(!GameOver){}
             aTimer.Elapsed -= OnTimedEvent; // unsubscribe to event when loop dies
             SaveScore(); // Save PlayerScore to file
         }
         // Method we call each time the OnTimedEvent get triggered (atm every 100 ms)
         private void Update()
         {
-            
         }
         // Event that will trigger based on aTimer ms interval
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
@@ -49,19 +53,22 @@ namespace MJU20_OOP_02_Grp7
         private void SaveScore()
         {
             /*
+            Creates a directory named "scores" in root folder if it isnt already exsisting.
             If file with the player name already exist, open that file and store the old scores.
             Then print old scores + new score to same file
-
             If file doesnt exist, just write the new score to file
             */
             DateTime today = DateTime.Today;
             string _fullPath = DefaultFolder + PlayerName.ToLower() + ".txt";
             try
             {
+                if(!Directory.Exists(DefaultFolder))
+                {
+                    Directory.CreateDirectory(DefaultFolder);
+                }
                 if(!File.Exists(_fullPath))
                 {
                     File.WriteAllText(_fullPath, today.ToString("d") + " " + PlayerScore.ToString() + " Points");
-                    WriteLine("Saved highscore to " + _fullPath);
                 }
                 else
                 {
