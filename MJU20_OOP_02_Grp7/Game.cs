@@ -34,7 +34,7 @@ namespace MJU20_OOP_02_Grp7
             PlayerScore = 2;
             Title = "MazeCrawler";
 
-            player = new Player(100, 1, new Point(0, 0), '@', ConsoleColor.Green, 0, 1);
+            player = new Player(100, 1, new Point(0, 0), '@', ConsoleColor.Green);
             UI.SetUISize(80, 40);
 
             Timer updateTimer = new System.Timers.Timer(100);
@@ -59,8 +59,12 @@ namespace MJU20_OOP_02_Grp7
         private static void Update(Object source, ElapsedEventArgs e)
         {
             ConsoleKey input = Input.Readkey();
+            if (input.ToString() != "NoName")
+            {
+                player.MovePlayer();
+            }
             //player.Controll(input);
-            
+
             UI.DrawScreen(Map, player, new Entity[0]);
         }
 
