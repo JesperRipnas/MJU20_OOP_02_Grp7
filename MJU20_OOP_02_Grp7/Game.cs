@@ -72,19 +72,22 @@ namespace MJU20_OOP_02_Grp7
         private static void SaveScore()
         {
             /*
+            Creates a directory named "scores" in root folder if it isnt already exsisting.
             If file with the player name already exist, open that file and store the old scores.
             Then print old scores + new score to same file
-
             If file doesnt exist, just write the new score to file
             */
             DateTime today = DateTime.Today;
             string _fullPath = DefaultFolder + PlayerName.ToLower() + ".txt";
             try
             {
-                if (!File.Exists(_fullPath))
+                if(!Directory.Exists(DefaultFolder))
+                {
+                    Directory.CreateDirectory(DefaultFolder);
+                }
+                if(!File.Exists(_fullPath))
                 {
                     File.WriteAllText(_fullPath, today.ToString("d") + " " + PlayerScore.ToString() + " Points");
-                    WriteLine("Saved highscore to " + _fullPath);
                 }
                 else
                 {
