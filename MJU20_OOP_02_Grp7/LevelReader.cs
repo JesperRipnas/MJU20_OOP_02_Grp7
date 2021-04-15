@@ -30,21 +30,21 @@ namespace MJU20_OOP_02_Grp7
                 string[] fileLines = File.ReadAllLines(filePath);       // Open text file
                 rows = fileLines.Length;
                 columns = fileLines[0].Length;
-                returnArr = new char[rows, columns];        // Create the array
+                returnArr = new char[columns, rows];        // Create the array
 
-                for (int i = 0; i < fileLines.Length; i++)      //Loop through all characters in the file
+                for (int y = 0; y < rows; y++) //Loop through all characters in the file
                 {
-                    for (int j = 0; j < fileLines[i].Length; j++)
+                    for (int x = 0; x < columns; x++)
                     {
-                        if (fileLines[i][j] != ' ' && fileLines[i][j] != '#')
+                        if (fileLines[y][x] != ' ' && fileLines[y][x] != '#')
                         {
-                            if (CreateEntity(fileLines[i][j], i, j))
+                            if (CreateEntity(fileLines[y][x], x, y))
                             {
-                                returnArr[i, j] = ' ';
+                                returnArr[x, y] = ' ';
                                 continue;
                             }
                         }
-                        returnArr[i, j] = fileLines[i][j];
+                        returnArr[x, y] = fileLines[y][x];
                     }
                 }
             }
@@ -67,7 +67,7 @@ namespace MJU20_OOP_02_Grp7
         public static bool CreateEntity(char symbol, int row, int column)
         {
             // TODO: Kanske göra casen snyggare så dessa slipper hårdkodas?
-            Point position = new Point(column, row);
+            Point position = new Point(row, column);
             if (Enemy.enemyTypes.ContainsKey(symbol))
             {
                 Enemy.activeEnemies.Add(new Enemy(symbol, position, Enemy.enemyTypes[symbol]));
