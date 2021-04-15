@@ -11,23 +11,8 @@ namespace MJU20_OOP_02_Grp7
     {
         static void Main(string[] args)
         {
-            //Game game = new Game();
-            //game.Start();
-
-            LevelReader.LoadLevel("TestLevel.txt");
-            foreach(var entity in Entity.entities)
-            {
-                Console.WriteLine(entity.GetType());
-                WriteLine(entity.Position);
-            }
+            Game game = new Game();
+            game.Start();
         }
-
-
-
     }
-
-
-
-
-
 }
