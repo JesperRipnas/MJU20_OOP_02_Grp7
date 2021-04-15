@@ -19,7 +19,8 @@ namespace MJU20_OOP_02_Grp7
 
     public class Enemy : Creature
     {
-        static public Dictionary<char, EnemyStats> Enemies = new Dictionary<char, EnemyStats>()
+        static public List<Enemy> activeEnemies;
+        static public Dictionary<char, EnemyStats> enemyTypes = new Dictionary<char, EnemyStats>()
         {
             {'Q', new EnemyStats(3,1, ConsoleColor.DarkYellow)},
             {'ö', new EnemyStats(7,3, ConsoleColor.DarkCyan)},
