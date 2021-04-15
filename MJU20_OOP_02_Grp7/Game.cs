@@ -8,49 +8,68 @@ namespace MJU20_OOP_02_Grp7
 {
     public class Game
     {
-        public bool GameOver { get; set; }
-        public string PlayerName { get; set; }  
-        public int PlayerScore { get; private set; }    
-        public static bool PlayerExists { get; set;}
-        private Player player;         
+        public static bool GameOver { get; set; }
+        public static string PlayerName { get; set; }
+        public static int PlayerScore { get; private set; }
+        public static bool PlayerExists { get; set; }
+        public static char[,] Map { get; private set; }
+
+        private static Player player;
+        private static bool loadNextLevel = false;
+        private static string levelName = "Level";
+        private static int currentLevel = 0;
+
         // string that will contain the root folder of the projekt folder
         private static string DefaultFolder = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"..\..\..\")) + @"scores\";
 
         public Game()
         {
-            this.GameOver = false;
-            this.PlayerName = "Test";
-            this.PlayerScore = 2;
+
         }
-        public void Start()
+        public static void Start()
         {
-            // # Create objects
-            // Menu
-            // Player
-            // LevelReader.LoadLevel(1)
-            // LevelReader.CreateEntity;
+            GameOver = false;
+            PlayerName = "Test";
+            PlayerScore = 2;
+            Title = "MazeCrawler";
 
-            Title = "MazeCrowler";
+            player = new Player(100, 1, new Point(0, 0), '@', ConsoleColor.Green, 0, 1);
+            UI.SetUISize(80, 40);
 
-            Timer aTimer = new System.Timers.Timer(500);
-            aTimer.Elapsed += OnTimedEvent;
-            aTimer.AutoReset = true;
-            aTimer.Enabled = true;
+            Timer updateTimer = new System.Timers.Timer(100);
+            updateTimer.Elapsed += Update;
+            updateTimer.AutoReset = true;
+            updateTimer.Enabled = true;
+            loadNextLevel = true;
 
-            // while(!GameOver){}
-            aTimer.Elapsed -= OnTimedEvent; // unsubscribe to event when loop dies
+            
+
+            while (!GameOver)
+            {
+                if (loadNextLevel)
+                {
+                    currentLevel++;
+                    Map = LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
+                    loadNextLevel = false;
+                }
+            }
+            updateTimer.Elapsed -= Update; // unsubscribe to event when loop dies
             SaveScore(); // Save PlayerScore to file
         }
         // Method we call each time the OnTimedEvent get triggered (atm every 100 ms)
-        private void Update()
+        private static void Update(Object source, ElapsedEventArgs e)
         {
+            ConsoleKey input = Input.Readkey();
+            //player.Controll(input);
+            
+            UI.DrawScreen(Map, player, new Entity[0]);
         }
-        // Event that will trigger based on aTimer ms interval
-        private void OnTimedEvent(Object source, ElapsedEventArgs e)
+
+        public static void SetPlayerPosition(Point position)
         {
-            Update();
+            player.Position = position;
         }
-        private void SaveScore()
+        private static void SaveScore()
         {
             /*
             Creates a directory named "scores" in root folder if it isnt already exsisting.
@@ -83,7 +102,7 @@ namespace MJU20_OOP_02_Grp7
                     {
                         foreach (var score in scores)
                         {
-                            w.WriteLine(score.ToString());           
+                            w.WriteLine(score.ToString());
                         }
                         w.Close();
                     }

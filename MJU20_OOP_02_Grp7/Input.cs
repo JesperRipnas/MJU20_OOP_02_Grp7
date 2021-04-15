@@ -7,7 +7,7 @@ namespace MJU20_OOP_02_Grp7
     public class Input
     {
 
-        public ConsoleKey Readkey()
+        public static ConsoleKey Readkey()
         {
             List<ConsoleKey> key = new List<ConsoleKey>();
             key.Add(ConsoleKey.NoName);

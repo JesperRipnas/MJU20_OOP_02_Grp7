@@ -9,7 +9,7 @@ namespace MJU20_OOP_02_Grp7
     {
         // Path to the levels folder
         public static string directoryPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\..\MJU20_OOP_02_Grp7\")) + @"Levels\";
-        
+
         /// <summary>
         /// Takes the file name of a textfile inside the levels folder, 
         /// splits it into a 2D array of chars and returns the array.
@@ -19,6 +19,7 @@ namespace MJU20_OOP_02_Grp7
         public static char[,] LoadLevel(string fileName)
         {
             // Delcare necessary variables
+            Enemy.activeEnemies = new List<Enemy>();
             string filePath = directoryPath + fileName;
             char[,] returnArr;
             int columns = 0;
@@ -29,19 +30,23 @@ namespace MJU20_OOP_02_Grp7
                 string[] fileLines = File.ReadAllLines(filePath);       // Open text file
                 rows = fileLines.Length;
                 columns = fileLines[0].Length;
-                returnArr = new char[rows, columns];        // Create the array
+                returnArr = new char[columns, rows];        // Create the array
 
-                for (int i = 0; i < fileLines.Length; i++)      //Loop through all characters in the file
-                { 
-                    for (int j = 0; j < fileLines[i].Length; j++)
+                for (int y = 0; y < rows; y++) //Loop through all characters in the file
+                {
+                    for (int x = 0; x < columns; x++)
                     {
-                        if(fileLines[i][j] != ' ' && fileLines[i][j] != '#')
+                        if (fileLines[y][x] != ' ' && fileLines[y][x] != '#')
                         {
-                            CreateEntity(fileLines[i][j], i, j);
+                            if (CreateEntity(fileLines[y][x], x, y))
+                            {
+                                returnArr[x, y] = ' ';
+                                continue;
+                            }
                         }
-                        returnArr[i, j] = fileLines[i][j];
-                    }                    
-                }                
+                        returnArr[x, y] = fileLines[y][x];
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -59,32 +64,26 @@ namespace MJU20_OOP_02_Grp7
         /// <param name="symbol"></param>
         /// <param name="row"></param>
         /// <param name="column"></param>
-        public static void CreateEntity(char symbol, int row, int column)
+        public static bool CreateEntity(char symbol, int row, int column)
         {
             // TODO: Kanske göra casen snyggare så dessa slipper hårdkodas?
-            Point position = new Point(column, row);
-            switch (symbol)
+            Point position = new Point(row, column);
+            if (Enemy.enemyTypes.ContainsKey(symbol))
             {
-                case ('ö'):     // Create a new Goblin @ position
-                    Goblin newGoblin = new Goblin(position);
-                    Entity.entities.Add(newGoblin);
-                    break;
-
-                case ('Q'):     // Create a new Rat @ position
-                    Rat newRat = new Rat(position);
-                    Entity.entities.Add(newRat);
-                    break;
-
-                case ('@'):
-                    // Sätt playerposition till @ position
-
-                    break;
-                default:
-                    break;
+                Enemy.activeEnemies.Add(new Enemy(symbol, position, Enemy.enemyTypes[symbol]));
+                return true;
             }
-
-            // Place the new entitiy in the entitiy list
-
+            else if (symbol == '@')
+            {
+                Game.SetPlayerPosition(position);
+                return true;
+            }
+            else if (Item.itemTypes.ContainsKey(symbol))
+            {
+                Item.activeItems.Add(new Item(symbol, position, Item.itemTypes[symbol]));
+                return true;
+            }
+            return false;
         }
     }
 }

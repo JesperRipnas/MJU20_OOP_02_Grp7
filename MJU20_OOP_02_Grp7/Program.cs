@@ -11,8 +11,7 @@ namespace MJU20_OOP_02_Grp7
     {
         static void Main(string[] args)
         {
-            Game game = new Game();
-            game.Start();
+            Game.Start();
         }
     }
 }
