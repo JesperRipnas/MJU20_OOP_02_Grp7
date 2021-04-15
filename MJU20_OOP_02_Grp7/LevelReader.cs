@@ -9,7 +9,7 @@ namespace MJU20_OOP_02_Grp7
     {
         // Path to the levels folder
         public static string directoryPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\..\MJU20_OOP_02_Grp7\")) + @"Levels\";
-        
+
         /// <summary>
         /// Takes the file name of a textfile inside the levels folder, 
         /// splits it into a 2D array of chars and returns the array.
@@ -33,16 +33,20 @@ namespace MJU20_OOP_02_Grp7
                 returnArr = new char[rows, columns];        // Create the array
 
                 for (int i = 0; i < fileLines.Length; i++)      //Loop through all characters in the file
-                { 
+                {
                     for (int j = 0; j < fileLines[i].Length; j++)
                     {
-                        if(fileLines[i][j] != ' ' && fileLines[i][j] != '#')
+                        if (fileLines[i][j] != ' ' && fileLines[i][j] != '#')
                         {
-                            CreateEntity(fileLines[i][j], i, j);
+                            if (CreateEntity(fileLines[i][j], i, j))
+                            {
+                                returnArr[i, j] = ' ';
+                                continue;
+                            }
                         }
                         returnArr[i, j] = fileLines[i][j];
-                    }                    
-                }                
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -60,20 +64,26 @@ namespace MJU20_OOP_02_Grp7
         /// <param name="symbol"></param>
         /// <param name="row"></param>
         /// <param name="column"></param>
-        public static void CreateEntity(char symbol, int row, int column)
+        public static bool CreateEntity(char symbol, int row, int column)
         {
             // TODO: Kanske göra casen snyggare så dessa slipper hårdkodas?
             Point position = new Point(column, row);
             if (Enemy.enemyTypes.ContainsKey(symbol))
             {
                 Enemy.activeEnemies.Add(new Enemy(symbol, position, Enemy.enemyTypes[symbol]));
-            } else if(symbol == '@')
-            {
-
+                return true;
             }
-
-            // Place the new entitiy in the entitiy list
-
+            else if (symbol == '@')
+            {
+                Game.SetPlayerPosition(position);
+                return true;
+            }
+            else if (Item.itemTypes.ContainsKey(symbol))
+            {
+                Item.activeItems.Add(new Item(symbol, position, Item.itemTypes[symbol]));
+                return true;
+            }
+            return false;
         }
     }
 }
