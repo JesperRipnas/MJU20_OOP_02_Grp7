@@ -8,45 +8,61 @@ namespace MJU20_OOP_02_Grp7
 {
     public class Game
     {
-        public bool GameOver { get; set; }
-        public string PlayerName { get; set; }  
-        public int PlayerScore { get; private set; }    
-        public static bool PlayerExists { get; set;}
-        private Player player;         
+        public static bool GameOver { get; set; }
+        public static string PlayerName { get; set; }
+        public static int PlayerScore { get; private set; }
+        public static bool PlayerExists { get; set; }
+        private static Player player;
+        private static bool loadNextLevel = false;
+        private static string levelName = "Level";
+        private static int currentLevel = 0;
+
         // string that will contain the root folder of the projekt folder
         private static string DefaultFolder = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"..\..\..\")) + @"scores\";
 
         public Game()
         {
-            this.GameOver = false;
-            this.PlayerName = "Test";
-            this.PlayerScore = 2;
+
         }
-        public void Start()
+        public static void Start()
         {
-            Title = "MazeCrowler";
+            GameOver = false;
+            PlayerName = "Test";
+            PlayerScore = 2;
+            Title = "MazeCrawler";
 
-            Timer aTimer = new System.Timers.Timer(100);
-            aTimer.Elapsed += OnTimedEvent;
-            aTimer.AutoReset = true;
-            aTimer.Enabled = true;
-            GameOver = true; // change for live
+            player = new Player(100, 1, new Point(0, 0), '@', ConsoleColor.Green, 0, 1);
 
-            while(!GameOver){}
-            aTimer.Elapsed -= OnTimedEvent; // unsubscribe to event when loop dies
+            Timer updateTimer = new System.Timers.Timer(100);
+            updateTimer.Elapsed += Update;
+            updateTimer.AutoReset = true;
+            updateTimer.Enabled = true;
+            loadNextLevel = true;
+
+            while (!GameOver)
+            {
+                if (loadNextLevel)
+                {
+                    currentLevel++;
+                    LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
+                    loadNextLevel = false;
+                }
+            }
+            updateTimer.Elapsed -= Update; // unsubscribe to event when loop dies
             SaveScore(); // Save PlayerScore to file
         }
         // Method we call each time the OnTimedEvent get triggered (atm every 100 ms)
-        private void Update()
+        private static void Update(Object source, ElapsedEventArgs e)
         {
-            
+            ConsoleKey input = Input.Readkey();
+            //player.Controll(input);
         }
-        // Event that will trigger based on aTimer ms interval
-        private void OnTimedEvent(Object source, ElapsedEventArgs e)
+
+        public static void SetPlayerPosition(Point position)
         {
-            Update();
+            player.Position = position;
         }
-        private void SaveScore()
+        private static void SaveScore()
         {
             /*
             If file with the player name already exist, open that file and store the old scores.
@@ -58,7 +74,7 @@ namespace MJU20_OOP_02_Grp7
             string _fullPath = DefaultFolder + PlayerName.ToLower() + ".txt";
             try
             {
-                if(!File.Exists(_fullPath))
+                if (!File.Exists(_fullPath))
                 {
                     File.WriteAllText(_fullPath, today.ToString("d") + " " + PlayerScore.ToString() + " Points");
                     WriteLine("Saved highscore to " + _fullPath);
@@ -76,7 +92,7 @@ namespace MJU20_OOP_02_Grp7
                     {
                         foreach (var score in scores)
                         {
-                            w.WriteLine(score.ToString());           
+                            w.WriteLine(score.ToString());
                         }
                         w.Close();
                     }
