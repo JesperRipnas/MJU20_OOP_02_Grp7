@@ -4,19 +4,27 @@ using System.Text;
 
 namespace MJU20_OOP_02_Grp7
 {
-    public class Rat : Creature
+    public struct EnemyStats
     {
-        public Rat(Point position) : base(3, 1, position, 'Q', ConsoleColor.DarkYellow)
-        {
+        public int Hp, Dmg;
+        public ConsoleColor Color;
 
+        public EnemyStats(int hp, int dmg, ConsoleColor color)
+        {
+            Hp = hp;
+            Dmg = dmg;
+            Color = color;
         }
     }
 
-    public class Goblin : Creature
+    public class Enemy : Creature
     {
-        public Goblin(Point position) : base(7, 3, position, 'ö', ConsoleColor.DarkCyan)
+        static public Dictionary<char, EnemyStats> Enemies = new Dictionary<char, EnemyStats>()
         {
-
-        }
+            {'Q', new EnemyStats(3,1, ConsoleColor.DarkYellow)},
+            {'ö', new EnemyStats(7,3, ConsoleColor.DarkCyan)},
+            {'i', new EnemyStats(30, 10, ConsoleColor.DarkMagenta)}
+        };
+        public Enemy(char symbol, Point position, EnemyStats stats) : base(stats.Hp, stats.Dmg, position, symbol, stats.Color) { }
     }
 }
