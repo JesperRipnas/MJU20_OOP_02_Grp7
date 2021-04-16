@@ -34,7 +34,7 @@ namespace MJU20_OOP_02_Grp7
             foreach(Enemy enemy in activeEnemies)
             {
                 Point direction;
-                int newDirection = random.Next(4);
+                int newDirection = random.Next(5);
 
                 switch (newDirection)
                 {
@@ -47,12 +47,14 @@ namespace MJU20_OOP_02_Grp7
                     case 2:
                         direction = new Point(0, 1);
                         break;
-                    default:
+                    case 3:
                         direction = new Point(0, -1);
                         break;
+                    default:
+                        continue;
 
                 }
-                enemy.Move(direction);
+                enemy.Move(direction, enemy);
             }
         }
     }

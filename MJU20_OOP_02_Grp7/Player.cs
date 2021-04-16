@@ -28,19 +28,19 @@ namespace MJU20_OOP_02_Grp7
             switch (input)
             {
                 case GameControls.MoveUp:
-                    Move(new Point(0, -1));
+                    Move(new Point(0, -1), this);
                     break;
 
                 case GameControls.MoveRight:
-                    Move(new Point(+1, 0));
+                    Move(new Point(+1, 0), this);
                     break;
 
                 case GameControls.MoveDown:
-                    Move(new Point(0, +1));
+                    Move(new Point(0, +1), this);
                     break;
 
                 case GameControls.MoveLeft:
-                    Move(new Point(-1, 0));
+                    Move(new Point(-1, 0), this);
                     break;
             }
         }

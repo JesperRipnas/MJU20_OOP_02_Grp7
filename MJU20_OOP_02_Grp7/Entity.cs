@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MJU20_OOP_02_Grp7
 {
@@ -15,26 +16,59 @@ namespace MJU20_OOP_02_Grp7
             Color = color;
         }
 
-        public void Move(Point movement)
+        public void Move(Point movement, object sender)
         {
             //Wall collision check
             Point tempPosition = Position + movement;
-            if (Game.Map[tempPosition.X, tempPosition.Y] ==  ' ')
+            if (Game.Map[tempPosition.X, tempPosition.Y] == ' ')
             {
-                Item temp = null;
-                // Check for items/tramps/enemies
-                foreach(var item in Item.activeItems)
+                object collider = null;
+                
+                List<object> things = new List<object>();
+                things.Add(Game.player);
+                things.AddRange(Item.activeItems);
+                things.AddRange(Enemy.activeEnemies);
+                //things.AddRange(Traps.activeTraps);
+                // Check for items/traps/enemies
+
+                foreach (Entity thing in things)
                 {
-                    if(item.Position == tempPosition)
+                    if (thing.Position == tempPosition)
                     {
-                        Game.player.Heal(50);
-                        temp = item;
+                        collider = thing;
                     }
                 }
-                if(temp != null)
+
+                if (sender is Player)
                 {
-                    Item.activeItems.Remove(temp);
+                    // check what the player collided with
+                    if (collider is Item)
+                    {
+                        // acticivate item
+
+                        Item.activeItems.Remove((Item)collider);
+                    }
+                    else if (collider is Enemy)
+                    {
+                        // if player walks into player do damage to player
+                        Game.player.Damage(((Enemy)collider).Dmg);
+                        return;
+                    }
+                    // else if (collide is Trap)
                 }
+                else if (sender is Enemy)
+                {
+                    // if enemy walks into anything other than player abort movement
+                    if (collider is Player)
+                    {
+                        Game.player.Damage(((Enemy)sender).Dmg);
+                    }
+                    if (collider is object)
+                    {
+                        return;
+                    }
+                }
+
                 Position += movement;
             }
         }
