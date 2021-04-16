@@ -21,8 +21,22 @@ namespace MJU20_OOP_02_Grp7
         {
             //Wall collision check
             Point tempPosition = Position + movement;
-            if (Game.Map[tempPosition.X, tempPosition.Y].ToString() != "▒")
+            if (Game.Map[tempPosition.X, tempPosition.Y] ==  ' ')
             {
+                Item temp = null;
+                // Check for items/tramps/enemies
+                foreach(var item in Item.activeItems)
+                {
+                    if(item.Position == tempPosition)
+                    {
+                        Game.player.Heal(50);
+                        temp = item;
+                    }
+                }
+                if(temp != null)
+                {
+                    Item.activeItems.Remove(temp);
+                }
                 Position += movement;
             }
         }
