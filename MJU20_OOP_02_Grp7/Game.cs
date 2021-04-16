@@ -1,9 +1,9 @@
 using System;
-using System.IO;
 using System.Collections.Generic;
-using static System.Console;
-using System.Timers;
+using System.IO;
 using System.Linq;
+using System.Timers;
+using static System.Console;
 
 namespace MJU20_OOP_02_Grp7
 {
@@ -25,8 +25,8 @@ namespace MJU20_OOP_02_Grp7
 
         public Game()
         {
-
         }
+
         public static void Start()
         {
             GameOver = false;
@@ -55,11 +55,12 @@ namespace MJU20_OOP_02_Grp7
             updateTimer.Elapsed -= Update; // unsubscribe to event when loop dies
             SaveScore(); // Save PlayerScore to file
         }
+
         // Method we call each time the OnTimedEvent get triggered (atm every 100 ms)
         private static void Update(Object source, ElapsedEventArgs e)
         {
-            ConsoleKey input = Input.Readkey();
-            if (input != ConsoleKey.NoName)
+            GameControls input = Input.GameInput();
+            if (input != GameControls.None)
             {
                 player.MovePlayer(input);
             }
@@ -72,6 +73,7 @@ namespace MJU20_OOP_02_Grp7
         {
             player.Position = position;
         }
+
         private static Dictionary<string, int> CreateHighScore()
         {
             /// <summary>
@@ -84,7 +86,7 @@ namespace MJU20_OOP_02_Grp7
             Dictionary<string, int> playerScores = new Dictionary<string, int>();
             try
             {
-                if(!Directory.Exists(DefaultFolder))
+                if (!Directory.Exists(DefaultFolder))
                 {
                     Directory.CreateDirectory(DefaultFolder);
                 }
@@ -99,7 +101,7 @@ namespace MJU20_OOP_02_Grp7
                     }
                     personalScores.Sort();
                     personalScores.Reverse();
-                    playerScores.Add(Path.GetFileNameWithoutExtension(file),personalScores[0]);
+                    playerScores.Add(Path.GetFileNameWithoutExtension(file), personalScores[0]);
                 }
                 var sortedPlayerScores = playerScores.OrderByDescending(u => u.Value).ToDictionary(z => z.Key, y => y.Value);
 
@@ -111,8 +113,9 @@ namespace MJU20_OOP_02_Grp7
                 return playerScores;
             }
         }
+
         private static void SaveScore()
-        {   
+        {
             /// <summary>
             /// Creates a directory named "scores" in root folder if it isnt already exsisting.
             /// If file with the player name already exist, open that file and store the old scores.
@@ -124,11 +127,11 @@ namespace MJU20_OOP_02_Grp7
             string _fullPath = DefaultFolder + PlayerName.ToLower() + ".txt";
             try
             {
-                if(!Directory.Exists(DefaultFolder))
+                if (!Directory.Exists(DefaultFolder))
                 {
                     Directory.CreateDirectory(DefaultFolder);
                 }
-                if(!File.Exists(_fullPath))
+                if (!File.Exists(_fullPath))
                 {
                     File.WriteAllText(_fullPath, today.ToString("d") + " " + PlayerScore.ToString() + " Points");
                 }
@@ -145,7 +148,7 @@ namespace MJU20_OOP_02_Grp7
                     {
                         foreach (var score in scores)
                         {
-                            w.WriteLine(score.ToString());           
+                            w.WriteLine(score.ToString());
                         }
                         w.Close();
                     }
