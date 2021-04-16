@@ -25,12 +25,9 @@ namespace MJU20_OOP_02_Grp7
             return PlayerLives;
         }
         //Move player position
-        public void MovePlayer()
+        public void MovePlayer(ConsoleKey input)
         {
-            ConsoleKeyInfo keyInfo;
-            while ((keyInfo = Console.ReadKey(true)).Key != ConsoleKey.Escape)
-            {
-                switch (keyInfo.Key)
+                switch (input)
                 {
                     case ConsoleKey.UpArrow:
                         Move(new Point(0, -1));
@@ -49,7 +46,7 @@ namespace MJU20_OOP_02_Grp7
                         break;
                         
                 }
-            }
+            
         }    
     }
 }
