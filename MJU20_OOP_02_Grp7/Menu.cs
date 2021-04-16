@@ -132,20 +132,27 @@ namespace MJU20_OOP_02_Grp7
 
         public static void GameOverOverlay()
         {
+            
             string gameOverString =  @" 
              @@@@@@@   @@@@@@  @@@@@@@@@@  @@@@@@@@       @@@@@@  @@@  @@@ @@@@@@@@ @@@@@@@
             !@@       @@!  @@@ @@! @@! @@! @@!           @@!  @@@ @@!  @@@ @@!      @@!  @@@
             !@! @!@!@ @!@!@!@! @!! !!@ @!@ @!!!:!        @!@  !@! @!@  !@! @!!!:!   @!@!!@!
             :!!   !!: !!:  !!! !!:     !!: !!:           !!:  !!!  !: .:!  !!:      !!: :!!
              :: :: :   :   : :  :      :   : :: :::       : :. :     ::    : :: :::  :   : :";
+            string endString = @$"
 
-            Console.SetWindowSize(104, 13);
-            Console.SetBufferSize(104, 13);
+                                                Score: {Game.PlayerScore}
+
+                                 Press any key to get to the main menu..";
+            Console.SetWindowSize(104, 15);
+            Console.SetBufferSize(104, 15);
             Console.CursorVisible = false;
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.SetCursorPosition(0, 3);
             Console.WriteLine(gameOverString);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(endString);
         }
     }
 }
