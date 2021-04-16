@@ -23,7 +23,8 @@ namespace MJU20_OOP_02_Grp7
         static public Dictionary<char, ItemStats> itemTypes = new Dictionary<char, ItemStats>()
         {
             {'♥', new ItemStats(25, 0, 0, ConsoleColor.Red)},
-            {'ʇ', new ItemStats(0,0, 2, ConsoleColor.Gray)},
+            {'ʇ', new ItemStats(0, 0, 2, ConsoleColor.Gray)},
+            {'·', new ItemStats (0, 25, 0, ConsoleColor.DarkGray)}
         };
 
         public Item(char symbol, Point position, ItemStats stats) : base(position, symbol, stats.Color)
