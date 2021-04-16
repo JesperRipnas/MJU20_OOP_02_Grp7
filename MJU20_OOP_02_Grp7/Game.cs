@@ -176,7 +176,7 @@ namespace MJU20_OOP_02_Grp7
 
             switch (mainMenu.Run())
             {
-                case 10:
+                case 0:
                     //start game
                     break;
                 case 1:
