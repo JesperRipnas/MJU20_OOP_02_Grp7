@@ -6,32 +6,13 @@ namespace MJU20_OOP_02_Grp7
 {
     public class Menu
     {
-        public int menuPage;
-
         private int select;
 
         private string[] options;
 
         private string subTitle;
 
-        private string title; 
-
-        public Menu(int menuPage, string[] options, string subTitle, string title) //new menu
-        {
-            this.menuPage = menuPage;
-            this.options = options;
-            this.subTitle = subTitle;
-            this.title = title;
-        }
-        public Menu() // creates the main menu
-        {
-            string[] standardoption = { "Start", "Difficulty", "Score", "Options", "Exit" };
-
-            this.menuPage = 0;
-            this.options = standardoption;
-            this.subTitle = "";
-
-            this.title = @"                                                                   ,;             .,                                                              ,;           
+        private string title = @"                                                                   ,;             .,                                                              ,;           
                                                                  f#i             ,Wt j.                                                  i      f#i j.         
             ..       :           ..                            .E#t             i#D. EW,                   ..           ;               LE    .E#t  EW,        
            ,W,     .Et          ;W,      ,##############Wf.   i#W,             f#f   E##j                 ;W,         .DL              L#E   i#W,   E##j       
@@ -44,6 +25,29 @@ namespace MJU20_OOP_02_Grp7
   :K#t     ##D.    E#t :K#K:   L##,  .f####Gfffffffffff;        .D#;             L#, E#t  ;#W:   :K#K:   L##, E#K:    L#W;     .W#G            .D#; E#t  ;#W:  
   ...      #G      .. ;##D.    L##, .fLLLLLLLLLLLLLLLLLi          tt              jt DWi   ,KK: ;##D.    L##, EG      LE.     :W##########Wt     tt DWi   ,KK: 
            j          ,,,      .,,                                                              ,,,      .,,  ;       ;@      :,,,,,,,,,,,,,.                  ";
+
+        public Menu(string[] options, string subTitle, string title) //new menu
+        {
+
+            this.options = options;
+            this.subTitle = subTitle;
+            if (title == "")
+            {
+
+            }
+            else
+            {
+                this.title = title;
+            }
+            
+        }
+        public Menu() // creates the main menu
+        {
+            string[] standardoption = { "Start", "Difficulty", "Score", "Exit" };
+            this.options = standardoption;
+            this.subTitle = "";
+
+           
         }
 
         private void MainMenu()
@@ -97,11 +101,11 @@ namespace MJU20_OOP_02_Grp7
                 keyPressed = keyInfo.Key;
 
                 //update select
-                if (keyPressed == ConsoleKey.W)
+                if (keyPressed == ConsoleKey.UpArrow || keyPressed == ConsoleKey.W)
                 {
                     --select;
                 }
-                else if (keyPressed == ConsoleKey.S)
+                else if (keyPressed == ConsoleKey.DownArrow || keyPressed == ConsoleKey.S)
                 {
                     ++select;
                 }

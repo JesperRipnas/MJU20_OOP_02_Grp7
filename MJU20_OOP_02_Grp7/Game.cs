@@ -34,6 +34,11 @@ namespace MJU20_OOP_02_Grp7
             PlayerScore = 2;
             Title = "MazeCrawler";
 
+            MainMenu();
+            Console.Clear();
+            Console.Write("Player Name: ");
+            PlayerName = Console.ReadLine();
+
             player = new Player(100, 1, new Point(0, 0), '@', ConsoleColor.Green);
             UI.SetUISize(80, 40);
 
@@ -155,6 +160,84 @@ namespace MJU20_OOP_02_Grp7
             {
                 Console.WriteLine(e);
             }
+        }
+
+        private static void MainMenu()
+        {
+            Menu mainMenu = new Menu();
+
+            switch (mainMenu.Run())
+            {
+                case 10:
+                    //start game
+                    break;
+                case 1:
+                    difficultyMenu();
+                    break;
+                case 2:
+                    ScoreMenu();
+                    break;
+                case 3:
+                    //options
+                    break;
+                case 4:
+                    //exit
+                    break;
+                default:
+                    MainMenu();
+                    break;
+            }
+        }
+
+        private static void difficultyMenu()
+        {
+            string[] options = { "EASY", "NORMAL", "HARD", "INSANE" };
+            Menu difficulty = new Menu(options, "  Difficulty", "");
+
+            switch (difficulty.Run())
+            {
+                case 0:
+                    //EASY
+                    break;
+                case 1:
+                    //NORMAL
+                    break;
+                case 2:
+                    //HARD
+                    break;
+                case 3:
+                    //INSANE
+                    break;
+                default:
+                    break;
+            }
+
+            MainMenu();
+        }
+
+        private static void ScoreMenu()
+        {
+            Console.Clear();
+            //score
+            Dictionary<string, int> scores = CreateHighScore();
+
+            Console.WriteLine("Scores");
+            Console.WriteLine();
+
+            foreach (KeyValuePair<string, int> entry in scores)
+            {
+                // do something with entry.Value or entry.Key
+                Console.Write(entry.Key);
+                for (int i = 0; i < 40 - entry.Key.Length; i++)
+                {
+                    Console.Write(".");
+                }
+                Console.WriteLine(entry.Value);
+            }
+
+            Console.ReadKey();
+            MainMenu();
+
         }
     }
 }
