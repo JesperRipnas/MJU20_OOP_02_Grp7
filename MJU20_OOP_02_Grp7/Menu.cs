@@ -46,6 +46,7 @@ namespace MJU20_OOP_02_Grp7
             this.options = standardoption;
             this.subTitle = "";
 
+
             title = @"                                                                   ,;             .,                                                              ,;           
                                                                  f#i             ,Wt j.                                                  i      f#i j.         
             ..       :           ..                            .E#t             i#D. EW,                   ..           ;               LE    .E#t  EW,        
