@@ -37,7 +37,7 @@ namespace MJU20_OOP_02_Grp7
             player = new Player(100, 1, new Point(0, 0), '@', ConsoleColor.Green);
             UI.SetUISize(80, 40);
 
-            Timer updateTimer = new System.Timers.Timer(100);
+            Timer updateTimer = new System.Timers.Timer(500);
             updateTimer.Elapsed += Update;
             updateTimer.AutoReset = true;
             updateTimer.Enabled = true;
@@ -59,9 +59,9 @@ namespace MJU20_OOP_02_Grp7
         private static void Update(Object source, ElapsedEventArgs e)
         {
             ConsoleKey input = Input.Readkey();
-            if (input.ToString() != "NoName")
+            if (input != ConsoleKey.NoName)
             {
-                player.MovePlayer();
+                player.MovePlayer(input);
             }
             //player.Controll(input);
 
