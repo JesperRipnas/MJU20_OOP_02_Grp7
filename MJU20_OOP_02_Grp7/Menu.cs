@@ -119,5 +119,21 @@ namespace MJU20_OOP_02_Grp7
 
             return select;
         }
+
+        public static void GameOverOverlay()
+        {
+            Console.SetWindowSize(100, 15);
+
+            string gameOverString =  " @@@@@@@   @@@@@@  @@@@@@@@@@  @@@@@@@@       @@@@@@  @@@  @@@ @@@@@@@@ @@@@@@@\n" +
+                                     "!@@       @@!  @@@ @@! @@! @@! @@!           @@!  @@@ @@!  @@@ @@!      @@!  @@@\n" +
+                                     "!@! @!@!@ @!@!@!@! @!! !!@ @!@ @!!!:!        @!@  !@! @!@  !@! @!!!:!   @!@!!@!\n" +
+                                     ":!!   !!: !!:  !!! !!:     !!: !!:           !!:  !!!  !: .:!  !!:      !!: :!!\n" +
+                                      ":: :: :   :   : :  :      :   : :: :::       : :. :     ::    : :: :::  :   : :\n";
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            //Console.SetCursorPosition(5, 20);
+            Console.WriteLine(gameOverString);
+            Console.ReadKey();
+        }
     }
 }
