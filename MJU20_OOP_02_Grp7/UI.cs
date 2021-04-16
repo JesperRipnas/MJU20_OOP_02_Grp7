@@ -20,7 +20,7 @@ namespace MJU20_OOP_02_Grp7
         public static void DrawScreen(char[,] map, Player player, Entity[] entities)
         {
             DrawMap(map, player.Position);
-            DrawEntities(entities);
+            DrawEntities(entities, player.Position);
             DrawPlayer(player);
             DrawUI(player);
         }
@@ -42,11 +42,11 @@ namespace MJU20_OOP_02_Grp7
             Console.Write(player.Symbol);
         }
 
-        private static void DrawEntities(Entity[] entities)
+        private static void DrawEntities(Entity[] entities, Point playerPosition)
         {
-            foreach (Creature entity in entities)
+            foreach (Entity entity in entities)
             {
-                Console.SetCursorPosition(entity.Position.X, entity.Position.Y);
+                Console.SetCursorPosition(entity.Position.X + (width / 2) - playerPosition.X, entity.Position.Y + (height / 2) - playerPosition.Y);
                 Console.ForegroundColor = entity.Color;
                 Console.Write(entity.Symbol);
             }

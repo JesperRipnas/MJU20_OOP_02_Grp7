@@ -64,8 +64,10 @@ namespace MJU20_OOP_02_Grp7
                 player.MovePlayer(input);
             }
             //player.Controll(input);
-
-            UI.DrawScreen(Map, player, new Entity[0]);
+            Entity[] entities = new Entity[Enemy.activeEnemies.Count + Item.activeItems.Count];
+            Array.Copy(Enemy.activeEnemies.ToArray(), entities, Enemy.activeEnemies.Count);
+            Array.Copy(Item.activeItems.ToArray(), 0, entities, Enemy.activeEnemies.Count, Item.activeItems.Count);
+            UI.DrawScreen(Map, player, entities);
         }
 
         public static void SetPlayerPosition(Point position)

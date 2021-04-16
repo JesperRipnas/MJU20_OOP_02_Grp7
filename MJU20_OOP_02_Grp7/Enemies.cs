@@ -23,7 +23,7 @@ namespace MJU20_OOP_02_Grp7
         static public Dictionary<char, EnemyStats> enemyTypes = new Dictionary<char, EnemyStats>()
         {
             {'Q', new EnemyStats(3,1, ConsoleColor.DarkYellow)},
-            {'ö', new EnemyStats(7,3, ConsoleColor.DarkCyan)},
+            {'ö', new EnemyStats(7,3, ConsoleColor.DarkGreen)},
             {'i', new EnemyStats(30, 10, ConsoleColor.DarkMagenta)}
         };
         public Enemy(char symbol, Point position, EnemyStats stats) : base(stats.Hp, stats.Dmg, position, symbol, stats.Color) { }
