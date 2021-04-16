@@ -15,7 +15,7 @@ namespace MJU20_OOP_02_Grp7
         public static bool PlayerExists { get; set; }
         public static char[,] Map { get; private set; }
 
-        private static Player player;
+        public static Player player;
         private static bool loadNextLevel = false;
         private static string levelName = "Level";
         private static int currentLevel = 0;
