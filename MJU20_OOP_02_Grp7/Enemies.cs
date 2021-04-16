@@ -27,5 +27,33 @@ namespace MJU20_OOP_02_Grp7
             {'i', new EnemyStats(30, 10, ConsoleColor.DarkMagenta)}
         };
         public Enemy(char symbol, Point position, EnemyStats stats) : base(stats.Hp, stats.Dmg, position, symbol, stats.Color) { }
+
+        public static void MoveAround() {
+            Random random = new Random(DateTime.Now.Millisecond);
+
+            foreach(Enemy enemy in activeEnemies)
+            {
+                Point direction;
+                int newDirection = random.Next(4);
+
+                switch (newDirection)
+                {
+                    case 0:
+                        direction = new Point(1, 0);
+                        break;
+                    case 1:
+                        direction = new Point(-1, 0);
+                        break;
+                    case 2:
+                        direction = new Point(0, 1);
+                        break;
+                    default:
+                        direction = new Point(0, -1);
+                        break;
+
+                }
+                enemy.Move(direction);
+            }
+        }
     }
 }
