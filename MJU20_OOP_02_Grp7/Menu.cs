@@ -122,18 +122,20 @@ namespace MJU20_OOP_02_Grp7
 
         public static void GameOverOverlay()
         {
-            Console.SetWindowSize(100, 15);
+            string gameOverString =  @" 
+             @@@@@@@   @@@@@@  @@@@@@@@@@  @@@@@@@@       @@@@@@  @@@  @@@ @@@@@@@@ @@@@@@@
+            !@@       @@!  @@@ @@! @@! @@! @@!           @@!  @@@ @@!  @@@ @@!      @@!  @@@
+            !@! @!@!@ @!@!@!@! @!! !!@ @!@ @!!!:!        @!@  !@! @!@  !@! @!!!:!   @!@!!@!
+            :!!   !!: !!:  !!! !!:     !!: !!:           !!:  !!!  !: .:!  !!:      !!: :!!
+             :: :: :   :   : :  :      :   : :: :::       : :. :     ::    : :: :::  :   : :";
 
-            string gameOverString =  " @@@@@@@   @@@@@@  @@@@@@@@@@  @@@@@@@@       @@@@@@  @@@  @@@ @@@@@@@@ @@@@@@@\n" +
-                                     "!@@       @@!  @@@ @@! @@! @@! @@!           @@!  @@@ @@!  @@@ @@!      @@!  @@@\n" +
-                                     "!@! @!@!@ @!@!@!@! @!! !!@ @!@ @!!!:!        @!@  !@! @!@  !@! @!!!:!   @!@!!@!\n" +
-                                     ":!!   !!: !!:  !!! !!:     !!: !!:           !!:  !!!  !: .:!  !!:      !!: :!!\n" +
-                                      ":: :: :   :   : :  :      :   : :: :::       : :. :     ::    : :: :::  :   : :\n";
+            Console.SetWindowSize(104, 13);
+            Console.SetBufferSize(104, 13);
+            Console.CursorVisible = false;
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            //Console.SetCursorPosition(5, 20);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.SetCursorPosition(0, 3);
             Console.WriteLine(gameOverString);
-            Console.ReadKey();
         }
     }
 }
