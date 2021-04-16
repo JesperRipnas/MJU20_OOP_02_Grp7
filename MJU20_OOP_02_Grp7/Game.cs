@@ -59,12 +59,13 @@ namespace MJU20_OOP_02_Grp7
         // Method we call each time the OnTimedEvent get triggered (atm every 100 ms)
         private static void Update(Object source, ElapsedEventArgs e)
         {
-            GameControls input = Input.GameInput();
+            GameControls input = Input.GameInput(GameControls.PlayerControls);
+
             if (input != GameControls.None)
             {
                 player.MovePlayer(input);
             }
-            //player.Controll(input);
+
             Entity[] entities = new Entity[Enemy.activeEnemies.Count + Item.activeItems.Count];
             Array.Copy(Enemy.activeEnemies.ToArray(), entities, Enemy.activeEnemies.Count);
             Array.Copy(Item.activeItems.ToArray(), 0, entities, Enemy.activeEnemies.Count, Item.activeItems.Count);

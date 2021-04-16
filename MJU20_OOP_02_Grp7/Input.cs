@@ -10,10 +10,15 @@ namespace MJU20_OOP_02_Grp7
         MoveDown,
         MoveLeft,
         MoveRight,
+        Attack,
         Hotbar1,
         Hotbar2,
-        OpenMenu,
-        PlayerControls
+        PauseMenu,
+        PlayerControls,
+        MenuUp,
+        MenuDown,
+        MenuSelect,
+        MenuControls
     }
 
     public class Input
@@ -29,30 +34,66 @@ namespace MJU20_OOP_02_Grp7
             return key[key.Count - 1];
         }
 
-        public static GameControls GameInput()
+        public static GameControls GameInput(GameControls controlset)
         {
             GameControls input = GameControls.None;
-            switch (Readkey())
+
+            if (controlset == GameControls.PlayerControls)
             {
-                case ConsoleKey.W:
-                    input = GameControls.MoveUp;
-                    break;
+                switch (Readkey())
+                {
+                    case ConsoleKey.W:
+                        input = GameControls.MoveUp;
+                        break;
 
-                case ConsoleKey.S:
-                    input = GameControls.MoveDown;
-                    break;
+                    case ConsoleKey.S:
+                        input = GameControls.MoveDown;
+                        break;
 
-                case ConsoleKey.A:
-                    input = GameControls.MoveLeft;
-                    break;
+                    case ConsoleKey.A:
+                        input = GameControls.MoveLeft;
+                        break;
 
-                case ConsoleKey.D:
-                    input = GameControls.MoveRight;
-                    break;
+                    case ConsoleKey.D:
+                        input = GameControls.MoveRight;
+                        break;
 
-                default:
-                    break;
+                    case ConsoleKey.Spacebar:
+                        input = GameControls.Attack;
+                        break;
+
+                    case ConsoleKey.Escape:
+                        input = GameControls.PauseMenu;
+                        break;
+
+                    default:
+                        break;
+                }
             }
+            else if (controlset == GameControls.MenuControls)
+            {
+                switch (Readkey())
+                {
+                    case ConsoleKey.W:
+                    case ConsoleKey.UpArrow:
+                        input = GameControls.MenuUp;
+                        break;
+
+                    case ConsoleKey.S:
+                    case ConsoleKey.DownArrow:
+                        input = GameControls.MenuDown;
+                        break;
+
+                    case ConsoleKey.Enter:
+                    case ConsoleKey.Spacebar:
+                        input = GameControls.MenuSelect;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
             return input;
         }
     }
