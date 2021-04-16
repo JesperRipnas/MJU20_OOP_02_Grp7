@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
 
 namespace MJU20_OOP_02_Grp7
@@ -11,7 +10,7 @@ namespace MJU20_OOP_02_Grp7
         public static string directoryPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\..\MJU20_OOP_02_Grp7\")) + @"Levels\";
 
         /// <summary>
-        /// Takes the file name of a textfile inside the levels folder, 
+        /// Takes the file name of a textfile inside the levels folder,
         /// splits it into a 2D array of chars and returns the array.
         /// Creates any entities in the level and puts the into
         /// Entity.entities.

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace MJU20_OOP_02_Grp7
 {
@@ -7,6 +6,7 @@ namespace MJU20_OOP_02_Grp7
     {
         // view window size
         public static int height;
+
         public static int width;
 
         public static void SetUISize(int x, int y)
@@ -37,8 +37,7 @@ namespace MJU20_OOP_02_Grp7
 
         private static void DrawPlayer(Player player)
         {
-
-            Console.SetCursorPosition(width / 2,height / 2);
+            Console.SetCursorPosition(width / 2, height / 2);
             Console.ForegroundColor = player.Color;
             Console.Write(player.Symbol);
         }
@@ -70,7 +69,6 @@ namespace MJU20_OOP_02_Grp7
                     {
                         background += map[mapX, mapY];
                     }
-
                 }
                 background += "\n";
             }

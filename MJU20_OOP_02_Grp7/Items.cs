@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MJU20_OOP_02_Grp7
 {
@@ -26,6 +25,9 @@ namespace MJU20_OOP_02_Grp7
             {'♥', new ItemStats(25, 0, 0, ConsoleColor.Red)},
             {'ʇ', new ItemStats(0,0, 2, ConsoleColor.Gray)},
         };
-        public Item(char symbol, Point position, ItemStats stats) : base(position, symbol, stats.Color) { }
+
+        public Item(char symbol, Point position, ItemStats stats) : base(position, symbol, stats.Color)
+        {
+        }
     }
 }

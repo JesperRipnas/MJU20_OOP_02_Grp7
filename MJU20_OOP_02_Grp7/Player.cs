@@ -23,23 +23,23 @@ namespace MJU20_OOP_02_Grp7
         }
 
         //Move player position
-        public void MovePlayer(ConsoleKey input)
+        public void MovePlayer(GameControls input)
         {
             switch (input)
             {
-                case ConsoleKey.UpArrow:
+                case GameControls.MoveUp:
                     Move(new Point(0, -1));
                     break;
 
-                case ConsoleKey.RightArrow:
+                case GameControls.MoveRight:
                     Move(new Point(+1, 0));
                     break;
 
-                case ConsoleKey.DownArrow:
+                case GameControls.MoveDown:
                     Move(new Point(0, +1));
                     break;
 
-                case ConsoleKey.LeftArrow:
+                case GameControls.MoveLeft:
                     Move(new Point(-1, 0));
                     break;
             }
