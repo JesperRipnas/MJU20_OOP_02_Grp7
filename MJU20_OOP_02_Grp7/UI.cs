@@ -15,6 +15,7 @@ namespace MJU20_OOP_02_Grp7
             height = y - 5;
             Console.SetWindowSize(x, y);
             Console.SetBufferSize(x, y);
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
         }
 
         public static void DrawScreen(char[,] map, Player player, Entity[] entities)
