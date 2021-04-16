@@ -19,7 +19,7 @@ namespace MJU20_OOP_02_Grp7
         {
             //Wall collision check
             Point tempPosition = Position + movement;
-            if (Game.Map[tempPosition.X, tempPosition.Y].ToString() != "#")
+            if (Game.Map[tempPosition.X, tempPosition.Y].ToString() != "▒")
             {
                 Position += movement;
             }
