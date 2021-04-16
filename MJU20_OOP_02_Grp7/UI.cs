@@ -29,7 +29,7 @@ namespace MJU20_OOP_02_Grp7
         private static void DrawUI(Player player)
         {
             Console.SetCursorPosition(5, height + 1);
-            Console.WriteLine($"HP: {player.Hp}");
+            Console.WriteLine($"HP: {player.Hp}  ");
             // not yet implemented
             //Console.SetCursorPosition(5, _height + 2);
             //Console.WriteLine($"Energy: {player.Energy}");
