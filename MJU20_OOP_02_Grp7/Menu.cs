@@ -12,7 +12,41 @@ namespace MJU20_OOP_02_Grp7
 
         private string subTitle;
 
-        private string title = @"                                                                   ,;             .,                                                              ,;           
+        private string title;
+
+        public Menu(string[] options, string subTitle, string title) //new menu
+        {
+
+            this.options = options;
+            this.subTitle = subTitle;
+            this.title = title;
+            
+        }
+        public Menu(string[] options, string subTitle)
+        {
+            this.options = options;
+            this.subTitle = subTitle;
+            title = @"                                                                   ,;             .,                                                              ,;           
+                                                                 f#i             ,Wt j.                                                  i      f#i j.         
+            ..       :           ..                            .E#t             i#D. EW,                   ..           ;               LE    .E#t  EW,        
+           ,W,     .Et          ;W,      ,##############Wf.   i#W,             f#f   E##j                 ;W,         .DL              L#E   i#W,   E##j       
+          t##,    ,W#t         j##,       ........jW##Wt     L#D.            .D#i    E###D.              j##, f.     :K#L     LWL     G#W.  L#D.    E###D.     
+         L###,   j###t        G###,             tW##Kt     :K#Wfff;         :KW,     E#jG#W;            G###, EW:   ;W##L   .E#f     D#K. :K#Wfff;  E#jG#W;    
+       .E#j##,  G#fE#t      :E####,           tW##E;       i##WLLLLt        t#f      E#t t##f         :E####, E#t  t#KE#L  ,W#;     E#K.  i##WLLLLt E#t t##f   
+      ;WW; ##,:K#i E#t     ;W#DG##,         tW##E;          .E#L             ;#G     E#t  :K#E:      ;W#DG##, E#t f#D.L#L t#K:    .E#E.    .E#L     E#t  :K#E: 
+     j#E.  ##f#W,  E#t    j###DW##,      .fW##D,              f#E:            :KE.   E#KDDDD###i    j###DW##, E#jG#f  L#LL#G     .K#E        f#E:   E#KDDDD###i
+   .D#L    ###K:   E#t   G##i,,G##,    .f###D,                 ,WW;            .DW:  E#f,t#Wi,,,   G##i,,G##, E###;   L###j     .K#D          ,WW;  E#f,t#Wi,,,
+  :K#t     ##D.    E#t :K#K:   L##,  .f####Gfffffffffff;        .D#;             L#, E#t  ;#W:   :K#K:   L##, E#K:    L#W;     .W#G            .D#; E#t  ;#W:  
+  ...      #G      .. ;##D.    L##, .fLLLLLLLLLLLLLLLLLi          tt              jt DWi   ,KK: ;##D.    L##, EG      LE.     :W##########Wt     tt DWi   ,KK: 
+           j          ,,,      .,,                                                              ,,,      .,,  ;       ;@      :,,,,,,,,,,,,,.                  ";
+        }
+        public Menu() // creates the main menu
+        {
+            string[] standardoption = { "Start", "Difficulty", "Score", "Exit" };
+            this.options = standardoption;
+            this.subTitle = "";
+
+            title = @"                                                                   ,;             .,                                                              ,;           
                                                                  f#i             ,Wt j.                                                  i      f#i j.         
             ..       :           ..                            .E#t             i#D. EW,                   ..           ;               LE    .E#t  EW,        
            ,W,     .Et          ;W,      ,##############Wf.   i#W,             f#f   E##j                 ;W,         .DL              L#E   i#W,   E##j       
@@ -26,28 +60,7 @@ namespace MJU20_OOP_02_Grp7
   ...      #G      .. ;##D.    L##, .fLLLLLLLLLLLLLLLLLi          tt              jt DWi   ,KK: ;##D.    L##, EG      LE.     :W##########Wt     tt DWi   ,KK: 
            j          ,,,      .,,                                                              ,,,      .,,  ;       ;@      :,,,,,,,,,,,,,.                  ";
 
-        public Menu(string[] options, string subTitle, string title) //new menu
-        {
 
-            this.options = options;
-            this.subTitle = subTitle;
-            if (title == "")
-            {
-
-            }
-            else
-            {
-                this.title = title;
-            }
-            
-        }
-        public Menu() // creates the main menu
-        {
-            string[] standardoption = { "Start", "Difficulty", "Score", "Exit" };
-            this.options = standardoption;
-            this.subTitle = "";
-
-           
         }
 
         private void MainMenu()

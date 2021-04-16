@@ -192,7 +192,7 @@ namespace MJU20_OOP_02_Grp7
         private static void difficultyMenu()
         {
             string[] options = { "EASY", "NORMAL", "HARD", "INSANE" };
-            Menu difficulty = new Menu(options, "  Difficulty", "");
+            Menu difficulty = new Menu(options, "  Difficulty");
 
             switch (difficulty.Run())
             {
