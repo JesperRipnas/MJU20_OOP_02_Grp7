@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MJU20_OOP_02_Grp7;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MJU20_OOP_02_Grp7.UnitTests
 {
@@ -10,7 +8,7 @@ namespace MJU20_OOP_02_Grp7.UnitTests
         [TestMethod]
         public void Draw()
         {
-            UI ui = new UI(5,5);
+            UI ui = new UI(5, 5);
 
             // TestMethodAttribute.Equals(ui.window, new char[5, 5]);
         }

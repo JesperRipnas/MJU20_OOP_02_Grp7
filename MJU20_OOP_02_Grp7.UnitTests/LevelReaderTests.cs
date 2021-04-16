@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MJU20_OOP_02_Grp7;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MJU20_OOP_02_Grp7.UnitTests
 {
@@ -21,6 +16,6 @@ namespace MJU20_OOP_02_Grp7.UnitTests
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(char[,]));
-        }   
+        }
     }
 }
