@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace MJU20_OOP_02_Grp7
 {
@@ -20,33 +16,33 @@ namespace MJU20_OOP_02_Grp7
         {
             return PlayerScore;
         }
+
         public int GetPlayerLives()
         {
             return PlayerLives;
         }
+
         //Move player position
         public void MovePlayer(ConsoleKey input)
         {
-                switch (input)
-                {
-                    case ConsoleKey.UpArrow:
-                        Move(new Point(0, -1));
-                        break;
+            switch (input)
+            {
+                case ConsoleKey.UpArrow:
+                    Move(new Point(0, -1));
+                    break;
 
-                    case ConsoleKey.RightArrow:
-                        Move(new Point(+1, 0));
-                        break;
+                case ConsoleKey.RightArrow:
+                    Move(new Point(+1, 0));
+                    break;
 
-                    case ConsoleKey.DownArrow:
-                        Move(new Point(0, +1));
-                        break;
+                case ConsoleKey.DownArrow:
+                    Move(new Point(0, +1));
+                    break;
 
-                    case ConsoleKey.LeftArrow:
-                        Move(new Point(-1, 0));
-                        break;
-                        
-                }
-            
-        }    
+                case ConsoleKey.LeftArrow:
+                    Move(new Point(-1, 0));
+                    break;
+            }
+        }
     }
 }
