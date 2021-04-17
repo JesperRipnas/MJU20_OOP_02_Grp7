@@ -66,7 +66,7 @@ namespace MJU20_OOP_02_Grp7
                 player.MovePlayer(input);
             }
 
-            Enemy.MoveAround();
+            Enemy.MoveAround(player);
 
             Entity[] entities = new Entity[Enemy.activeEnemies.Count + Item.activeItems.Count];
             Array.Copy(Enemy.activeEnemies.ToArray(), entities, Enemy.activeEnemies.Count);
