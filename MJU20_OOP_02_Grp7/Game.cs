@@ -22,6 +22,7 @@ namespace MJU20_OOP_02_Grp7
         private static string levelName = "Level";
         public static int currentLevel = 0;
         private static int _tick = 0;
+        private static int _updateRate = 500;
 
         // string that will contain the root folder of the projekt folder
         private static string DefaultFolder = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"..\..\..\")) + @"scores\";
@@ -43,7 +44,7 @@ namespace MJU20_OOP_02_Grp7
             PlayerName = Console.ReadLine();
             player = new Player(100, 1, new Point(0, 0), '@', ConsoleColor.Green);
             
-            Timer updateTimer = new System.Timers.Timer(500);
+            Timer updateTimer = new System.Timers.Timer(_updateRate);
             updateTimer.Elapsed += Update;
             updateTimer.AutoReset = true;
             updateTimer.Enabled = true;
@@ -95,6 +96,10 @@ namespace MJU20_OOP_02_Grp7
         public static int GetTick()
         {
             return _tick;
+        }
+        public static int GetUpdateRate()
+        {
+            return _updateRate;
         }
 
         private static Dictionary<string, int> CreateHighScore()

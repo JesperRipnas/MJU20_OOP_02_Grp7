@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using static System.Console;
 
 namespace MJU20_OOP_02_Grp7
 {
@@ -9,6 +10,7 @@ namespace MJU20_OOP_02_Grp7
         // view window size
         public static int height;
         public static int width;
+        private static int _counter;
 
         public static void SetUISize(int x, int y)
         {
@@ -18,18 +20,41 @@ namespace MJU20_OOP_02_Grp7
             Console.SetBufferSize(x, y);
             Console.OutputEncoding = System.Text.Encoding.Unicode;
         }
+        public static void DrawEventMessages()
+        {
+            SetCursorPosition(0, 0);
 
+            if (EventMessageList.Count > 5) EventMessageList.RemoveAt(0);
+            if (EventMessageList.Count >= 0)
+            {
+                foreach (var msg in EventMessageList)
+                {
+                    WriteLine(msg);
+                }
+            }
+            if (EventMessageList.Count > 0)
+            {
+                _counter++;
+                if (_counter % 10 == 0) EventMessageList.RemoveAt(0);
+            }
+        }
         public static void DrawScreen(char[,] map, Player player, Entity[] entities)
         {
             Console.CursorVisible = false;
             DrawMap(map, player.Position);
             DrawEntities(entities, player.Position);
             DrawPlayer(player);
+            DrawUI(player);
+            DrawEventMessages();
             DrawStats(player);
         }
-
         private static void DrawStats(Player player)
         {
+            Console.SetCursorPosition(5, height + 1);
+            Console.WriteLine($"HP: {player.Hp}  Tick: {Game.GetTick()} Pos: {player.Position.X}.{player.Position.Y} Item pickup counter: {_counter}");
+            // not yet implemented
+            //Console.SetCursorPosition(5, _height + 2);
+            //Console.WriteLine($"Energy: {player.Energy}");
             Draw(5, height + 1, ConsoleColor.Green, $"HP: {player.Hp}  ");
         }
 
@@ -50,7 +75,6 @@ namespace MJU20_OOP_02_Grp7
 
             }
         }
-
         private static void DrawMap(char[,] map, Point playerPosition)
         {
             string background = "";
