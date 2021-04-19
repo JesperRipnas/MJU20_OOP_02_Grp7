@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace MJU20_OOP_02_Grp7
 {
@@ -143,7 +141,7 @@ namespace MJU20_OOP_02_Grp7
              :: :: :   :   : :  :      :   : :: :::       : :. :     ::    : :: :::  :   : :";
             string endString = @$"
 
-                                                Score: {Game.player.PlayerScore}
+                                                Score: {Game.PlayerScore}
 
                                  Press any key to get to the main menu..";
             Console.SetWindowSize(104, 15);
@@ -155,30 +153,6 @@ namespace MJU20_OOP_02_Grp7
             Console.WriteLine(gameOverString);
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(endString);
-        }
-
-        public static void LoadingScreen()
-        {
-            string loadingString = @"                                                            
-                         )\ )            (                     (               (      
-                        (()/(         )  )\ ) (        (  (    )\  (   )     ( )\     
-                         /(_)) (   ( /( (()/( )\  (    )\))(  ((_)))\ /((   ))((_)    
-                        (_))   )\  )(_)) ((_)|(_) )\ )((_))\   _ /((_|_))\ /((_)      
-                        | |   ((_)((_)_  _| | (_)_(_/( (()(_) | (_)) _)((_|_))| |     
-                        | |__/ _ \/ _` / _` | | | ' \)) _` |  | / -_)\ V // -_) |_ _  
-                        |____\___/\__,_\__,_| |_|_||_|\__, |  |_\___| \_/ \___|_(_|_) 
-                                                      |___/                           
-                        ";
-            Console.Clear();
-            Console.SetWindowSize(104, 15);
-            Console.SetBufferSize(104, 15);
-            Console.CursorVisible = false;
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.SetCursorPosition(0, 3);
-            Console.WriteLine(loadingString);
-            Thread.Sleep(2000);
-            Console.Clear();
-            
         }
     }
 }
