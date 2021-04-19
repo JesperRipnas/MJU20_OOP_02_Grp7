@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Timers;
 
 namespace MJU20_OOP_02_Grp7
 {
@@ -18,7 +19,6 @@ namespace MJU20_OOP_02_Grp7
 
         public void Move(Point movement, object sender)
         {
-            Enemy tempEnemy = null;
             //Wall collision check
             Point tempPosition = Position + movement;
             if (Game.Map[tempPosition.X, tempPosition.Y] == ' ')
@@ -93,6 +93,11 @@ namespace MJU20_OOP_02_Grp7
                     if (enemy.Position == tempPosition)
                     {
                         enemy.Damage(1);
+                        Point tempEnemyPosition = enemy.Position + area;
+                        if (Game.Map[tempEnemyPosition.X, tempEnemyPosition.Y] == ' ')
+                        {
+                            enemy.Position += area;
+                        }
                         tempEnemy = enemy;
                     }
                 }
