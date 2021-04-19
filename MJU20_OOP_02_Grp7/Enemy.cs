@@ -26,7 +26,7 @@ namespace MJU20_OOP_02_Grp7
         static public Dictionary<char, EnemyStats> enemyTypes = new Dictionary<char, EnemyStats>()
         {
             {'Q', new EnemyStats(3, 1, 3, ConsoleColor.DarkYellow)},
-            {'ö', new EnemyStats(7,3, 3, ConsoleColor.DarkGreen)},
+            {'ö', new EnemyStats(7, 3, 3, ConsoleColor.DarkGreen)},
             {'i', new EnemyStats(30, 10, 3, ConsoleColor.DarkMagenta)}
         };
 
@@ -34,6 +34,13 @@ namespace MJU20_OOP_02_Grp7
         {
             chaseRange = stats.ChaseRange;
             hasChased = false;
+        }
+
+        public int CalculateScore()
+        {
+            int returnScore = (Dmg + Hp) * Game.currentLevel /* - time elapsed*/;
+
+            return returnScore;
         }
 
         public static void MoveAround(Player player)

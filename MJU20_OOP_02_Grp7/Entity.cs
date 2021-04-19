@@ -46,9 +46,11 @@ namespace MJU20_OOP_02_Grp7
                     // check what the player collided with
                     if (collider is Item)
                     {
+                        Item item = ((Item)collider);
+                        // Calculate item score
+                        Game.player.AddPlayerScore(item.CalculateScore(item.Symbol));
                         // acticivate item
-
-                        Item.activeItems.Remove((Item)collider);
+                        Item.activeItems.Remove(item);
                     }
                     else if (collider is Enemy)
                     {
@@ -111,6 +113,7 @@ namespace MJU20_OOP_02_Grp7
                 {
                     if (tempEnemy.Hp <= 0)
                     {
+                        Game.player.AddPlayerScore(tempEnemy.CalculateScore());     // Add score for killing enemy
                         Enemy.activeEnemies.Remove(tempEnemy);
                     }
                 }
