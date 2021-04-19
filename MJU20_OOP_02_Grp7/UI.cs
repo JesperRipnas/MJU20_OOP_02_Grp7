@@ -29,6 +29,8 @@ namespace MJU20_OOP_02_Grp7
         private static void DrawStats(Player player)
         {
             Draw(5, height + 1, ConsoleColor.Green, $"HP: {player.Hp}  ");
+
+            Draw(25, height + 1, ConsoleColor.White, $"Score: {player.PlayerScore}  ");
         }
 
         private static void DrawPlayer(Player player)
