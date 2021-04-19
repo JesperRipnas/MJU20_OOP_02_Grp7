@@ -40,11 +40,9 @@ namespace MJU20_OOP_02_Grp7
             Console.Clear();
             Console.Write("Player Name: ");
             PlayerName = Console.ReadLine();
-
             player = new Player(100, 1, new Point(0, 0), '@', ConsoleColor.Green);
-            UI.SetUISize(80, 40);
-
-            Timer updateTimer = new System.Timers.Timer(500);
+            
+            Timer updateTimer = new System.Timers.Timer(_updateRate);
             updateTimer.Elapsed += Update;
             updateTimer.AutoReset = true;
             updateTimer.Enabled = true;
@@ -60,6 +58,8 @@ namespace MJU20_OOP_02_Grp7
 
         public static void NewLevel()
         {
+            Map = null;
+            UI.SetUISize(80, 40);
             player.AddPlayerScore(currentLevel * 100);
             currentLevel++;
             Map = LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
