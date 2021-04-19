@@ -24,7 +24,7 @@ namespace MJU20_OOP_02_Grp7
             {'·', new TrapStats(25, ConsoleColor.DarkGray)}
         };
 
-        public Trap(char symbol, Point position, TrapStats stats) : base(position, symbol, color)
+        public Trap(char symbol, Point position, TrapStats stats) : base(position, symbol, stats.Color)
         {
 
         }

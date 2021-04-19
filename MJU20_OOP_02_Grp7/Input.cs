@@ -23,22 +23,79 @@ namespace MJU20_OOP_02_Grp7
 
     public class Input
     {
-        public static ConsoleKey Readkey()
+        private static Dictionary<ConsoleKey, inputEvent> events = new Dictionary<ConsoleKey, inputEvent>();
+        
+        public delegate void inputEvent(ConsoleKey key);
+
+        /// <summary>
+        /// Reads all of the ConsoleKeys in the input stack
+        /// </summary>
+        /// <returns>the last key in the ConsoleKey stack</returns>
+        private static ConsoleKey Readkey()
         {
-            List<ConsoleKey> key = new List<ConsoleKey>();
-            key.Add(ConsoleKey.NoName);
+            ConsoleKey key;
+            key = ConsoleKey.NoName;
             while (Console.KeyAvailable)
             {
-                key.Add(Console.ReadKey(true).Key);
+                key = Console.ReadKey(true).Key;
             }
-            return key[key.Count - 1];
+            return key;
         }
 
-        public static GameControls GameInput(GameControls controlset)
+        /// <summary>
+        /// NEW
+        /// Links the input key to the method
+        /// </summary>
+        /// <param name="input">ConsoleKey that triggers</param>
+        /// <param name="e">Method that gets invoked by the input</param>
+        public static void AddInput(ConsoleKey input, inputEvent e){
+            events.Add(input, e);
+        }
+
+        /// <summary>
+        /// NEW
+        /// Removes a specific input from the event list
+        /// </summary>
+        /// <param name="input">ConsoleKey that should be removed from list</param>
+        public static void RemoveInput(ConsoleKey input)
+        {
+            events.Remove(input);
+        }
+
+        /// <summary>
+        /// NEW
+        /// Clears all of the current inputs
+        /// </summary>
+        public static void PurgeInput()
+        {
+            events.Clear();
+        }
+
+        /// <summary>
+        /// NEW
+        /// Checks the event list for a matching input 
+        /// and invokes method that was added via AddInput
+        /// </summary>
+        public static void ReadInput()
+        {
+            ConsoleKey input = ConsoleKey.NoName;
+            if (events.ContainsKey(input))
+            {
+                events[input].Invoke(input);
+            }
+        }
+
+        /// <summary>
+        /// OLD
+        /// Returns a GameControls within the controleset that is pased.
+        /// </summary>
+        /// <param name="controleset">The set of controls that is expected in return</param>
+        /// <returns>Returns a GameControls based on if a key was pressed</returns>
+        public static GameControls GameInput(GameControls controleset)
         {
             GameControls input = GameControls.None;
 
-            if (controlset == GameControls.PlayerControls)
+            if (controleset == GameControls.PlayerControls)
             {
                 switch (Readkey())
                 {
@@ -70,7 +127,7 @@ namespace MJU20_OOP_02_Grp7
                         break;
                 }
             }
-            else if (controlset == GameControls.MenuControls)
+            else if (controleset == GameControls.MenuControls)
             {
                 switch (Readkey())
                 {

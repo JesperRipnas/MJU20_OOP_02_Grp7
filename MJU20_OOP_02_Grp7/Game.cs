@@ -16,7 +16,8 @@ namespace MJU20_OOP_02_Grp7
         public static char[,] Map { get; private set; }
 
         public static Player player;
-        private static bool loadNextLevel = false;
+        public static EndPoint endPoint;
+        public static bool loadNextLevel = false;
         private static string levelName = "Level";
         private static int currentLevel = 0;
 
@@ -47,18 +48,20 @@ namespace MJU20_OOP_02_Grp7
             updateTimer.AutoReset = true;
             updateTimer.Enabled = true;
             loadNextLevel = true;
-
+            NewLevel();
             while (!GameOver)
             {
-                if (loadNextLevel)
-                {
-                    currentLevel++;
-                    Map = LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
-                    loadNextLevel = false;
-                }
+                
             }
             updateTimer.Elapsed -= Update; // unsubscribe to event when loop dies
             SaveScore(); // Save PlayerScore to file
+        }
+
+        public static void NewLevel()
+        {
+            currentLevel++;
+            Map = LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
+  
         }
 
         // Method we call each time the OnTimedEvent get triggered (atm every 100 ms)
@@ -71,11 +74,12 @@ namespace MJU20_OOP_02_Grp7
                 player.MovePlayer(input);
             }
 
-            Enemy.MoveAround();
+            Enemy.MoveAround(player);
 
-            Entity[] entities = new Entity[Enemy.activeEnemies.Count + Item.activeItems.Count];
+            Entity[] entities = new Entity[Enemy.activeEnemies.Count + Item.activeItems.Count + 1];
             Array.Copy(Enemy.activeEnemies.ToArray(), entities, Enemy.activeEnemies.Count);
             Array.Copy(Item.activeItems.ToArray(), 0, entities, Enemy.activeEnemies.Count, Item.activeItems.Count);
+            entities[entities.Length - 1] = endPoint;
             UI.DrawScreen(Map, player, entities);
         }
 
@@ -176,7 +180,7 @@ namespace MJU20_OOP_02_Grp7
 
             switch (mainMenu.Run())
             {
-                case 10:
+                case 0:
                     //start game
                     break;
                 case 1:
