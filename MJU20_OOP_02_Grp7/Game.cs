@@ -77,11 +77,11 @@ namespace MJU20_OOP_02_Grp7
 
             Enemy.MoveAround(player);
 
-            Entity[] entities = new Entity[Enemy.activeEnemies.Count + Item.activeItems.Count + 1];
-            Array.Copy(Enemy.activeEnemies.ToArray(), entities, Enemy.activeEnemies.Count);
-            Array.Copy(Item.activeItems.ToArray(), 0, entities, Enemy.activeEnemies.Count, Item.activeItems.Count);
-            entities[entities.Length - 1] = endPoint;
-            UI.DrawScreen(Map, player, entities);
+            List<Entity> entities = new List<Entity>();
+            entities.AddRange(Enemy.activeEnemies);
+            entities.AddRange(Item.activeItems);
+            entities.Add(endPoint);
+            UI.DrawScreen(Map, player, entities.ToArray());
             _tick++;
         }
 
