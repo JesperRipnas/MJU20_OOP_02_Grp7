@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Timers;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace MJU20_OOP_02_Grp7
 {
@@ -99,6 +101,7 @@ namespace MJU20_OOP_02_Grp7
                     if (enemy.Position == tempPosition)
                     {
                         enemy.Damage(1);
+                        FlickerAsync(enemy);
                         Point tempEnemyPosition = enemy.Position + area;
                         if (Game.Map[tempEnemyPosition.X, tempEnemyPosition.Y] == ' ')
                         {
@@ -115,6 +118,14 @@ namespace MJU20_OOP_02_Grp7
                     }
                 }
             }
+        }
+        //Method to get enemy to flicker when attacked
+        public async Task FlickerAsync(Enemy enemy)
+        {
+            ConsoleColor enemyColor = enemy.Color;
+            enemy.Color = ConsoleColor.Black;
+            await Task.Delay(10);
+            enemy.Color = enemyColor;
         }
     }
 }
