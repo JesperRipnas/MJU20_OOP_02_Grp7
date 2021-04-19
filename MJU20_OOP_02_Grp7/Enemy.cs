@@ -19,6 +19,8 @@ namespace MJU20_OOP_02_Grp7
 
     public class Enemy : Creature
     {
+        private int _hp, _dmg;
+        private char _symbol;
         private int chaseRange;
         private bool hasChased;
 
@@ -29,7 +31,12 @@ namespace MJU20_OOP_02_Grp7
             {'ö', new EnemyStats(7, 3, 3, ConsoleColor.DarkGreen)},
             {'i', new EnemyStats(30, 10, 3, ConsoleColor.DarkMagenta)}
         };
-
+        public Enemy(char symbol, Point position, EnemyStats stats) : base(stats.Hp, stats.Dmg, position, symbol, stats.Color) 
+        {
+            _hp = stats.Hp;
+            _dmg = stats.Dmg;
+            _symbol = symbol;
+        }
         public Enemy(char symbol, Point position, EnemyStats stats) : base(stats.Hp, stats.Dmg, position, symbol, stats.Color)
         {
             chaseRange = stats.ChaseRange;
@@ -117,6 +124,11 @@ namespace MJU20_OOP_02_Grp7
 
                 enemy.Move(direction, enemy);
             }
+        }
+        public string Activate()
+        {
+            if (_dmg > 0) return $"You took {_dmg} from an enemy ({_symbol})";
+            return "";
         }
     }
 }
