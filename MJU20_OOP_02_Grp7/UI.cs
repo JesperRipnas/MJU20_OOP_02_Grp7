@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MJU20_OOP_02_Grp7
 {
@@ -24,8 +25,6 @@ namespace MJU20_OOP_02_Grp7
             DrawMap(map, player.Position);
             DrawEntities(entities, player.Position);
             DrawPlayer(player);
-            DrawUI(player);
-            DrawEventMessages();
             DrawStats(player);
         }
 
