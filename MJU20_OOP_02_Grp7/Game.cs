@@ -19,7 +19,7 @@ namespace MJU20_OOP_02_Grp7
         public static EndPoint endPoint;
         public static bool loadNextLevel = false;
         private static string levelName = "Level";
-        private static int currentLevel = 0;
+        public static int currentLevel = 0;
         private static int _tick = 0;
 
         // string that will contain the root folder of the projekt folder
@@ -60,6 +60,7 @@ namespace MJU20_OOP_02_Grp7
 
         public static void NewLevel()
         {
+            player.AddPlayerScore(currentLevel * 100);
             currentLevel++;
             Map = LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
   
