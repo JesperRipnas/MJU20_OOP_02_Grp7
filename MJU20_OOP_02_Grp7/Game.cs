@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Timers;
-using System.Threading.Tasks;
 using static System.Console;
 
 namespace MJU20_OOP_02_Grp7
@@ -18,11 +17,10 @@ namespace MJU20_OOP_02_Grp7
 
         public static Player player;
         public static EndPoint endPoint;
-        public static bool loadNextLevel = true;
+        public static bool loadNextLevel = false;
         private static string levelName = "Level";
         public static int currentLevel = 0;
         private static int _tick = 0;
-        private static int _updateRate = 500;
 
         // string that will contain the root folder of the projekt folder
         private static string DefaultFolder = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"..\..\..\")) + @"scores\";
@@ -50,10 +48,9 @@ namespace MJU20_OOP_02_Grp7
             updateTimer.Enabled = true;
             loadNextLevel = true;
             NewLevel();
-            
             while (!GameOver)
             {
-
+                
             }
             updateTimer.Elapsed -= Update; // unsubscribe to event when loop dies
             SaveScore(); // Save PlayerScore to file
@@ -66,7 +63,7 @@ namespace MJU20_OOP_02_Grp7
             player.AddPlayerScore(currentLevel * 100);
             currentLevel++;
             Map = LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
-            loadNextLevel = false;
+  
         }
 
         // Method we call each time the OnTimedEvent get triggered (atm every 100 ms)
@@ -96,10 +93,6 @@ namespace MJU20_OOP_02_Grp7
         public static int GetTick()
         {
             return _tick;
-        }
-        public static int GetUpdateRate()
-        {
-            return _updateRate;
         }
 
         private static Dictionary<string, int> CreateHighScore()
