@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Timers;
-using System.Threading.Tasks;
-using System.Threading;
 
 namespace MJU20_OOP_02_Grp7
 {
@@ -52,8 +50,6 @@ namespace MJU20_OOP_02_Grp7
                         // Calculate item score
                         Game.player.AddPlayerScore(item.CalculateScore(item.Symbol));
                         // acticivate item
-                        UI.EventMessageList.Add(((Item)collider).Activate());
-                        Item.activeItems.Remove((Item)collider);
                         Item.activeItems.Remove(item);
                     }
                     else if (collider is Enemy)
@@ -74,7 +70,6 @@ namespace MJU20_OOP_02_Grp7
                     // if enemy walks into anything other than player abort movement
                     if (collider is Player)
                     {
-                        UI.EventMessageList.Add(((Enemy)sender).Activate());
                         Game.player.Damage(((Enemy)sender).Dmg);
                     }
                     if (collider is object)
@@ -106,7 +101,6 @@ namespace MJU20_OOP_02_Grp7
                     if (enemy.Position == tempPosition)
                     {
                         enemy.Damage(1);
-                        FlickerAsync(enemy);
                         Point tempEnemyPosition = enemy.Position + area;
                         if (Game.Map[tempEnemyPosition.X, tempEnemyPosition.Y] == ' ')
                         {
@@ -124,14 +118,6 @@ namespace MJU20_OOP_02_Grp7
                     }
                 }
             }
-        }
-        //Method to get enemy to flicker when attacked
-        public async Task FlickerAsync(Enemy enemy)
-        {
-            ConsoleColor enemyColor = enemy.Color;
-            enemy.Color = ConsoleColor.Black;
-            await Task.Delay(10);
-            enemy.Color = enemyColor;
         }
     }
 }
