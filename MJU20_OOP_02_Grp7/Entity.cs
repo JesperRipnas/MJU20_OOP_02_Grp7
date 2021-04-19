@@ -26,6 +26,7 @@ namespace MJU20_OOP_02_Grp7
                 
                 List<object> things = new List<object>();
                 things.Add(Game.player);
+                things.Add(Game.endPoint);
                 things.AddRange(Item.activeItems);
                 things.AddRange(Enemy.activeEnemies);
                 //things.AddRange(Traps.activeTraps);
@@ -54,7 +55,12 @@ namespace MJU20_OOP_02_Grp7
                         Game.player.Damage(((Enemy)collider).Dmg);
                         return;
                     }
-                    // else if (collide is Trap)
+                    else if (collider is EndPoint)
+                    {
+                        Game.NewLevel();
+                        return;
+                    }
+                    //else if (collider is Trap)
                 }
                 else if (sender is Enemy)
                 {

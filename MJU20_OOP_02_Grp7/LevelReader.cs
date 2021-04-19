@@ -65,14 +65,18 @@ namespace MJU20_OOP_02_Grp7
         /// <param name="column"></param>
         public static bool CreateEntity(char symbol, int row, int column)
         {
-            // TODO: Kanske göra casen snyggare så dessa slipper hårdkodas?
             Point position = new Point(row, column);
             if (Enemy.enemyTypes.ContainsKey(symbol))
             {
                 Enemy.activeEnemies.Add(new Enemy(symbol, position, Enemy.enemyTypes[symbol]));
                 return true;
             }
-            else if (symbol == '@')
+            else if (symbol == 'ῼ')     // This is the end point
+            {
+                Game.endPoint = new EndPoint(position);
+                return true;
+            }
+            else if (symbol == '@')     // This is the player
             {
                 Game.SetPlayerPosition(position);
                 return true;
