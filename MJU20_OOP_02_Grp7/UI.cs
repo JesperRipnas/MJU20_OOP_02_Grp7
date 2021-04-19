@@ -23,15 +23,12 @@ namespace MJU20_OOP_02_Grp7
             DrawMap(map, player.Position);
             DrawEntities(entities, player.Position);
             DrawPlayer(player);
-            DrawUI(player);
+            DrawStats(player);
         }
 
-        private static void DrawUI(Player player)
+        private static void DrawStats(Player player)
         {
             Draw(5, height + 1, ConsoleColor.Green, $"HP: {player.Hp}  ");
-            // not yet implemented
-            //Console.SetCursorPosition(5, _height + 2);
-            //Console.WriteLine($"Energy: {player.Energy}");
         }
 
         private static void DrawPlayer(Player player)
