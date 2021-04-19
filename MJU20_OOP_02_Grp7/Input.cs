@@ -23,7 +23,7 @@ namespace MJU20_OOP_02_Grp7
 
     public class Input
     {
-        public static Dictionary<ConsoleKey, inputEvent> events;
+        private static Dictionary<ConsoleKey, inputEvent> events = new Dictionary<ConsoleKey, inputEvent>();
         
         public delegate void inputEvent(ConsoleKey key);
         private static ConsoleKey Readkey()
@@ -44,6 +44,11 @@ namespace MJU20_OOP_02_Grp7
         public static void RemoveInput(ConsoleKey input)
         {
             events.Remove(input);
+        }
+
+        public static void PurgeInput()
+        {
+            events.Clear();
         }
 
         public static void ReadInput()
