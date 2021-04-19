@@ -23,15 +23,36 @@ namespace MJU20_OOP_02_Grp7
 
     public class Input
     {
-        public static ConsoleKey Readkey()
+        public static Dictionary<ConsoleKey, inputEvent> events;
+        
+        public delegate void inputEvent(ConsoleKey key);
+        private static ConsoleKey Readkey()
         {
-            List<ConsoleKey> key = new List<ConsoleKey>();
-            key.Add(ConsoleKey.NoName);
+            ConsoleKey key;
+            key = ConsoleKey.NoName;
             while (Console.KeyAvailable)
             {
-                key.Add(Console.ReadKey(true).Key);
+                key = Console.ReadKey(true).Key;
             }
-            return key[key.Count - 1];
+            return key;
+        }
+
+        public static void AddInput(ConsoleKey input, inputEvent e){
+            events.Add(input, e);
+        }
+
+        public static void RemoveInput(ConsoleKey input)
+        {
+            events.Remove(input);
+        }
+
+        public static void ReadInput()
+        {
+            ConsoleKey input = ConsoleKey.NoName;
+            if (events.ContainsKey(input))
+            {
+                events[input].Invoke(input);
+            }
         }
 
         public static GameControls GameInput(GameControls controlset)
