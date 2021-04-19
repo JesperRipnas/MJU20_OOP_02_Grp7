@@ -4,6 +4,7 @@ namespace MJU20_OOP_02_Grp7
 {
     public class UI
     {
+        public static List<String> EventMessageList = new List<string>();
         // view window size
         public static int height;
         public static int width;
@@ -23,6 +24,8 @@ namespace MJU20_OOP_02_Grp7
             DrawMap(map, player.Position);
             DrawEntities(entities, player.Position);
             DrawPlayer(player);
+            DrawUI(player);
+            DrawEventMessages();
             DrawStats(player);
         }
 

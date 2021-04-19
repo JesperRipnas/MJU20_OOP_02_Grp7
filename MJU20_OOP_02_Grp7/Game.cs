@@ -37,10 +37,10 @@ namespace MJU20_OOP_02_Grp7
             PlayerScore = 2;
             Title = "MazeCrawler";
 
-            MainMenu();
-            Console.Clear();
-            Console.Write("Player Name: ");
-            PlayerName = Console.ReadLine();
+            //MainMenu();
+            //Console.Clear();
+            //Console.Write("Player Name: ");
+            //PlayerName = Console.ReadLine();
 
             player = new Player(100, 1, new Point(0, 0), '@', ConsoleColor.Green);
             
@@ -63,9 +63,9 @@ namespace MJU20_OOP_02_Grp7
         public static void NewLevel()
         {
             Map = null;
-            Menu.LoadingScreen();
+            //Menu.LoadingScreen();
             UI.SetUISize(80, 40);
-            player.AddPlayerScore(currentLevel * 100);
+            //player.AddPlayerScore(currentLevel * 100);
             currentLevel++;
             Map = LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
             loadNextLevel = false;
