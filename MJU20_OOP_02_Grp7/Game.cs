@@ -42,10 +42,8 @@ namespace MJU20_OOP_02_Grp7
             Console.Clear();
             Console.Write("Player Name: ");
             PlayerName = Console.ReadLine();
-
             player = new Player(100, 1, new Point(0, 0), '@', ConsoleColor.Green);
             
-
             Timer updateTimer = new System.Timers.Timer(_updateRate);
             updateTimer.Elapsed += Update;
             updateTimer.AutoReset = true;
@@ -64,7 +62,6 @@ namespace MJU20_OOP_02_Grp7
         public static void NewLevel()
         {
             Map = null;
-            Menu.LoadingScreen();
             UI.SetUISize(80, 40);
             player.AddPlayerScore(currentLevel * 100);
             currentLevel++;
