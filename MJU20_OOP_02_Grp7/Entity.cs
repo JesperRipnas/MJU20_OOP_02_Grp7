@@ -45,7 +45,7 @@ namespace MJU20_OOP_02_Grp7
                     if (collider is Item)
                     {
                         // acticivate item
-
+                        UI.EventMessageList.Add(((Item)collider).Activate());
                         Item.activeItems.Remove((Item)collider);
                     }
                     else if (collider is Enemy)
@@ -61,6 +61,7 @@ namespace MJU20_OOP_02_Grp7
                     // if enemy walks into anything other than player abort movement
                     if (collider is Player)
                     {
+                        UI.EventMessageList.Add(((Enemy)sender).Activate());
                         Game.player.Damage(((Enemy)sender).Dmg);
                     }
                     if (collider is object)
