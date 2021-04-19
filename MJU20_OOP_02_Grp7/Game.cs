@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Timers;
+using System.Threading.Tasks;
 using static System.Console;
 
 namespace MJU20_OOP_02_Grp7
@@ -17,9 +18,11 @@ namespace MJU20_OOP_02_Grp7
 
         public static Player player;
         public static EndPoint endPoint;
-        public static bool loadNextLevel = false;
+        public static bool loadNextLevel = true;
         private static string levelName = "Level";
-        private static int currentLevel = 0;
+        public static int currentLevel = 0;
+        private static int _tick = 0;
+        private static int _updateRate = 500;
 
         // string that will contain the root folder of the projekt folder
         private static string DefaultFolder = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"..\..\..\")) + @"scores\";
@@ -39,19 +42,18 @@ namespace MJU20_OOP_02_Grp7
             Console.Clear();
             Console.Write("Player Name: ");
             PlayerName = Console.ReadLine();
-
             player = new Player(100, 1, new Point(0, 0), '@', ConsoleColor.Green);
-            UI.SetUISize(80, 40);
-
-            Timer updateTimer = new System.Timers.Timer(500);
+            
+            Timer updateTimer = new System.Timers.Timer(_updateRate);
             updateTimer.Elapsed += Update;
             updateTimer.AutoReset = true;
             updateTimer.Enabled = true;
             loadNextLevel = true;
             NewLevel();
+            
             while (!GameOver)
             {
-                
+
             }
             updateTimer.Elapsed -= Update; // unsubscribe to event when loop dies
             SaveScore(); // Save PlayerScore to file
@@ -59,9 +61,12 @@ namespace MJU20_OOP_02_Grp7
 
         public static void NewLevel()
         {
+            Map = null;
+            UI.SetUISize(80, 40);
+            player.AddPlayerScore(currentLevel * 100);
             currentLevel++;
             Map = LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
-  
+            loadNextLevel = false;
         }
 
         // Method we call each time the OnTimedEvent get triggered (atm every 100 ms)
@@ -76,16 +81,25 @@ namespace MJU20_OOP_02_Grp7
 
             Enemy.MoveAround(player);
 
-            Entity[] entities = new Entity[Enemy.activeEnemies.Count + Item.activeItems.Count + 1];
-            Array.Copy(Enemy.activeEnemies.ToArray(), entities, Enemy.activeEnemies.Count);
-            Array.Copy(Item.activeItems.ToArray(), 0, entities, Enemy.activeEnemies.Count, Item.activeItems.Count);
-            entities[entities.Length - 1] = endPoint;
-            UI.DrawScreen(Map, player, entities);
+            List<Entity> entities = new List<Entity>();
+            entities.AddRange(Enemy.activeEnemies);
+            entities.AddRange(Item.activeItems);
+            entities.Add(endPoint);
+            UI.DrawScreen(Map, player, entities.ToArray());
+            _tick++;
         }
 
         public static void SetPlayerPosition(Point position)
         {
             player.Position = position;
+        }
+        public static int GetTick()
+        {
+            return _tick;
+        }
+        public static int GetUpdateRate()
+        {
+            return _updateRate;
         }
 
         private static Dictionary<string, int> CreateHighScore()

@@ -47,5 +47,10 @@ namespace MJU20_OOP_02_Grp7
                     break;
             }
         }
+
+        public void AddPlayerScore(int score)
+        {
+            PlayerScore += score;
+        }
     }
 }
