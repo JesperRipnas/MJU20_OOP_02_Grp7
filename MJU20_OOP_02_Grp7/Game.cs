@@ -20,6 +20,7 @@ namespace MJU20_OOP_02_Grp7
         public static bool loadNextLevel = false;
         private static string levelName = "Level";
         private static int currentLevel = 0;
+        private static int _tick = 0;
 
         // string that will contain the root folder of the projekt folder
         private static string DefaultFolder = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"..\..\..\")) + @"scores\";
@@ -81,11 +82,16 @@ namespace MJU20_OOP_02_Grp7
             entities.AddRange(Item.activeItems);
             entities.Add(endPoint);
             UI.DrawScreen(Map, player, entities.ToArray());
+            _tick++;
         }
 
         public static void SetPlayerPosition(Point position)
         {
             player.Position = position;
+        }
+        public static int GetTick()
+        {
+            return _tick;
         }
 
         private static Dictionary<string, int> CreateHighScore()
