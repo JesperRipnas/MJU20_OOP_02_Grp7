@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Timers;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace MJU20_OOP_02_Grp7
 {
@@ -23,9 +26,10 @@ namespace MJU20_OOP_02_Grp7
             if (Game.Map[tempPosition.X, tempPosition.Y] == ' ')
             {
                 object collider = null;
-                
+
                 List<object> things = new List<object>();
                 things.Add(Game.player);
+                things.Add(Game.endPoint);
                 things.AddRange(Item.activeItems);
                 things.AddRange(Enemy.activeEnemies);
                 //things.AddRange(Traps.activeTraps);
@@ -44,9 +48,13 @@ namespace MJU20_OOP_02_Grp7
                     // check what the player collided with
                     if (collider is Item)
                     {
+                        Item item = ((Item)collider);
+                        // Calculate item score
+                        Game.player.AddPlayerScore(item.CalculateScore(item.Symbol));
                         // acticivate item
                         UI.EventMessageList.Add(((Item)collider).Activate());
                         Item.activeItems.Remove((Item)collider);
+                        Item.activeItems.Remove(item);
                     }
                     else if (collider is Enemy)
                     {
@@ -54,7 +62,12 @@ namespace MJU20_OOP_02_Grp7
                         Game.player.Damage(((Enemy)collider).Dmg);
                         return;
                     }
-                    // else if (collide is Trap)
+                    else if (collider is EndPoint)
+                    {
+                        Game.NewLevel();
+                        return;
+                    }
+                    //else if (collider is Trap)
                 }
                 else if (sender is Enemy)
                 {
@@ -69,9 +82,56 @@ namespace MJU20_OOP_02_Grp7
                         return;
                     }
                 }
-
                 Position += movement;
             }
+        }
+        public void Attack()
+        {
+            List<Point> playerArea = new List<Point>();
+            playerArea.Add(new Point(0, 1));
+            playerArea.Add(new Point(0, -1));
+            playerArea.Add(new Point(1, 0));
+            playerArea.Add(new Point(-1, 0));
+            playerArea.Add(new Point(-1, -1));
+            playerArea.Add(new Point(-1, 1));
+            playerArea.Add(new Point(1, 1));
+            playerArea.Add(new Point(1, -1));
+
+            foreach(Point area in playerArea)
+            {
+                Point tempPosition = Position + area;
+                Enemy tempEnemy = null;
+                foreach (Enemy enemy in Enemy.activeEnemies)
+                {
+                    if (enemy.Position == tempPosition)
+                    {
+                        enemy.Damage(1);
+                        FlickerAsync(enemy);
+                        Point tempEnemyPosition = enemy.Position + area;
+                        if (Game.Map[tempEnemyPosition.X, tempEnemyPosition.Y] == ' ')
+                        {
+                            enemy.Position += area;
+                        }
+                        tempEnemy = enemy;
+                    }
+                }
+                if(tempEnemy != null)
+                {
+                    if (tempEnemy.Hp <= 0)
+                    {
+                        Game.player.AddPlayerScore(tempEnemy.CalculateScore());     // Add score for killing enemy
+                        Enemy.activeEnemies.Remove(tempEnemy);
+                    }
+                }
+            }
+        }
+        //Method to get enemy to flicker when attacked
+        public async Task FlickerAsync(Enemy enemy)
+        {
+            ConsoleColor enemyColor = enemy.Color;
+            enemy.Color = ConsoleColor.Black;
+            await Task.Delay(10);
+            enemy.Color = enemyColor;
         }
     }
 }

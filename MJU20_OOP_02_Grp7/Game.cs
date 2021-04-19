@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Timers;
+using System.Threading.Tasks;
 using static System.Console;
 
 namespace MJU20_OOP_02_Grp7
@@ -16,9 +17,10 @@ namespace MJU20_OOP_02_Grp7
         public static char[,] Map { get; private set; }
 
         public static Player player;
-        private static bool loadNextLevel = false;
+        public static EndPoint endPoint;
+        public static bool loadNextLevel = true;
         private static string levelName = "Level";
-        private static int currentLevel = 0;
+        public static int currentLevel = 0;
         private static int _tick = 0;
         private static int _updateRate = 500;
 
@@ -42,25 +44,32 @@ namespace MJU20_OOP_02_Grp7
             PlayerName = Console.ReadLine();
 
             player = new Player(100, 1, new Point(0, 0), '@', ConsoleColor.Green);
-            UI.SetUISize(80, 40);
+            
 
             Timer updateTimer = new System.Timers.Timer(_updateRate);
             updateTimer.Elapsed += Update;
             updateTimer.AutoReset = true;
             updateTimer.Enabled = true;
             loadNextLevel = true;
-
+            NewLevel();
+            
             while (!GameOver)
             {
-                if (loadNextLevel)
-                {
-                    currentLevel++;
-                    Map = LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
-                    loadNextLevel = false;
-                }
+
             }
             updateTimer.Elapsed -= Update; // unsubscribe to event when loop dies
             SaveScore(); // Save PlayerScore to file
+        }
+
+        public static void NewLevel()
+        {
+            Map = null;
+            Menu.LoadingScreen();
+            UI.SetUISize(80, 40);
+            player.AddPlayerScore(currentLevel * 100);
+            currentLevel++;
+            Map = LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
+            loadNextLevel = false;
         }
 
         // Method we call each time the OnTimedEvent get triggered (atm every 100 ms)
@@ -73,12 +82,13 @@ namespace MJU20_OOP_02_Grp7
                 player.MovePlayer(input);
             }
 
-            Enemy.MoveAround();
+            Enemy.MoveAround(player);
 
-            Entity[] entities = new Entity[Enemy.activeEnemies.Count + Item.activeItems.Count];
-            Array.Copy(Enemy.activeEnemies.ToArray(), entities, Enemy.activeEnemies.Count);
-            Array.Copy(Item.activeItems.ToArray(), 0, entities, Enemy.activeEnemies.Count, Item.activeItems.Count);
-            UI.DrawScreen(Map, player, entities);
+            List<Entity> entities = new List<Entity>();
+            entities.AddRange(Enemy.activeEnemies);
+            entities.AddRange(Item.activeItems);
+            entities.Add(endPoint);
+            UI.DrawScreen(Map, player, entities.ToArray());
             _tick++;
         }
 

@@ -42,7 +42,15 @@ namespace MJU20_OOP_02_Grp7
                 case GameControls.MoveLeft:
                     Move(new Point(-1, 0), this);
                     break;
+                case GameControls.Attack:
+                    Attack();
+                    break;
             }
+        }
+
+        public void AddPlayerScore(int score)
+        {
+            PlayerScore += score;
         }
     }
 }
