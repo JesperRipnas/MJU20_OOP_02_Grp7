@@ -6,7 +6,6 @@ namespace MJU20_OOP_02_Grp7
     {
         // view window size
         public static int height;
-
         public static int width;
 
         public static void SetUISize(int x, int y)
@@ -20,35 +19,33 @@ namespace MJU20_OOP_02_Grp7
 
         public static void DrawScreen(char[,] map, Player player, Entity[] entities)
         {
+            Console.CursorVisible = false;
             DrawMap(map, player.Position);
             DrawEntities(entities, player.Position);
             DrawPlayer(player);
-            DrawUI(player);
+            DrawStats(player);
         }
 
-        private static void DrawUI(Player player)
+        private static void DrawStats(Player player)
         {
-            Console.SetCursorPosition(5, height + 1);
-            Console.WriteLine($"HP: {player.Hp}  ");
-            // not yet implemented
-            //Console.SetCursorPosition(5, _height + 2);
-            //Console.WriteLine($"Energy: {player.Energy}");
+            Draw(5, height + 1, ConsoleColor.Green, $"HP: {player.Hp}  ");
         }
 
         private static void DrawPlayer(Player player)
         {
-            Console.SetCursorPosition(width / 2, height / 2);
-            Console.ForegroundColor = player.Color;
-            Console.Write(player.Symbol);
+            Draw(width / 2, height / 2, player.Color, player.Symbol.ToString());
         }
 
         private static void DrawEntities(Entity[] entities, Point playerPosition)
         {
             foreach (Entity entity in entities)
             {
-                Console.SetCursorPosition(entity.Position.X + (width / 2) - playerPosition.X, entity.Position.Y + (height / 2) - playerPosition.Y);
-                Console.ForegroundColor = entity.Color;
-                Console.Write(entity.Symbol);
+                Point screenPos = new Point(entity.Position.X + (width / 2) - playerPosition.X, entity.Position.Y + (height / 2) - playerPosition.Y);
+                if (screenPos.X >= 0 && screenPos.X <= width && screenPos.Y >= 0 && screenPos.Y <= height)
+                {
+                    Draw(screenPos.X, screenPos.Y, entity.Color, entity.Symbol.ToString());
+                }
+
             }
         }
 
@@ -72,10 +69,14 @@ namespace MJU20_OOP_02_Grp7
                 }
                 background += "\n";
             }
-            Console.CursorVisible = false;
-            Console.SetCursorPosition(0, 0);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(background);
+            Draw(0, 0, ConsoleColor.White, background);
+        }
+
+        private static void Draw(int left, int top, ConsoleColor color, string output)
+        {
+            Console.SetCursorPosition(left, top);
+            Console.ForegroundColor = color;
+            Console.WriteLine(output);
         }
     }
 }
