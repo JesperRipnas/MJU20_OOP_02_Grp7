@@ -18,12 +18,13 @@ namespace MJU20_OOP_02_Grp7
 
         public void Move(Point movement, object sender)
         {
+            Enemy tempEnemy = null;
             //Wall collision check
             Point tempPosition = Position + movement;
             if (Game.Map[tempPosition.X, tempPosition.Y] == ' ')
             {
                 object collider = null;
-                
+
                 List<object> things = new List<object>();
                 things.Add(Game.player);
                 things.AddRange(Item.activeItems);
@@ -68,8 +69,40 @@ namespace MJU20_OOP_02_Grp7
                         return;
                     }
                 }
-
                 Position += movement;
+            }
+        }
+        public void Attack()
+        {
+            List<Point> playerArea = new List<Point>();
+            playerArea.Add(new Point(0, 1));
+            playerArea.Add(new Point(0, -1));
+            playerArea.Add(new Point(1, 0));
+            playerArea.Add(new Point(-1, 0));
+            playerArea.Add(new Point(-1, -1));
+            playerArea.Add(new Point(-1, 1));
+            playerArea.Add(new Point(1, 1));
+            playerArea.Add(new Point(1, -1));
+
+            foreach(Point area in playerArea)
+            {
+                Point tempPosition = Position + area;
+                Enemy tempEnemy = null;
+                foreach (Enemy enemy in Enemy.activeEnemies)
+                {
+                    if (enemy.Position == tempPosition)
+                    {
+                        enemy.Damage(1);
+                        tempEnemy = enemy;
+                    }
+                }
+                if(tempEnemy != null)
+                {
+                    if (tempEnemy.Hp <= 0)
+                    {
+                        Enemy.activeEnemies.Remove(tempEnemy);
+                    }
+                }
             }
         }
     }
