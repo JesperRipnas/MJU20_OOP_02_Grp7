@@ -29,7 +29,7 @@ namespace MJU20_OOP_02_Grp7
             {
                 foreach (var msg in EventMessageList)
                 {
-                    if (msg.Contains("damage"))
+                    if (msg.Contains("took"))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine(msg);

@@ -16,7 +16,6 @@ namespace MJU20_OOP_02_Grp7
             Color = color;
         }
     }
-
     public class Enemy : Creature
     {
         private int chaseRange;
@@ -73,7 +72,6 @@ namespace MJU20_OOP_02_Grp7
                             {
                                 direction = new Point(0, 1);
                             }
-
                         }
                         else
                         {
@@ -88,7 +86,6 @@ namespace MJU20_OOP_02_Grp7
                         }
                         enemy.hasChased = true;
                     }
-                    
                 }
                 else
                 {
@@ -117,7 +114,6 @@ namespace MJU20_OOP_02_Grp7
                             continue;
                     }
                 }
-
                 enemy.Move(direction, enemy);
             }
         }

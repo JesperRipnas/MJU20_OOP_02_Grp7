@@ -21,6 +21,10 @@ namespace MJU20_OOP_02_Grp7
         {
             return PlayerLives;
         }
+        public string Activate(Enemy enemy)
+        {
+            return $"You did {Dmg} damage to {enemy.Symbol}";
+        }
 
         //Move player position
         public void MovePlayer(GameControls input)

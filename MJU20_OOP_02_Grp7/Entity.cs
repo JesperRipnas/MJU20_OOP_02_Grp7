@@ -103,6 +103,7 @@ namespace MJU20_OOP_02_Grp7
                     if (enemy.Position == tempPosition)
                     {
                         enemy.Damage(Game.player.Dmg);
+                        UI.EventMessageList.Add(Game.player.Activate(enemy));
                         Point tempEnemyPosition = enemy.Position + area;
                         if (Game.Map[tempEnemyPosition.X, tempEnemyPosition.Y] == ' ')
                         {
@@ -117,6 +118,7 @@ namespace MJU20_OOP_02_Grp7
                     {
                         Game.player.AddPlayerScore(tempEnemy.CalculateScore());     // Add score for killing enemy
                         Enemy.activeEnemies.Remove(tempEnemy);
+                        UI.EventMessageList.Add($"Enemy {tempEnemy.Symbol} died!");
                     }
                 }
             }
