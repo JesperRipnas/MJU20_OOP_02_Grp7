@@ -11,12 +11,11 @@ namespace MJU20_OOP_02_Grp7
     {
         public static bool GameOver { get; set; }
         public static int PlayerScore { get; private set; }
-        public static bool PlayerExists { get; set; }
         public static char[,] Map { get; private set; }
 
         public static Player player;
         public static EndPoint endPoint;
-        public static bool loadNextLevel = false;
+
         private static string levelName = "Level";
         public static int currentLevel = 0;
         private static int _tick = 0;
@@ -34,19 +33,25 @@ namespace MJU20_OOP_02_Grp7
             GameOver = false;
             PlayerScore = 2;
             Title = "MazeCrawler";
-
+            string playerName;
+            
             MainMenu();
-            Console.Clear();
-            Console.Write("Player Name: ");
-            string playerName = Console.ReadLine();
+            
+            do
+            {
+                Console.Clear();
+                Console.Write("Player Name: ");
+                playerName = Console.ReadLine();
+            } while (!(playerName.Length >= 3));
+
             player = new Player(playerName, 100, 1, new Point(0, 0), '@', ConsoleColor.Green);
             
             Timer updateTimer = new System.Timers.Timer(_updateRate);
             updateTimer.Elapsed += Update;
             updateTimer.AutoReset = true;
             updateTimer.Enabled = true;
-            loadNextLevel = true;
-            NewLevel();
+
+            NextLevel();
             while (!GameOver)
             {
                 
@@ -58,13 +63,16 @@ namespace MJU20_OOP_02_Grp7
             Start();
         }
 
-        public static void NewLevel()
+        public static void NextLevel()
         {
+            // clearing current level data
+            Enemy.activeEnemies = new List<Enemy>();
+            Item.activeItems = new List<Item>();
+          
             UI.SetUISize(80, 40);
             player.AddPlayerScore(currentLevel * 100);
             currentLevel++;
             Map = LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
-  
         }
 
         public static void ResetGameVariables()
@@ -149,7 +157,7 @@ namespace MJU20_OOP_02_Grp7
             }
         }
 
-        private static void SaveScore()
+        public static void SaveScore()
         {
             /// <summary>
             /// Creates a directory named "scores" in root folder if it isnt already exsisting.

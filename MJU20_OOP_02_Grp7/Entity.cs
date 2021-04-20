@@ -61,7 +61,7 @@ namespace MJU20_OOP_02_Grp7
                     }
                     else if (collider is EndPoint)
                     {
-                        Game.NewLevel();
+                        Game.NextLevel();
                         return;
                     }
                     //else if (collider is Trap)

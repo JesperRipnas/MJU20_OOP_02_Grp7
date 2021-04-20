@@ -27,7 +27,8 @@ namespace MJU20_OOP_02_Grp7
         {
             {'Q', new EnemyStats(3, 1, 3, ConsoleColor.DarkYellow)},
             {'ö', new EnemyStats(7, 3, 3, ConsoleColor.DarkGreen)},
-            {'i', new EnemyStats(30, 10, 3, ConsoleColor.DarkMagenta)}
+            {'i', new EnemyStats(30, 10, 3, ConsoleColor.DarkMagenta)},
+            {'₿', new EnemyStats(60, 15, 3, ConsoleColor.Yellow) }
         };
         public Enemy(char symbol, Point position, EnemyStats stats) : base(stats.Hp, stats.Dmg, position, symbol, stats.Color)
         {
