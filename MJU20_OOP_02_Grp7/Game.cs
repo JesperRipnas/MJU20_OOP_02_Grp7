@@ -34,11 +34,17 @@ namespace MJU20_OOP_02_Grp7
             GameOver = false;
             PlayerScore = 2;
             Title = "MazeCrawler";
-
+            string playerName;
+            
             MainMenu();
-            Console.Clear();
-            Console.Write("Player Name: ");
-            string playerName = Console.ReadLine();
+            
+            do
+            {
+                Console.Clear();
+                Console.Write("Player Name: ");
+                playerName = Console.ReadLine();
+            } while (playerName.Length >= 3);
+
             player = new Player(playerName, 100, 1, new Point(0, 0), '@', ConsoleColor.Green);
             
             Timer updateTimer = new System.Timers.Timer(_updateRate);
