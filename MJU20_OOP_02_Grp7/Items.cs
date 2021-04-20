@@ -35,9 +35,9 @@ namespace MJU20_OOP_02_Grp7
             _AttackUp = stats.AttackUp;
             Score = stats.Score * Game.currentLevel;
         }
-
         public string Activate()
         {
+            if (Score > 0) return $"You picked up an item giving you {Score} points";
             if (_Heal > 0)
             {
                 Game.player.Heal(_Heal);

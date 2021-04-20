@@ -118,10 +118,10 @@ namespace MJU20_OOP_02_Grp7
                 {
                     if (tempEnemy.Hp <= 0)
                     {
-                        Game.player.AddPlayerScore(tempEnemy.CalculateScore()); // Add score for killing enemy
+                        Game.player.AddPlayerScore(tempEnemy.Score); // Add score for killing enemy
                         tempEnemy.ShowHp = false;
                         Enemy.activeEnemies.Remove(tempEnemy);
-                        UI.MessageList.Add(new GameMessage($"Enemy {tempEnemy.Symbol} died!, you recieved {tempEnemy.CalculateScore()} points", Game.GetTick() + 10));
+                        UI.MessageList.Add(new GameMessage($"Enemy {tempEnemy.Symbol} died!, you recieved {tempEnemy.Score} points", Game.GetTick() + 10));
                     }
                 }
             }
