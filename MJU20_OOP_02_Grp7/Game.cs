@@ -71,7 +71,6 @@ namespace MJU20_OOP_02_Grp7
         {
             PlayerScore = 0;
             loadNextLevel = false;
-            levelName = "Level";
             currentLevel = 0;
         }
 
