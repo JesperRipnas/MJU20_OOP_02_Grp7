@@ -144,7 +144,7 @@ namespace MJU20_OOP_02_Grp7
             }
         }
 
-        private static void SaveScore()
+        public static void SaveScore()
         {
             /// <summary>
             /// Creates a directory named "scores" in root folder if it isnt already exsisting.
