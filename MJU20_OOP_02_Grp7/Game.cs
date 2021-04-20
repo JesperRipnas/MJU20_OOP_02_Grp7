@@ -39,7 +39,7 @@ namespace MJU20_OOP_02_Grp7
             Console.Clear();
             Console.Write("Player Name: ");
             string playerName = Console.ReadLine();
-            player = new Player(playerName, 1, 1, new Point(0, 0), '@', ConsoleColor.Green);
+            player = new Player(playerName, 100, 1, new Point(0, 0), '@', ConsoleColor.Green);
             
             Timer updateTimer = new System.Timers.Timer(_updateRate);
             updateTimer.Elapsed += Update;
