@@ -21,6 +21,7 @@ namespace MJU20_OOP_02_Grp7
         // view window size
         public static int height;
         public static int width;
+        private static string _statsClearer = "";
         //private static int _messageCounter;
 
         public static void SetUISize(int x, int y)
@@ -30,6 +31,15 @@ namespace MJU20_OOP_02_Grp7
             Console.SetWindowSize(x, y);
             Console.SetBufferSize(x, y);
             Console.OutputEncoding = System.Text.Encoding.Unicode;
+            
+            for (int i = 0; i < 6; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    _statsClearer += " ";
+                }
+                _statsClearer += "\n";
+            }
         }
 
         public static void DrawScreen(char[,] map, Player player, Entity[] entities)
@@ -77,16 +87,7 @@ namespace MJU20_OOP_02_Grp7
 
         private static void DrawStats(Player player)
         {
-            string statsClearer = "";
-            for (int y = 0; y < 5; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    statsClearer += " ";
-                }
-                statsClearer += "\n";
-            }
-            Draw(0, height, ConsoleColor.White, statsClearer);
+            Draw(0, height, ConsoleColor.White, _statsClearer);
             Draw(5, height, ConsoleColor.Green, $"Player: {Game.player.PlayerName}  HP: {player.Hp}  Attack Power: {Game.player.Dmg}  Points: {Game.player.PlayerScore} Time: {Game.GetTick()/2} seconds");
             int i = 0;
             foreach (Enemy enemy in Enemy.activeEnemies)
