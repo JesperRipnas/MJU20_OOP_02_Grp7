@@ -105,7 +105,7 @@ namespace MJU20_OOP_02_Grp7
                     {
                         enemy.Damage(Game.player.Dmg);
                         enemy.ShowHp = true;
-                        FlickerAsync(enemy);
+                        //FlickerAsync(enemy);
                         UI.MessageList.Add(new GameMessage(Game.player.Activate(enemy), Game.GetTick() + 10));
                         Point tempEnemyPosition = enemy.Position + area + area;
 

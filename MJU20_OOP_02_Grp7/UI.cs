@@ -39,7 +39,7 @@ namespace MJU20_OOP_02_Grp7
             DrawEntities(entities, player.Position);
             DrawPlayer(player);
             DrawStats(player);
-            DrawEnemyHp();
+            //DrawEnemyHp();
             DrawMessages();
         }
         
@@ -87,10 +87,19 @@ namespace MJU20_OOP_02_Grp7
                 statsClearer += "\n";
             }
             Draw(0, height, ConsoleColor.White, statsClearer);
-            Draw(5, height + 1, ConsoleColor.Green, $"Player: {Game.player.PlayerName}  HP: {player.Hp}  Attack Power: {Game.player.Dmg}  Points: {Game.player.PlayerScore} Time: {Game.GetTick()/2} seconds");
+            Draw(5, height, ConsoleColor.Green, $"Player: {Game.player.PlayerName}  HP: {player.Hp}  Attack Power: {Game.player.Dmg}  Points: {Game.player.PlayerScore} Time: {Game.GetTick()/2} seconds");
+            int i = 0;
+            foreach (Enemy enemy in Enemy.activeEnemies)
+            {
+                if (i < 4 && enemy.ShowHp)
+                {
+                    Draw(5, height+ 1 + i, enemy.Color, $"Enemy {enemy.Symbol} HP: {enemy.Hp}  ");
+                    i++;
+                }
+            }
         }
 
-        public static void DrawEnemyHp()
+        private static void DrawEnemyHp()
         {
             int i = 0;
             foreach (Enemy enemy in Enemy.activeEnemies)
