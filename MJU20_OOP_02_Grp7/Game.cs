@@ -58,26 +58,40 @@ namespace MJU20_OOP_02_Grp7
             }
             updateTimer.Elapsed -= Update; // unsubscribe to event when loop dies
             SaveScore(); // Save PlayerScore to file
+            Menu.GameOverOverlay();
+            ResetGameVariables();
+            Start();
         }
 
         public static void NextLevel()
         {
             // clearing current level data
-            Map = null;
             Enemy.activeEnemies = new List<Enemy>();
             Item.activeItems = new List<Item>();
-
+          
             UI.SetUISize(80, 40);
             player.AddPlayerScore(currentLevel * 100);
             currentLevel++;
             Map = LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
-  
+        }
+
+        public static void ResetGameVariables()
+        {
+            PlayerScore = 0;
+            loadNextLevel = false;
+            currentLevel = 0;
         }
 
         // Method we call each time the OnTimedEvent get triggered (atm every 100 ms)
         private static void Update(Object source, ElapsedEventArgs e)
         {
             GameControls input = Input.GameInput(GameControls.PlayerControls);
+            if (player.Hp <= 0)
+            {
+                Game.GameOver = true;
+                Map = null;
+                Console.Clear();
+            }
 
             if (input != GameControls.None)
             {
