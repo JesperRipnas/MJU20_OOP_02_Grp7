@@ -10,7 +10,6 @@ namespace MJU20_OOP_02_Grp7
     public class Game
     {
         public static bool GameOver { get; set; }
-        public static int PlayerScore { get; private set; }
         public static char[,] Map { get; private set; }
 
         public static Player player;
@@ -31,7 +30,6 @@ namespace MJU20_OOP_02_Grp7
         public static void Start()
         {
             GameOver = false;
-            PlayerScore = 2;
             Title = "MazeCrawler";
             string playerName;
             
@@ -77,7 +75,7 @@ namespace MJU20_OOP_02_Grp7
 
         public static void ResetGameVariables()
         {
-            PlayerScore = 0;
+            Game.player.PlayerScore = 0;
             currentLevel = 0;
         }
 
@@ -184,7 +182,7 @@ namespace MJU20_OOP_02_Grp7
                 else
                 {
                     var scores = new List<string>();
-                    string currentScore = today.ToString("d") + " " + PlayerScore.ToString() + " Points";
+                    string currentScore = today.ToString("d") + " " + Game.player.PlayerScore.ToString() + " Points";
                     scores.Add(currentScore);
                     scores.AddRange(File.ReadAllLines(_fullPath));
 
