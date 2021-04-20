@@ -102,7 +102,7 @@ namespace MJU20_OOP_02_Grp7
                 {
                     if (enemy.Position == tempPosition)
                     {
-                        enemy.Damage(1);
+                        enemy.Damage(Game.player.Dmg);
                         Point tempEnemyPosition = enemy.Position + area;
                         if (Game.Map[tempEnemyPosition.X, tempEnemyPosition.Y] == ' ')
                         {
