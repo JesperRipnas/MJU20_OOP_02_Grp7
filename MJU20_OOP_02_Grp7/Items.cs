@@ -47,7 +47,7 @@ namespace MJU20_OOP_02_Grp7
                 Game.player.Heal(_Heal);
                 return $"You healed for {_Heal} HP";
             }
-            if (_AttackUp > 0) Game.player.Damage(_AttackUp); return $"You took {_AttackUp} damage from item";
+            if (_AttackUp > 0) Game.player.SetDamage(_AttackUp); return $"You upgraded your attack power to {Game.player.Dmg}";
         }
     }
 }
