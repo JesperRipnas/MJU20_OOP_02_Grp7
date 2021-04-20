@@ -39,7 +39,7 @@ namespace MJU20_OOP_02_Grp7
             Console.Clear();
             Console.Write("Player Name: ");
             string playerName = Console.ReadLine();
-            player = new Player(playerName, 100, 1, new Point(0, 0), '@', ConsoleColor.Green);
+            player = new Player(playerName, 1, 1, new Point(0, 0), '@', ConsoleColor.Green);
             
             Timer updateTimer = new System.Timers.Timer(_updateRate);
             updateTimer.Elapsed += Update;
@@ -53,11 +53,25 @@ namespace MJU20_OOP_02_Grp7
             }
             updateTimer.Elapsed -= Update; // unsubscribe to event when loop dies
             SaveScore(); // Save PlayerScore to file
+            //Menu.GameOverOverlay();
+            ResetGameVariables();
+            Start();
         }
+
+        public static void ResetGameVariables()
+        {
+            Map = null;
+            GameOver = false;
+            PlayerScore = 0;
+            loadNextLevel = false;
+            levelName = "Level";
+            currentLevel = 0;
+            _tick = 0;
+            _updateRate = 500;
+    }
 
         public static void NewLevel()
         {
-            Map = null;
             UI.SetUISize(80, 40);
             player.AddPlayerScore(currentLevel * 100);
             currentLevel++;
@@ -69,6 +83,10 @@ namespace MJU20_OOP_02_Grp7
         private static void Update(Object source, ElapsedEventArgs e)
         {
             GameControls input = Input.GameInput(GameControls.PlayerControls);
+            if (player.Hp <= 0)
+            {
+                Game.GameOver = true;
+            }
 
             if (input != GameControls.None)
             {
