@@ -43,7 +43,7 @@ namespace MJU20_OOP_02_Grp7
             foreach (Entity entity in entities)
             {
                 Point screenPos = new Point(entity.Position.X + (width / 2) - playerPosition.X, entity.Position.Y + (height / 2) - playerPosition.Y);
-                if (screenPos.X >= 0 && screenPos.X <= width && screenPos.Y >= 0 && screenPos.Y <= height)
+                if (screenPos.X >= 0 && screenPos.X < width && screenPos.Y >= 0 && screenPos.Y < height)
                 {
                     Draw(screenPos.X, screenPos.Y, entity.Color, entity.Symbol.ToString());
                 }
