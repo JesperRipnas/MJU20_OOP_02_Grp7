@@ -16,20 +16,18 @@ namespace MJU20_OOP_02_Grp7
             Color = color;
         }
     }
-
     public class Enemy : Creature
     {
         private int chaseRange;
         private bool hasChased;
 
-        static public List<Enemy> activeEnemies;
+        static public List<Enemy> activeEnemies = new List<Enemy>();
         static public Dictionary<char, EnemyStats> enemyTypes = new Dictionary<char, EnemyStats>()
         {
             {'Q', new EnemyStats(3, 1, 3, ConsoleColor.DarkYellow)},
             {'ö', new EnemyStats(7, 3, 3, ConsoleColor.DarkGreen)},
             {'i', new EnemyStats(30, 10, 3, ConsoleColor.DarkMagenta)}
         };
-
         public Enemy(char symbol, Point position, EnemyStats stats) : base(stats.Hp, stats.Dmg, position, symbol, stats.Color)
         {
             chaseRange = stats.ChaseRange;
@@ -41,6 +39,10 @@ namespace MJU20_OOP_02_Grp7
             int returnScore = (Dmg + Hp) * Game.currentLevel /* - time elapsed*/;
 
             return returnScore;
+        }
+        public string Activate()
+        {
+            return $"You took {Dmg} damage from enemy {Symbol}";
         }
 
         public static void MoveAround(Player player)
@@ -70,7 +72,6 @@ namespace MJU20_OOP_02_Grp7
                             {
                                 direction = new Point(0, 1);
                             }
-
                         }
                         else
                         {
@@ -85,7 +86,6 @@ namespace MJU20_OOP_02_Grp7
                         }
                         enemy.hasChased = true;
                     }
-                    
                 }
                 else
                 {
@@ -114,7 +114,6 @@ namespace MJU20_OOP_02_Grp7
                             continue;
                     }
                 }
-
                 enemy.Move(direction, enemy);
             }
         }

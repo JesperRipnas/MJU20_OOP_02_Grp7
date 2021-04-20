@@ -10,7 +10,6 @@ namespace MJU20_OOP_02_Grp7
     public class Game
     {
         public static bool GameOver { get; set; }
-        public static string PlayerName { get; set; }
         public static int PlayerScore { get; private set; }
         public static bool PlayerExists { get; set; }
         public static char[,] Map { get; private set; }
@@ -21,6 +20,7 @@ namespace MJU20_OOP_02_Grp7
         private static string levelName = "Level";
         public static int currentLevel = 0;
         private static int _tick = 0;
+        private static int _updateRate = 500;
 
         // string that will contain the root folder of the projekt folder
         private static string DefaultFolder = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"..\..\..\")) + @"scores\";
@@ -32,19 +32,16 @@ namespace MJU20_OOP_02_Grp7
         public static void Start()
         {
             GameOver = false;
-            PlayerName = "Test";
             PlayerScore = 2;
             Title = "MazeCrawler";
 
             MainMenu();
             Console.Clear();
             Console.Write("Player Name: ");
-            PlayerName = Console.ReadLine();
-
-            player = new Player(100, 1, new Point(0, 0), '@', ConsoleColor.Green);
-            UI.SetUISize(80, 40);
-
-            Timer updateTimer = new System.Timers.Timer(500);
+            string playerName = Console.ReadLine();
+            player = new Player(playerName, 100, 1, new Point(0, 0), '@', ConsoleColor.Green);
+            
+            Timer updateTimer = new System.Timers.Timer(_updateRate);
             updateTimer.Elapsed += Update;
             updateTimer.AutoReset = true;
             updateTimer.Enabled = true;
@@ -60,6 +57,8 @@ namespace MJU20_OOP_02_Grp7
 
         public static void NewLevel()
         {
+            Map = null;
+            UI.SetUISize(80, 40);
             player.AddPlayerScore(currentLevel * 100);
             currentLevel++;
             Map = LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
@@ -145,7 +144,7 @@ namespace MJU20_OOP_02_Grp7
             /// </summary>
 
             DateTime today = DateTime.Today;
-            string _fullPath = DefaultFolder + PlayerName.ToLower() + ".txt";
+            string _fullPath = DefaultFolder + Game.player.PlayerName.ToLower() + ".txt";
             try
             {
                 if (!Directory.Exists(DefaultFolder))
@@ -154,7 +153,7 @@ namespace MJU20_OOP_02_Grp7
                 }
                 if (!File.Exists(_fullPath))
                 {
-                    File.WriteAllText(_fullPath, today.ToString("d") + " " + PlayerScore.ToString() + " Points");
+                    File.WriteAllText(_fullPath, today.ToString("d") + " " + Game.player.PlayerScore.ToString() + " Points");
                 }
                 else
                 {
