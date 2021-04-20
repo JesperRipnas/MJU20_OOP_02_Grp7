@@ -94,6 +94,7 @@ namespace MJU20_OOP_02_Grp7
                 if (i < 4 && enemy.ShowHp)
                 {
                     Draw(5, height+ 1 + i, enemy.Color, $"Enemy {enemy.Symbol} HP: {enemy.Hp}  ");
+                    if (Game.GetTick() - enemy.showHpTick > 20) enemy.ShowHp = false;
                     i++;
                 }
             }
