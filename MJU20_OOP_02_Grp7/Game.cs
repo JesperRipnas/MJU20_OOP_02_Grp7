@@ -26,6 +26,7 @@ namespace MJU20_OOP_02_Grp7
             if(!File.Exists(_fullPath))
             {
                 File.WriteAllText(_fullPath, PlayerScore.ToString());
+                // dastroyer of git
             }
         }
     }
