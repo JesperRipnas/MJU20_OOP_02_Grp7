@@ -19,6 +19,7 @@ namespace MJU20_OOP_02_Grp7
 
     public class Item : Entity
     {
+        private int _Heal, _AttackUp;
         static public List<Item> activeItems = new List<Item>();
         static public Dictionary<char, ItemStats> itemTypes = new Dictionary<char, ItemStats>()
         {
@@ -29,6 +30,8 @@ namespace MJU20_OOP_02_Grp7
 
         public Item(char symbol, Point position, ItemStats stats) : base(position, symbol, stats.Color)
         {
+            _Heal = stats.Heal;
+            _AttackUp = stats.AttackUp;
         }
 
         public int CalculateScore(char symbol)
@@ -36,6 +39,15 @@ namespace MJU20_OOP_02_Grp7
             int returnScore = itemTypes[symbol].Score * Game.currentLevel;
 
             return returnScore;
+        }
+        public string Activate()
+        {
+            if (_Heal > 0)
+            {
+                Game.player.Heal(_Heal);
+                return $"You healed for {_Heal} HP";
+            }
+            if (_AttackUp > 0) Game.player.Damage(_AttackUp); return $"You took {_AttackUp} damage from item";
         }
     }
 }

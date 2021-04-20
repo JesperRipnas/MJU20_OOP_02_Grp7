@@ -50,6 +50,7 @@ namespace MJU20_OOP_02_Grp7
                         // Calculate item score
                         Game.player.AddPlayerScore(item.CalculateScore(item.Symbol));
                         // acticivate item
+                        UI.EventMessageList.Add(item.Activate());
                         Item.activeItems.Remove(item);
                     }
                     else if (collider is Enemy)
@@ -71,6 +72,7 @@ namespace MJU20_OOP_02_Grp7
                     if (collider is Player)
                     {
                         Game.player.Damage(((Enemy)sender).Dmg);
+                        UI.EventMessageList.Add(((Enemy)sender).Activate());
                     }
                     if (collider is object)
                     {

@@ -41,6 +41,10 @@ namespace MJU20_OOP_02_Grp7
 
             return returnScore;
         }
+        public string Activate()
+        {
+            return $"You took {Dmg} damage from enemy {Symbol}";
+        }
 
         public static void MoveAround(Player player)
         {
