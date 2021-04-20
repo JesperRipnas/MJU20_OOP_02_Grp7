@@ -118,7 +118,7 @@ namespace MJU20_OOP_02_Grp7
                     {
                         Game.player.AddPlayerScore(tempEnemy.CalculateScore());     // Add score for killing enemy
                         Enemy.activeEnemies.Remove(tempEnemy);
-                        UI.EventMessageList.Add($"Enemy {tempEnemy.Symbol} died!");
+                        UI.EventMessageList.Add($"Enemy {tempEnemy.Symbol} died!, you recieved {tempEnemy.CalculateScore()} points");
                     }
                 }
             }
