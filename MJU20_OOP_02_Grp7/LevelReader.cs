@@ -19,6 +19,7 @@ namespace MJU20_OOP_02_Grp7
         {
             // Delcare necessary variables
             Enemy.activeEnemies = new List<Enemy>();
+            Item.activeItems = new List<Item>();
             string filePath = directoryPath + fileName;
             char[,] returnArr;
             int columns = 0;
