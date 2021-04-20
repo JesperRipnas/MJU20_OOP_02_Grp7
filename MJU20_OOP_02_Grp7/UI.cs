@@ -3,13 +3,25 @@ using System.Collections.Generic;
 
 namespace MJU20_OOP_02_Grp7
 {
+    public struct GameMessage
+    {
+        public string Message;
+        public int ClearTick;
+
+        public GameMessage(string message, int clearTick)
+        {
+            Message = message;
+            ClearTick = clearTick;
+        }
+    }
+
     public class UI
     {
-        public static List<String> EventMessageList = new List<string>();
+        public static List<GameMessage> MessageList = new List<GameMessage>();
         // view window size
         public static int height;
         public static int width;
-        private static int _counter;
+        //private static int _messageCounter;
 
         public static void SetUISize(int x, int y)
         {
@@ -20,34 +32,6 @@ namespace MJU20_OOP_02_Grp7
             Console.OutputEncoding = System.Text.Encoding.Unicode;
         }
 
-        public static void DrawEventMessages()
-        {
-            Console.SetCursorPosition(0, 0);
-
-            if (EventMessageList.Count > 5) EventMessageList.RemoveAt(0);
-            if (EventMessageList.Count >= 0)
-            {
-                foreach (var msg in EventMessageList)
-                {
-                    if (msg.Contains("took"))
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine(msg);
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine(msg);
-                    }
-                }
-            }
-            if (EventMessageList.Count > 0)
-            {
-                _counter++;
-                if (_counter % 10 == 0) EventMessageList.RemoveAt(0);
-            }
-        }
-
         public static void DrawScreen(char[,] map, Player player, Entity[] entities)
         {
             Console.CursorVisible = false;
@@ -56,11 +40,53 @@ namespace MJU20_OOP_02_Grp7
             DrawPlayer(player);
             DrawStats(player);
             DrawEnemyHp();
-            DrawEventMessages();
+            DrawMessages();
+        }
+        
+        public static void DrawMessages()
+        {
+            Console.SetCursorPosition(0, 0);
+
+            if (MessageList.Count > 5) MessageList.RemoveAt(0);
+            if (MessageList.Count >= 0)
+            {
+                foreach (var msg in MessageList)
+                {
+                    if (msg.Message.Contains("took"))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine(msg.Message);
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine(msg.Message);
+                    }
+                }
+            }
+            if (MessageList.Count > 0)
+            {
+                if (MessageList[0].ClearTick < Game.GetTick()) MessageList.RemoveAt(0);
+                //_messageCounter++;
+                //if (_messageCounter == Game.GetTick())
+                //{
+                //    MessageList.RemoveAt(0);
+                //}
+            }
         }
 
         private static void DrawStats(Player player)
         {
+            string statsClearer = "";
+            for (int y = 0; y < 5; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    statsClearer += " ";
+                }
+                statsClearer += "\n";
+            }
+            Draw(0, height, ConsoleColor.White, statsClearer);
             Draw(5, height + 1, ConsoleColor.Green, $"Player: {Game.player.PlayerName}  HP: {player.Hp}  Attack Power: {Game.player.Dmg}  Points: {Game.player.PlayerScore} Time: {Game.GetTick()/2} seconds");
         }
 

@@ -51,7 +51,7 @@ namespace MJU20_OOP_02_Grp7
                         // Calculate item score
                         Game.player.AddPlayerScore(item.Score);
                         // acticivate item
-                        UI.EventMessageList.Add(item.Activate());
+                        UI.MessageList.Add(new GameMessage(item.Activate(), Game.GetTick() + 10));
                         Item.activeItems.Remove(item);
                     }
                     else if (collider is Enemy)
@@ -73,7 +73,7 @@ namespace MJU20_OOP_02_Grp7
                     if (collider is Player)
                     {
                         Game.player.Damage(((Enemy)sender).Dmg);
-                        UI.EventMessageList.Add(((Enemy)sender).Activate());
+                        UI.MessageList.Add(new GameMessage(((Enemy)sender).Activate(), Game.GetTick() + 10));
                     }
                     if (collider is object)
                     {
@@ -95,7 +95,7 @@ namespace MJU20_OOP_02_Grp7
             playerArea.Add(new Point(1, 1));
             playerArea.Add(new Point(1, -1));
 
-            foreach(Point area in playerArea)
+            foreach (Point area in playerArea)
             {
                 Point tempPosition = Position + area;
                 Enemy tempEnemy = null;
@@ -106,31 +106,22 @@ namespace MJU20_OOP_02_Grp7
                         enemy.Damage(Game.player.Dmg);
                         enemy.ShowHp = true;
                         FlickerAsync(enemy);
-                        UI.EventMessageList.Add(Game.player.Activate(enemy));
+                        UI.MessageList.Add(new GameMessage(Game.player.Activate(enemy), Game.GetTick() + 10));
                         Point tempEnemyPosition = enemy.Position + area + area;
-                        if(tempEnemyPosition.X < 0)
-                        {
-                            tempEnemyPosition.X = 0;
-                        }
-                        else if(tempEnemyPosition.Y < 0)
-                        {
-                            tempEnemyPosition.Y = 0;
-                        }
-                        if (Game.Map[tempEnemyPosition.X, tempEnemyPosition.Y] == ' ')
-                        {
-                            enemy.Position += area + area;
-                        }
+
+                        enemy.Move(area, this);
+
                         tempEnemy = enemy;
                     }
                 }
-                if(tempEnemy != null)
+                if (tempEnemy != null)
                 {
                     if (tempEnemy.Hp <= 0)
                     {
                         Game.player.AddPlayerScore(tempEnemy.CalculateScore()); // Add score for killing enemy
                         tempEnemy.ShowHp = false;
                         Enemy.activeEnemies.Remove(tempEnemy);
-                        UI.EventMessageList.Add($"Enemy {tempEnemy.Symbol} died!, you recieved {tempEnemy.CalculateScore()} points");
+                        UI.MessageList.Add(new GameMessage($"Enemy {tempEnemy.Symbol} died!, you recieved {tempEnemy.CalculateScore()} points", Game.GetTick() + 10));
                     }
                 }
             }
@@ -139,9 +130,14 @@ namespace MJU20_OOP_02_Grp7
         public async Task FlickerAsync(Enemy enemy)
         {
             ConsoleColor enemyColor = enemy.Color;
-            enemy.Color = ConsoleColor.Black;
-            await Task.Delay(20);
-            enemy.Color = enemyColor;
+            for (int i = 0; i < 6; i++)
+            {
+                enemy.Color = ConsoleColor.Red;
+                Game.RunUI();
+                await Task.Delay(50);
+                enemy.Color = enemyColor;
+                Game.RunUI();
+            }
         }
     }
 }
