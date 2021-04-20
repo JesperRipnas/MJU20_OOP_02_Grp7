@@ -99,13 +99,17 @@ namespace MJU20_OOP_02_Grp7
             }
 
             Enemy.MoveAround(player);
+            RunUI();
+            _tick++;
+        }
 
+        public static void RunUI()
+        {
             List<Entity> entities = new List<Entity>();
             entities.AddRange(Enemy.activeEnemies);
             entities.AddRange(Item.activeItems);
             entities.Add(endPoint);
             UI.DrawScreen(Map, player, entities.ToArray());
-            _tick++;
         }
 
         public static void SetPlayerPosition(Point position)
