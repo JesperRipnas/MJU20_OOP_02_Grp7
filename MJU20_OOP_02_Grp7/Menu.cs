@@ -61,6 +61,7 @@ namespace MJU20_OOP_02_Grp7
 
         private void MainMenu()
         {
+            Console.CursorVisible = false;
             Console.SetWindowSize(160, 40);
             ConsoleColor foreground = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkRed;

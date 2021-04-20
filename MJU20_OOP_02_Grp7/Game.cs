@@ -18,7 +18,7 @@ namespace MJU20_OOP_02_Grp7
         private static string levelName = "Level";
         public static int currentLevel = 0;
         private static int _tick = 0;
-        private static int _updateRate = 500;
+        private static int _updateRate = 300;
 
         // string that will contain the root folder of the projekt folder
         private static string DefaultFolder = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"..\..\..\")) + @"scores\";
@@ -34,25 +34,30 @@ namespace MJU20_OOP_02_Grp7
             string playerName;
             
             MainMenu();
-            
             do
             {
                 Console.Clear();
                 Console.Write("Player Name: ");
                 playerName = Console.ReadLine();
             } while (!(playerName.Length >= 3));
-
             player = new Player(playerName, 100, 1, new Point(0, 0), '@', ConsoleColor.Green);
-            
+
             Timer updateTimer = new System.Timers.Timer(_updateRate);
             updateTimer.Elapsed += Update;
             updateTimer.AutoReset = true;
             updateTimer.Enabled = true;
 
             NextLevel();
+
+            string musicpath = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"..\..\..\")) + @"media\bgmusic.mp3";
+            var soundReader = new NAudio.Wave.Mp3FileReader(musicpath);
+            var waveOut = new NAudio.Wave.WaveOut();
+            waveOut.Volume = 0.2f;
+            waveOut.Init(soundReader);
+            waveOut.Play();
+
             while (!GameOver)
             {
-                
             }
             updateTimer.Elapsed -= Update; // unsubscribe to event when loop dies
             SaveScore(); // Save PlayerScore to file
@@ -116,6 +121,15 @@ namespace MJU20_OOP_02_Grp7
         public static int GetTick()
         {
             return _tick;
+        }
+        public static void PlayMusic()
+        {
+            string musicpath = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"..\..\..\")) + @"media\bgmusic.mp3";
+            var soundReader = new NAudio.Wave.Mp3FileReader(musicpath);
+            var waveOut = new NAudio.Wave.WaveOut();
+            waveOut.Volume = 0.2f;
+            waveOut.Init(soundReader);
+            waveOut.Play();
         }
 
         private static Dictionary<string, int> CreateHighScore()
