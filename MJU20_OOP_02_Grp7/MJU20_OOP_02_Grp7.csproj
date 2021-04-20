@@ -9,4 +9,8 @@
     <Folder Include="scores\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+  </ItemGroup>
+
 </Project>

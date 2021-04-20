@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MJU20_OOP_02_Grp7
 {
-    abstract class Creature
+    public abstract class Creature : Entity
     {
         public int Hp { get; private set; }
-        public Point Position { get; private set; }
-        public char Symbol { get; private set; }
-        public ConsoleColor Color { get; private set; }
+        public int Dmg { get; private set; }
 
-        public Creature(int hp, Point position, char symbol, ConsoleColor color)
+        public Creature(int hp, int dmg, Point position, char symbol, ConsoleColor color) : base(position, symbol, color)
         {
             Hp = hp;
-            Position = position;
-            Symbol = symbol;
-            Color = color;
+            Dmg = dmg;
         }
 
         public void Damage(int dmg)
@@ -28,10 +22,9 @@ namespace MJU20_OOP_02_Grp7
         {
             Hp += heal;
         }
-
-        public void Move(Point movement)
+        public void SetDamage(int newDamage)
         {
-            Position += movement;
+            Dmg += newDamage;
         }
     }
 }
