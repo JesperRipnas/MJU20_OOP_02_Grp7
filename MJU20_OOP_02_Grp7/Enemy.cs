@@ -20,6 +20,7 @@ namespace MJU20_OOP_02_Grp7
     {
         private int chaseRange;
         private bool hasChased;
+        public int Score;
 
         static public List<Enemy> activeEnemies = new List<Enemy>();
         static public Dictionary<char, EnemyStats> enemyTypes = new Dictionary<char, EnemyStats>()
@@ -32,6 +33,7 @@ namespace MJU20_OOP_02_Grp7
         {
             chaseRange = stats.ChaseRange;
             hasChased = false;
+            Score = CalculateScore();
         }
 
         public int CalculateScore()

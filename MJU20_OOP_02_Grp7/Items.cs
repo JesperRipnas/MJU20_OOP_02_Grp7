@@ -20,6 +20,7 @@ namespace MJU20_OOP_02_Grp7
     public class Item : Entity
     {
         private int _Heal, _AttackUp;
+        public int Score;
         static public List<Item> activeItems = new List<Item>();
         static public Dictionary<char, ItemStats> itemTypes = new Dictionary<char, ItemStats>()
         {
@@ -32,14 +33,9 @@ namespace MJU20_OOP_02_Grp7
         {
             _Heal = stats.Heal;
             _AttackUp = stats.AttackUp;
+            Score = stats.Score * Game.currentLevel;
         }
 
-        public int CalculateScore(char symbol)
-        {
-            int returnScore = itemTypes[symbol].Score * Game.currentLevel;
-
-            return returnScore;
-        }
         public string Activate()
         {
             if (_Heal > 0)
