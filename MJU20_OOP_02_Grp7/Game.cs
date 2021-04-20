@@ -78,7 +78,6 @@ namespace MJU20_OOP_02_Grp7
         public static void ResetGameVariables()
         {
             PlayerScore = 0;
-            loadNextLevel = false;
             currentLevel = 0;
         }
 
