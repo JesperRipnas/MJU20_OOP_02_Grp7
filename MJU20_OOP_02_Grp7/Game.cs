@@ -39,7 +39,7 @@ namespace MJU20_OOP_02_Grp7
             Console.Clear();
             Console.Write("Player Name: ");
             string playerName = Console.ReadLine();
-            player = new Player(playerName, 100, 1, new Point(0, 0), '@', ConsoleColor.Green);
+            player = new Player(playerName, 1, 1, new Point(0, 0), '@', ConsoleColor.Green);
             
             Timer updateTimer = new System.Timers.Timer(_updateRate);
             updateTimer.Elapsed += Update;
@@ -58,15 +58,6 @@ namespace MJU20_OOP_02_Grp7
             Start();
         }
 
-        public static void ResetGameVariables()
-        {
-            Map = null;
-            PlayerScore = 0;
-            loadNextLevel = false;
-            levelName = "Level";
-            currentLevel = 0;
-        }
-
         public static void NewLevel()
         {
             UI.SetUISize(80, 40);
@@ -74,6 +65,14 @@ namespace MJU20_OOP_02_Grp7
             currentLevel++;
             Map = LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
   
+        }
+
+        public static void ResetGameVariables()
+        {
+            PlayerScore = 0;
+            loadNextLevel = false;
+            levelName = "Level";
+            currentLevel = 0;
         }
 
         // Method we call each time the OnTimedEvent get triggered (atm every 100 ms)
