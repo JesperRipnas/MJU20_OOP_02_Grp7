@@ -18,7 +18,7 @@ namespace MJU20_OOP_02_Grp7
         public static EndPoint endPoint;
 
         private static string levelName = "Level";
-        public static int currentLevel = 2;
+        public static int currentLevel = 0;
         private static int _tick = 0;
         private static int _updateRate = 500;
 
