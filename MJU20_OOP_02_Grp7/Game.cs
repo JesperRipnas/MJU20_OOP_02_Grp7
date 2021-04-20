@@ -11,7 +11,6 @@ namespace MJU20_OOP_02_Grp7
     {
         public static bool GameOver { get; set; }
         public static int PlayerScore { get; private set; }
-        public static bool PlayerExists { get; set; }
         public static char[,] Map { get; private set; }
 
         public static Player player;
@@ -144,7 +143,7 @@ namespace MJU20_OOP_02_Grp7
             }
         }
 
-        private static void SaveScore()
+        public static void SaveScore()
         {
             /// <summary>
             /// Creates a directory named "scores" in root folder if it isnt already exsisting.
