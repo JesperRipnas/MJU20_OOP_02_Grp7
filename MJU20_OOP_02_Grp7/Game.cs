@@ -11,7 +11,6 @@ namespace MJU20_OOP_02_Grp7
     {
         public static bool GameOver { get; set; }
         public static int PlayerScore { get; private set; }
-        public static bool PlayerExists { get; set; }
         public static char[,] Map { get; private set; }
 
         public static Player player;
@@ -43,7 +42,7 @@ namespace MJU20_OOP_02_Grp7
                 Console.Clear();
                 Console.Write("Player Name: ");
                 playerName = Console.ReadLine();
-            } while (playerName.Length >= 3);
+            } while (!(playerName.Length >= 3));
 
             player = new Player(playerName, 100, 1, new Point(0, 0), '@', ConsoleColor.Green);
             
@@ -59,26 +58,40 @@ namespace MJU20_OOP_02_Grp7
             }
             updateTimer.Elapsed -= Update; // unsubscribe to event when loop dies
             SaveScore(); // Save PlayerScore to file
+            Menu.GameOverOverlay();
+            ResetGameVariables();
+            Start();
         }
 
         public static void NextLevel()
         {
             // clearing current level data
-            Map = null;
             Enemy.activeEnemies = new List<Enemy>();
             Item.activeItems = new List<Item>();
-
+          
             UI.SetUISize(80, 40);
             player.AddPlayerScore(currentLevel * 100);
             currentLevel++;
             Map = LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
-  
+        }
+
+        public static void ResetGameVariables()
+        {
+            PlayerScore = 0;
+            loadNextLevel = false;
+            currentLevel = 0;
         }
 
         // Method we call each time the OnTimedEvent get triggered (atm every 100 ms)
         private static void Update(Object source, ElapsedEventArgs e)
         {
             GameControls input = Input.GameInput(GameControls.PlayerControls);
+            if (player.Hp <= 0)
+            {
+                Game.GameOver = true;
+                Map = null;
+                Console.Clear();
+            }
 
             if (input != GameControls.None)
             {
@@ -148,7 +161,7 @@ namespace MJU20_OOP_02_Grp7
             }
         }
 
-        private static void SaveScore()
+        public static void SaveScore()
         {
             /// <summary>
             /// Creates a directory named "scores" in root folder if it isnt already exsisting.
