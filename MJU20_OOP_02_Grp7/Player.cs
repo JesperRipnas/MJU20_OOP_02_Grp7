@@ -4,11 +4,13 @@ namespace MJU20_OOP_02_Grp7
 {
     public class Player : Creature
     {
-        public int PlayerScore { get; private set; }
+        public string PlayerName { get; set; }
+        public int PlayerScore { get; set; }
         public int PlayerLives { get; private set; }
 
-        public Player(int hp, int dmg, Point position, char symbol, ConsoleColor color) : base(hp, dmg, position, symbol, color)
+        public Player(string playerName, int hp, int dmg, Point position, char symbol, ConsoleColor color) : base(hp, dmg, position, symbol, color)
         {
+            PlayerName = playerName;
             PlayerScore = 0;
         }
 
@@ -20,6 +22,10 @@ namespace MJU20_OOP_02_Grp7
         public int GetPlayerLives()
         {
             return PlayerLives;
+        }
+        public string Activate(Enemy enemy)
+        {
+            return $"You did {Dmg} damage to {enemy.Symbol}";
         }
 
         //Move player position
@@ -46,6 +52,11 @@ namespace MJU20_OOP_02_Grp7
                     Attack();
                     break;
             }
+        }
+
+        public void AddPlayerScore(int score)
+        {
+            PlayerScore += score;
         }
     }
 }

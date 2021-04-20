@@ -1,12 +1,15 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 
 namespace MJU20_OOP_02_Grp7
 {
     public class UI
     {
+        public static List<String> EventMessageList = new List<string>();
         // view window size
         public static int height;
         public static int width;
+        private static int _counter;
 
         public static void SetUISize(int x, int y)
         {
@@ -17,6 +20,34 @@ namespace MJU20_OOP_02_Grp7
             Console.OutputEncoding = System.Text.Encoding.Unicode;
         }
 
+        public static void DrawEventMessages()
+        {
+            Console.SetCursorPosition(0, 0);
+
+            if (EventMessageList.Count > 5) EventMessageList.RemoveAt(0);
+            if (EventMessageList.Count >= 0)
+            {
+                foreach (var msg in EventMessageList)
+                {
+                    if (msg.Contains("took"))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine(msg);
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine(msg);
+                    }
+                }
+            }
+            if (EventMessageList.Count > 0)
+            {
+                _counter++;
+                if (_counter % 10 == 0) EventMessageList.RemoveAt(0);
+            }
+        }
+
         public static void DrawScreen(char[,] map, Player player, Entity[] entities)
         {
             Console.CursorVisible = false;
@@ -24,13 +55,12 @@ namespace MJU20_OOP_02_Grp7
             DrawEntities(entities, player.Position);
             DrawPlayer(player);
             DrawStats(player);
+            DrawEventMessages();
         }
 
         private static void DrawStats(Player player)
         {
-            Draw(5, height + 1, ConsoleColor.Green, $"HP: {player.Hp}  ");
-
-            Draw(25, height + 1, ConsoleColor.White, $"Score: {player.PlayerScore}  ");
+            Draw(5, height + 1, ConsoleColor.Green, $"Player: {Game.player.PlayerName}  HP: {player.Hp}  Attack Power: {Game.player.Dmg}  Points: {Game.player.PlayerScore} Time: {Game.GetTick()/2} seconds");
         }
 
         private static void DrawPlayer(Player player)

@@ -46,9 +46,12 @@ namespace MJU20_OOP_02_Grp7
                     // check what the player collided with
                     if (collider is Item)
                     {
+                        Item item = ((Item)collider);
+                        // Calculate item score
+                        Game.player.AddPlayerScore(item.Score);
                         // acticivate item
-
-                        Item.activeItems.Remove((Item)collider);
+                        UI.EventMessageList.Add(item.Activate());
+                        Item.activeItems.Remove(item);
                     }
                     else if (collider is Enemy)
                     {
@@ -58,7 +61,7 @@ namespace MJU20_OOP_02_Grp7
                     }
                     else if (collider is EndPoint)
                     {
-                        Game.NewLevel();
+                        Game.NextLevel();
                         return;
                     }
                     //else if (collider is Trap)
@@ -69,6 +72,7 @@ namespace MJU20_OOP_02_Grp7
                     if (collider is Player)
                     {
                         Game.player.Damage(((Enemy)sender).Dmg);
+                        UI.EventMessageList.Add(((Enemy)sender).Activate());
                     }
                     if (collider is object)
                     {
@@ -98,7 +102,8 @@ namespace MJU20_OOP_02_Grp7
                 {
                     if (enemy.Position == tempPosition)
                     {
-                        enemy.Damage(1);
+                        enemy.Damage(Game.player.Dmg);
+                        UI.EventMessageList.Add(Game.player.Activate(enemy));
                         Point tempEnemyPosition = enemy.Position + area;
                         if (Game.Map[tempEnemyPosition.X, tempEnemyPosition.Y] == ' ')
                         {
@@ -111,7 +116,9 @@ namespace MJU20_OOP_02_Grp7
                 {
                     if (tempEnemy.Hp <= 0)
                     {
+                        Game.player.AddPlayerScore(tempEnemy.Score);     // Add score for killing enemy
                         Enemy.activeEnemies.Remove(tempEnemy);
+                        UI.EventMessageList.Add($"Enemy {tempEnemy.Symbol} died!, you recieved {tempEnemy.Score} points");
                     }
                 }
             }

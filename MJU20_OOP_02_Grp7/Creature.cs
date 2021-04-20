@@ -22,5 +22,9 @@ namespace MJU20_OOP_02_Grp7
         {
             Hp += heal;
         }
+        public void SetDamage(int newDamage)
+        {
+            Dmg += newDamage;
+        }
     }
 }
