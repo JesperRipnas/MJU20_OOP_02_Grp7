@@ -16,9 +16,9 @@ namespace MJU20_OOP_02_Grp7
 
         public static Player player;
         public static EndPoint endPoint;
-        public static bool loadNextLevel = false;
+
         private static string levelName = "Level";
-        public static int currentLevel = 0;
+        public static int currentLevel = 2;
         private static int _tick = 0;
         private static int _updateRate = 500;
 
@@ -45,8 +45,8 @@ namespace MJU20_OOP_02_Grp7
             updateTimer.Elapsed += Update;
             updateTimer.AutoReset = true;
             updateTimer.Enabled = true;
-            loadNextLevel = true;
-            NewLevel();
+
+            NextLevel();
             while (!GameOver)
             {
                 
@@ -55,9 +55,13 @@ namespace MJU20_OOP_02_Grp7
             SaveScore(); // Save PlayerScore to file
         }
 
-        public static void NewLevel()
+        public static void NextLevel()
         {
+            // clearing current level data
             Map = null;
+            Enemy.activeEnemies = new List<Enemy>();
+            Item.activeItems = new List<Item>();
+
             UI.SetUISize(80, 40);
             player.AddPlayerScore(currentLevel * 100);
             currentLevel++;
