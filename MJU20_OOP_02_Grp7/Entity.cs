@@ -48,7 +48,7 @@ namespace MJU20_OOP_02_Grp7
                     {
                         Item item = ((Item)collider);
                         // Calculate item score
-                        Game.player.AddPlayerScore(item.CalculateScore(item.Symbol));
+                        Game.player.AddPlayerScore(item.Score);
                         // acticivate item
                         UI.EventMessageList.Add(item.Activate());
                         Item.activeItems.Remove(item);
@@ -116,9 +116,9 @@ namespace MJU20_OOP_02_Grp7
                 {
                     if (tempEnemy.Hp <= 0)
                     {
-                        Game.player.AddPlayerScore(tempEnemy.CalculateScore());     // Add score for killing enemy
+                        Game.player.AddPlayerScore(tempEnemy.Score);     // Add score for killing enemy
                         Enemy.activeEnemies.Remove(tempEnemy);
-                        UI.EventMessageList.Add($"Enemy {tempEnemy.Symbol} died!, you recieved {tempEnemy.CalculateScore()} points");
+                        UI.EventMessageList.Add($"Enemy {tempEnemy.Symbol} died!, you recieved {tempEnemy.Score} points");
                     }
                 }
             }
