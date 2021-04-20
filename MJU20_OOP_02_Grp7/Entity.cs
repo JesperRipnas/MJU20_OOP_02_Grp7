@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Timers;
 
 namespace MJU20_OOP_02_Grp7
@@ -103,11 +104,21 @@ namespace MJU20_OOP_02_Grp7
                     if (enemy.Position == tempPosition)
                     {
                         enemy.Damage(Game.player.Dmg);
+                        enemy.ShowHp = true;
+                        FlickerAsync(enemy);
                         UI.EventMessageList.Add(Game.player.Activate(enemy));
-                        Point tempEnemyPosition = enemy.Position + area;
+                        Point tempEnemyPosition = enemy.Position + area + area;
+                        if(tempEnemyPosition.X < 0)
+                        {
+                            tempEnemyPosition.X = 0;
+                        }
+                        else if(tempEnemyPosition.Y < 0)
+                        {
+                            tempEnemyPosition.Y = 0;
+                        }
                         if (Game.Map[tempEnemyPosition.X, tempEnemyPosition.Y] == ' ')
                         {
-                            enemy.Position += area;
+                            enemy.Position += area + area;
                         }
                         tempEnemy = enemy;
                     }
@@ -116,12 +127,21 @@ namespace MJU20_OOP_02_Grp7
                 {
                     if (tempEnemy.Hp <= 0)
                     {
-                        Game.player.AddPlayerScore(tempEnemy.Score);     // Add score for killing enemy
+                        Game.player.AddPlayerScore(tempEnemy.CalculateScore()); // Add score for killing enemy
+                        tempEnemy.ShowHp = false;
                         Enemy.activeEnemies.Remove(tempEnemy);
-                        UI.EventMessageList.Add($"Enemy {tempEnemy.Symbol} died!, you recieved {tempEnemy.Score} points");
+                        UI.EventMessageList.Add($"Enemy {tempEnemy.Symbol} died!, you recieved {tempEnemy.CalculateScore()} points");
                     }
                 }
             }
+        }
+        //Method to get enemy to flicker when attacked
+        public async Task FlickerAsync(Enemy enemy)
+        {
+            ConsoleColor enemyColor = enemy.Color;
+            enemy.Color = ConsoleColor.Black;
+            await Task.Delay(20);
+            enemy.Color = enemyColor;
         }
     }
 }

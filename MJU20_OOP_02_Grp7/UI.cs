@@ -55,12 +55,30 @@ namespace MJU20_OOP_02_Grp7
             DrawEntities(entities, player.Position);
             DrawPlayer(player);
             DrawStats(player);
+            DrawEnemyHp();
             DrawEventMessages();
         }
 
         private static void DrawStats(Player player)
         {
             Draw(5, height + 1, ConsoleColor.Green, $"Player: {Game.player.PlayerName}  HP: {player.Hp}  Attack Power: {Game.player.Dmg}  Points: {Game.player.PlayerScore} Time: {Game.GetTick()/2} seconds");
+        }
+
+        public static void DrawEnemyHp()
+        {
+            int i = 0;
+            foreach (Enemy enemy in Enemy.activeEnemies)
+            {
+                if (enemy.ShowHp)
+                {
+                    Draw(5, height - i, enemy.Color, $"Enemy {enemy.Symbol} HP: {enemy.Hp}  ");
+                }
+                i++;
+            }
+            if (Enemy.activeEnemies.Count == 0)
+            {
+                Draw(5, height, ConsoleColor.Black, $"                                      ");
+            }
         }
 
         private static void DrawPlayer(Player player)
