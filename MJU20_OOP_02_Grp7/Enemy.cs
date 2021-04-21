@@ -25,12 +25,12 @@ namespace MJU20_OOP_02_Grp7
     /// </summary>
     public class Enemy : Creature
     {
-        private int chaseRange;
-        private bool hasChased;
+        private int _chaseRange;
+        private bool _hasChased;
         public int Score;
 
-        static public List<Enemy> activeEnemies = new List<Enemy>();
-        static public Dictionary<char, EnemyStats> enemyTypes = new Dictionary<char, EnemyStats>()
+        static public List<Enemy> ActiveEnemies = new List<Enemy>();
+        static public Dictionary<char, EnemyStats> EnemyTypes = new Dictionary<char, EnemyStats>()
         {
             {'Q', new EnemyStats(3, 1, 3, ConsoleColor.DarkYellow)},
             {'ö', new EnemyStats(7, 3, 3, ConsoleColor.DarkGreen)},
@@ -39,8 +39,8 @@ namespace MJU20_OOP_02_Grp7
         };
         public Enemy(char symbol, Point position, EnemyStats stats) : base(stats.Hp, stats.Dmg, position, symbol, stats.Color)
         {
-            chaseRange = stats.ChaseRange;
-            hasChased = false;
+            _chaseRange = stats.ChaseRange;
+            _hasChased = false;
             Score = CalculateScore();
         }
 
@@ -51,7 +51,7 @@ namespace MJU20_OOP_02_Grp7
         /// <returns>The calculated score as an integer.</returns>
         public int CalculateScore()
         {
-            int returnScore = (Dmg + Hp) * Game.currentLevel /* - time elapsed*/;
+            int returnScore = (Dmg + Hp) * Game.CurrentLevel /* - time elapsed*/;
 
             return returnScore;
         }
@@ -67,7 +67,7 @@ namespace MJU20_OOP_02_Grp7
         }
 
         /// <summary>
-        /// Causes an enemy chase the player if player is in the enemys <c>ChaseRange</c>.
+        /// Causes an enemy chase the player if player is in the enemys <c>_chaseRange</c>.
         /// Else, makes the enemy move in a random direction.
         /// </summary>
         /// <param name="player"></param>
@@ -75,15 +75,15 @@ namespace MJU20_OOP_02_Grp7
         {
             Random random = new Random(DateTime.Now.Millisecond);
 
-            foreach (Enemy enemy in activeEnemies)
+            foreach (Enemy enemy in ActiveEnemies)
             {
                 Point direction = new Point(0, 0);
-                if (enemy.Position.Distance(player.Position, out Point relativePos) < enemy.chaseRange)
+                if (enemy.Position.Distance(player.Position, out Point relativePos) < enemy._chaseRange)
                 {
                     // to prevent enemies sticking like glue only chase every other update
-                    if (enemy.hasChased)
+                    if (enemy._hasChased)
                     {
-                        enemy.hasChased = false;
+                        enemy._hasChased = false;
                     }
                     else
                     {
@@ -110,7 +110,7 @@ namespace MJU20_OOP_02_Grp7
                                 direction = new Point(1, 0);
                             }
                         }
-                        enemy.hasChased = true;
+                        enemy._hasChased = true;
                     }
                 }
                 else
