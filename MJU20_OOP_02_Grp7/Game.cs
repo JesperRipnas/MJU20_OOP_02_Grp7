@@ -211,7 +211,7 @@ namespace MJU20_OOP_02_Grp7
             switch (mainMenu.Run())
             {
                 case 0:
-                    //start game
+                    //starts game
                     break;
                 case 1:
                     difficultyMenu();
@@ -220,10 +220,7 @@ namespace MJU20_OOP_02_Grp7
                     ScoreMenu();
                     break;
                 case 3:
-                    //options
-                    break;
-                case 4:
-                    //exit
+                    HowToPlay();
                     break;
                 default:
                     MainMenu();
@@ -280,6 +277,21 @@ namespace MJU20_OOP_02_Grp7
             Console.ReadKey();
             MainMenu();
 
+        }
+
+        private static void HowToPlay()
+        {
+            Console.Clear();
+            Dictionary<string, int> scores = CreateHighScore();
+
+            Console.WriteLine("How To Play");
+            Console.WriteLine();
+            Console.WriteLine(@"Use 'W', 'A' 'S' and 'D' to move the character.
+
+Attack monsters with the 'Space' button.");
+
+            Console.ReadKey();
+            MainMenu();
         }
     }
 }
