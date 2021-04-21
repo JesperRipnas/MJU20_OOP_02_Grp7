@@ -8,43 +8,22 @@ namespace MJU20_OOP_02_Grp7
     /// </summary>
     public class Menu
     {
-        private int select;
-
-        private string[] options;
-
-        private string subTitle;
-
-        public Menu(string[] options, string subTitle)
-        {
-            this.options = options;
-            this.subTitle = subTitle;
-        }
-
-        public Menu()
-        {
-            string[] standardoption = { "Start", "Difficulty", "Score", "How To Play", "Exit"};
-
-            this.options = standardoption;
-            this.subTitle = "";
-        }
-
-
 
         /// <summary>
         /// Runs the main menu until the user makes a choice from the available options.
         /// </summary>
         /// <returns></returns>
-        public int Run()
+        public static int MainMenu(string[] options)
         {
             GameControls input;
-            select = 0;
+            int select = 0;
             //display menu
-            UI.MainMenu(subTitle);
+            UI.DrawTitleLogo(26);
 
             do
             {
 
-                UI.DrawOptions(options, select);
+                UI.DrawOptions(19 ,options, select);
 
                 input = Input.GameInput(GameControls.MenuControls);
 

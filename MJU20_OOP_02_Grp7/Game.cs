@@ -13,6 +13,7 @@ namespace MJU20_OOP_02_Grp7
         public static char[,] Map { get; private set; }
         public static Player player;
         public static EndPoint endPoint;
+        public static int currentLevel = 0;
 
         private static string _levelName = "Level";
         private static int _tick = 0;
@@ -197,9 +198,9 @@ namespace MJU20_OOP_02_Grp7
 
         public static void MainMenu()
         {
-            Menu mainMenu = new Menu();
+            string[] options = { "Start", "Difficulty", "Score", "How To Play", "Exit" };
 
-            switch (mainMenu.Run())
+            switch (Menu.MainMenu(options))
             {
                 case 0:
                     //starts game
@@ -225,9 +226,8 @@ namespace MJU20_OOP_02_Grp7
         private static void DifficultyMenu()
         {
             string[] options = { "EASY", "NORMAL", "HARD", "INSANE" };
-            Menu difficulty = new Menu(options, "  Difficulty");
 
-            switch (difficulty.Run())
+            switch (Menu.MainMenu(options))
             {
                 case 0:
                     //EASY
@@ -246,7 +246,6 @@ namespace MJU20_OOP_02_Grp7
             }
 
             MainMenu();
-
         }
 
         private static void HowToPlay()

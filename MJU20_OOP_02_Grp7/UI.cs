@@ -19,8 +19,9 @@ namespace MJU20_OOP_02_Grp7
     {
         public static List<GameMessage> MessageList = new List<GameMessage>();
         // view window size
-        public static int Height;
-        public static int Width;
+        private static int _mapWindowHeight;
+        private static int _width;
+        private static string _statsClearer = "";
         private const int _statsHeight = 5;
 
         private const string _titleLogo = @"
@@ -45,23 +46,52 @@ namespace MJU20_OOP_02_Grp7
             :!!   !!: !!:  !!! !!:     !!: !!:           !!:  !!!  !: .:!  !!:      !!: :!!
              :: :: :   :   : :  :      :   : :: :::       : :. :     ::    : :: :::  :   : :";
 
-        public static void SetUISize(int x, int y)
+
+        /// <summary>
+        /// Sets the Console window size
+        /// </summary>
+        /// <param name="width">The width of the window</param>
+        /// <param name="height">The height of the window</param>
+        public static void SetUISize(int width, int height)
         {
-            Width = x;
-            Height = y - _statsHeight;
-            Console.SetWindowSize(x, y);
-            Console.SetBufferSize(x, y);
+            _width = width;
+            _mapWindowHeight = height - _statsHeight;
+            Console.Clear();
+            Console.SetWindowSize(width, height);
+            Console.SetBufferSize(width, height);
             Console.OutputEncoding = System.Text.Encoding.Unicode;
+            _statsClearer = "";
+            for (int i = 0; i < _statsHeight; i++)
+            {
+                for (int j = 0; j < _width; j++)
+                {
+                    _statsClearer += " ";
+                }
+                if (i < _statsHeight - 1) _statsClearer += "\n";
+            }
         }
 
-        public static void MainMenu(string subTitle)
+        public static void SetWindowTitle(string s)
         {
-            Console.SetWindowSize(170, 40);
-            ConsoleColor foreground = Console.ForegroundColor;
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine(_titleLogo + "\n\n\n" + subTitle + "\n\n");
+            Console.Title = s;
         }
 
+        /// <summary>
+        /// Draws the logo on the first 14 lines in the console
+        /// </summary>
+        /// <param name="underLogoSpace">
+        /// The required space under the logo to make space for extra content such as menu</param>
+        public static void DrawTitleLogo(int underLogoSpace)
+        {
+            Console.Clear();
+            SetUISize(170, 14 + underLogoSpace);
+            Draw(0, 0, ConsoleColor.DarkRed, titleLogo);
+        }
+
+        /// <summary>
+        /// Draws the Game over screen
+        /// </summary>
+        /// <param name="score"></param>
         public static void DrawGameOver(int score)
         {
             string endString = @$"
@@ -77,11 +107,17 @@ namespace MJU20_OOP_02_Grp7
             Input.ReadString();
         }
 
-        public static void DrawOptions(string[] options, int select)
+        /// <summary>
+        /// Draws the options for the current menu
+        /// </summary>
+        /// <param name="topPosition">The line from the top where the options start</param>
+        /// <param name="options">The titles of the options</param>
+        /// <param name="select">The currently selected option</param>
+        public static void DrawOptions(int topPosition, string[] options, int select)
         {
             Console.CursorVisible = false;
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.SetCursorPosition(0, 19);
+            Console.SetCursorPosition(0, topPosition);
             for (int i = 0; i < options.Length; i++)
             {
                 string selcar;
@@ -97,10 +133,6 @@ namespace MJU20_OOP_02_Grp7
             }
         }
 
-        public static void SetWindowTitle(string s)
-        {
-            Console.Title = s;
-        }
 
         public static void DrawScoreMenu()
         {
@@ -152,7 +184,6 @@ namespace MJU20_OOP_02_Grp7
             DrawEntities(entities, player.Position);
             DrawPlayer(player);
             DrawStats(player);
-            //DrawEnemyHp();
             DrawMessages();
         }
 
@@ -190,24 +221,16 @@ namespace MJU20_OOP_02_Grp7
 
         private static void DrawStats(Player player)
         {
-            string statsClearer = "";
-            for (int y = 0; y < _statsHeight; y++)
-            {
-                for (int x = 0; x < Width; x++)
-                {
-                    statsClearer += " ";
-                }
-                statsClearer += "\n";
-            }
-            Draw(0, Height, ConsoleColor.White, statsClearer);
-            Draw(5, Height, ConsoleColor.Green, $"Player: {Game.player.PlayerName}  HP: {player.Hp}  Attack Power: {Game.player.Dmg}  Points: {Game.player.PlayerScore} Time: {Game.GetTick() / 2} seconds");
+            Draw(0, _mapWindowHeight, ConsoleColor.White, _statsClearer);
+            Draw(5, _mapWindowHeight, ConsoleColor.Green, $"Player: {Game.player.PlayerName}  HP: {player.Hp}  Attack Power: {Game.player.Dmg}  Points: {Game.player.PlayerScore} Time: {Game.GetTick() / 2} seconds");
+
             int i = 0;
             foreach (Enemy enemy in Enemy.ActiveEnemies)
             {
-                if (i < _statsHeight - 1 && enemy.ShowHp)
+                if ((i < (_statsHeight - 1)) && enemy.ShowHp)
                 {
-                    Draw(5, Height + 1 + i, enemy.Color, $"Enemy {enemy.Symbol} HP: {enemy.Hp}  ");
-                    if (Game.GetTick() - enemy.ShowHopTick > 20) enemy.ShowHp = false;
+                    Draw(5, _mapWindowHeight + 1 + i, enemy.Color, $"Enemy {enemy.Symbol} HP: {enemy.Hp}  ");
+                    if (Game.GetTick() - enemy.showHpTick > 20) enemy.ShowHp = false;
                     i++;
                 }
             }
@@ -215,15 +238,15 @@ namespace MJU20_OOP_02_Grp7
 
         private static void DrawPlayer(Player player)
         {
-            Draw(Width / 2, Height / 2, player.Color, player.Symbol.ToString());
+            Draw(_width / 2, _mapWindowHeight / 2, player.Color, player.Symbol.ToString());
         }
 
         private static void DrawEntities(Entity[] entities, Point playerPosition)
         {
             foreach (Entity entity in entities)
             {
-                Point screenPos = new Point(entity.Position.X + (Width / 2) - playerPosition.X, entity.Position.Y + (Height / 2) - playerPosition.Y);
-                if (screenPos.X >= 0 && screenPos.X < Width && screenPos.Y >= 0 && screenPos.Y < Height)
+                Point screenPos = new Point(entity.Position.X + (_width / 2) - playerPosition.X, entity.Position.Y + (_mapWindowHeight / 2) - playerPosition.Y);
+                if (screenPos.X >= 0 && screenPos.X < _width && screenPos.Y >= 0 && screenPos.Y < _mapWindowHeight)
                 {
                     Draw(screenPos.X, screenPos.Y, entity.Color, entity.Symbol.ToString());
                 }
@@ -234,12 +257,12 @@ namespace MJU20_OOP_02_Grp7
         private static void DrawMap(char[,] map, Point playerPosition)
         {
             string background = "";
-            for (int y = 0; y < Height; y++)
+            for (int y = 0; y < _mapWindowHeight; y++)
             {
-                for (int x = 0; x < Width; x++)
+                for (int x = 0; x < _width; x++)
                 {
-                    int mapX = playerPosition.X - (Width / 2) + x;
-                    int mapY = playerPosition.Y - (Height / 2) + y;
+                    int mapX = playerPosition.X - (_width / 2) + x;
+                    int mapY = playerPosition.Y - (_mapWindowHeight / 2) + y;
                     if (mapX < 0 || mapY < 0 || mapX >= map.GetLength(0) || mapY >= map.GetLength(1))
                     {
                         background += " ";
@@ -258,7 +281,7 @@ namespace MJU20_OOP_02_Grp7
         {
             Console.SetCursorPosition(left, top);
             Console.ForegroundColor = color;
-            Console.WriteLine(output);
+            Console.Write(output);
         }
     }
 }
