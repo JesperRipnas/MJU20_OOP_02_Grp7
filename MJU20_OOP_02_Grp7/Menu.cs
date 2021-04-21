@@ -39,7 +39,7 @@ namespace MJU20_OOP_02_Grp7
 
         public Menu() // creates the main menu
         {
-            string[] standardoption = { "Start", "Difficulty", "Score", "How To Play" };
+            string[] standardoption = { "Start", "Difficulty", "Score", "How To Play", "Exit"};
 
             this.options = standardoption;
             this.subTitle = "";
