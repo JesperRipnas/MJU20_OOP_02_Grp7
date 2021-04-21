@@ -202,7 +202,6 @@ namespace MJU20_OOP_02_Grp7
 
         public static void MainMenu()
         {
-            Console.Clear();
             Menu mainMenu = new Menu();
 
             switch (mainMenu.Run())
@@ -257,17 +256,10 @@ namespace MJU20_OOP_02_Grp7
 
         private static void HowToPlay()
         {
-            Console.Clear();
-            Dictionary<string, int> scores = CreateHighScore();
-
-            Console.WriteLine("How To Play");
-            Console.WriteLine();
-            Console.WriteLine(@"Use 'W', 'A' 'S' and 'D' to move the character.
-
-Attack monsters with the 'Space' button.");
-
-            Console.ReadKey();
+            UI.DrawHowToPlay();
             MainMenu();
         }
+
+        
     }
 }
