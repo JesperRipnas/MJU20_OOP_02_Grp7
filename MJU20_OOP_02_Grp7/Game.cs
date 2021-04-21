@@ -21,6 +21,11 @@ namespace MJU20_OOP_02_Grp7
         // string that will contain the root folder of the projekt folder
         private static string _defaultFolder = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"..\..\..\")) + @"scores\";
 
+        /// <summary>
+        /// The main method in Game. Will set all variables to its "starting value" and request levelReader to read a new level
+        /// Creates a event driven update timer that we then use to update UI and all positions for entities.
+        /// Contains the main loop for the game and will not stop running until player dies by getting its HP parameter down to 0 or close the game
+        /// </summary>
         public static void Start()
         {
             GameOver = false;
@@ -54,6 +59,10 @@ namespace MJU20_OOP_02_Grp7
             Start();
         }
 
+        /// <summary>
+        /// Creates new lists of enemies and items based on level
+        /// Loads level(n) based on CurrentLevel
+        /// </summary>
         public static void NextLevel()
         {
             // clearing current level data
@@ -66,13 +75,22 @@ namespace MJU20_OOP_02_Grp7
             Map = LevelReader.LoadLevel($"{_levelName}{CurrentLevel}.txt");
         }
 
+        /// <summary>
+        /// Method we call for when restarting the game back to Main Menu
+        /// Resets the PlayerScore & CurrentLevel value back to zero
+        /// </summary>
         public static void ResetGameVariables()
         {
             Game.player.PlayerScore = 0;
             CurrentLevel = 0;
         }
 
-        // Method we call each time the OnTimedEvent get triggered (atm every 100 ms)
+        /// <summary>
+        /// Method to update current user input, position of enemies and player
+        /// Updates the UI once per time called (by UpdateTimer in Game.Start())
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
         private static void Update(Object source, ElapsedEventArgs e)
         {
             GameControls input = Input.GameInput(GameControls.PlayerControls);
@@ -105,6 +123,11 @@ namespace MJU20_OOP_02_Grp7
         {
             player.Position = position;
         }
+
+        /// <summary>
+        /// Get current tick
+        /// </summary>
+        /// <returns>Returns current tick (int)</returns>
         public static int GetTick()
         {
             return _tick;
