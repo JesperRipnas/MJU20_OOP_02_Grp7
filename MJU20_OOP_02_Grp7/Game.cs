@@ -10,17 +10,15 @@ namespace MJU20_OOP_02_Grp7
     public class Game
     {
         public static bool GameOver { get; set; }
-        public static string PlayerName { get; set; }
-        public static int PlayerScore { get; private set; }
-        public static bool PlayerExists { get; set; }
         public static char[,] Map { get; private set; }
 
         public static Player player;
         public static EndPoint endPoint;
-        public static bool loadNextLevel = false;
+
         private static string levelName = "Level";
         public static int currentLevel = 0;
         private static int _tick = 0;
+        private static int _updateRate = 500;
 
         // string that will contain the root folder of the projekt folder
         private static string DefaultFolder = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"..\..\..\")) + @"scores\";
@@ -32,44 +30,65 @@ namespace MJU20_OOP_02_Grp7
         public static void Start()
         {
             GameOver = false;
-            PlayerName = "Test";
-            PlayerScore = 2;
             Title = "MazeCrawler";
-
+            string playerName;
+            
             MainMenu();
-            Console.Clear();
-            Console.Write("Player Name: ");
-            PlayerName = Console.ReadLine();
-            player = new Player(100, 1, new Point(0, 0), '@', ConsoleColor.Green);
+            
+            do
+            {
+                Console.Clear();
+                Console.Write("Player Name: ");
+                playerName = Console.ReadLine();
+            } while (!(playerName.Length >= 3));
+
+            player = new Player(playerName, 100, 1, new Point(0, 0), '@', ConsoleColor.Green);
             
             Timer updateTimer = new System.Timers.Timer(_updateRate);
             updateTimer.Elapsed += Update;
             updateTimer.AutoReset = true;
             updateTimer.Enabled = true;
-            loadNextLevel = true;
-            NewLevel();
+
+            NextLevel();
             while (!GameOver)
             {
                 
             }
             updateTimer.Elapsed -= Update; // unsubscribe to event when loop dies
             SaveScore(); // Save PlayerScore to file
+            Menu.GameOverOverlay();
+            ResetGameVariables();
+            Start();
         }
 
-        public static void NewLevel()
+        public static void NextLevel()
         {
-            Map = null;
+            // clearing current level data
+            Enemy.activeEnemies = new List<Enemy>();
+            Item.activeItems = new List<Item>();
+          
             UI.SetUISize(80, 40);
             player.AddPlayerScore(currentLevel * 100);
             currentLevel++;
             Map = LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
-  
+        }
+
+        public static void ResetGameVariables()
+        {
+            Game.player.PlayerScore = 0;
+            currentLevel = 0;
         }
 
         // Method we call each time the OnTimedEvent get triggered (atm every 100 ms)
         private static void Update(Object source, ElapsedEventArgs e)
         {
             GameControls input = Input.GameInput(GameControls.PlayerControls);
+            if (player.Hp <= 0)
+            {
+                Game.GameOver = true;
+                Map = null;
+                Console.Clear();
+            }
 
             if (input != GameControls.None)
             {
@@ -77,13 +96,17 @@ namespace MJU20_OOP_02_Grp7
             }
 
             Enemy.MoveAround(player);
+            RunUI();
+            _tick++;
+        }
 
+        public static void RunUI()
+        {
             List<Entity> entities = new List<Entity>();
             entities.AddRange(Enemy.activeEnemies);
             entities.AddRange(Item.activeItems);
             entities.Add(endPoint);
             UI.DrawScreen(Map, player, entities.ToArray());
-            _tick++;
         }
 
         public static void SetPlayerPosition(Point position)
@@ -135,7 +158,7 @@ namespace MJU20_OOP_02_Grp7
             }
         }
 
-        private static void SaveScore()
+        public static void SaveScore()
         {
             /// <summary>
             /// Creates a directory named "scores" in root folder if it isnt already exsisting.
@@ -145,7 +168,7 @@ namespace MJU20_OOP_02_Grp7
             /// </summary>
 
             DateTime today = DateTime.Today;
-            string _fullPath = DefaultFolder + PlayerName.ToLower() + ".txt";
+            string _fullPath = DefaultFolder + Game.player.PlayerName.ToLower() + ".txt";
             try
             {
                 if (!Directory.Exists(DefaultFolder))
@@ -154,12 +177,12 @@ namespace MJU20_OOP_02_Grp7
                 }
                 if (!File.Exists(_fullPath))
                 {
-                    File.WriteAllText(_fullPath, today.ToString("d") + " " + PlayerScore.ToString() + " Points");
+                    File.WriteAllText(_fullPath, today.ToString("d") + " " + Game.player.PlayerScore.ToString() + " Points");
                 }
                 else
                 {
                     var scores = new List<string>();
-                    string currentScore = today.ToString("d") + " " + PlayerScore.ToString() + " Points";
+                    string currentScore = today.ToString("d") + " " + Game.player.PlayerScore.ToString() + " Points";
                     scores.Add(currentScore);
                     scores.AddRange(File.ReadAllLines(_fullPath));
 

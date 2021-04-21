@@ -1,4 +1,4 @@
-<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Squar</help_text><element><id>UMLClass</id><coordinates><x>293</x><y>40</y><w>280</w><h>250</h></coordinates><panel_attributes>Game
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Squar</help_text><element><id>UMLClass</id><coordinates><x>243</x><y>40</y><w>330</w><h>250</h></coordinates><panel_attributes>Game
 --
 +GameOver: bool
 +PlayerName: string
@@ -33,16 +33,20 @@ Heal(heal: int):void</panel_attributes><additional_attributes></additional_attri
 +PlayerScore: int
 +PlayerLives: int
 --
-MovePlayer():void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>860</x><y>503</y><w>290</w><h>190</h></coordinates><panel_attributes>Enemies
+MovePlayer():void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>860</x><y>503</y><w>290</w><h>190</h></coordinates><panel_attributes>Enemy
 --
++static activeEnimies: List&lt;Enemy&gt;
++static enemyTypes: Dictionary&lt;char, EnemyStats&gt;
 
+-chaseRange: int
+-hasChased: bool
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>870</x><y>573</y><w>140</w><h>90</h></coordinates><panel_attributes>Enemy:Creature
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1310</x><y>483</y><w>140</w><h>90</h></coordinates><panel_attributes>Enemy:Creature
 --
 +activeEnemies:&lt;List&gt;
 +Enemies:&lt;Dictionary&gt;
 --
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>292</x><y>303</y><w>280</w><h>160</h></coordinates><panel_attributes>Menu
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>242</x><y>303</y><w>330</w><h>160</h></coordinates><panel_attributes>Menu
 --
 +menuPage:int
 -select:int
@@ -53,25 +57,23 @@ MovePlayer():void</panel_attributes><additional_attributes></additional_attribut
 MainMenu():void
 DrawOptions():void
 Run():int
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>292</x><y>473</y><w>280</w><h>100</h></coordinates><panel_attributes>LevelReader
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>242</x><y>473</y><w>330</w><h>100</h></coordinates><panel_attributes>LevelReader
 --
 +directoryPath:string
 --
 LoadLevel(fileName:string):char[,]
 CreateEntity(symbol:char, row:int, column:int):bool
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>292</x><y>583</y><w>280</w><h>190</h></coordinates><panel_attributes>UI
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>242</x><y>583</y><w>330</w><h>190</h></coordinates><panel_attributes>UI
 --
 +height:int
 +width:int
 -
-SetUISize(x:int,y:int):void
-DrawScreen(map:char[,], 
-                     player:Player, 
-                     entities:Creature[]):void
-DrawUI(player:Player):void
-DrawPlayer(player:Player):void
-DrawEntities(entities:Creature[]):void
-DrawMap(playerPosition:Point, ):void
++SetUISize(x:int,y:int):void
++DrawScreen(map:char[,], player:Player, entities:entity[]):void
+-DrawStats(player:Player):void
+-DrawPlayer(player:Player):void
+-DrawEntities(entities:Creature[]):void
+-DrawMap(playerPosition:Point, ):void
 
 
 
@@ -89,8 +91,12 @@ Symbols
 +Symbol: char
 +Color: ConsoleColor
 --
-Move(movement: point): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>840</x><y>220</y><w>30</w><h>60</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;40</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1020</x><y>573</y><w>120</w><h>90</h></coordinates><panel_attributes>EnemyStats
++Move(movement: point): void
++Attack() : void</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>840</x><y>220</y><w>30</w><h>60</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;40</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1320</x><y>593</y><w>120</w><h>100</h></coordinates><panel_attributes>Struct
+EnemyStats
 --
-
---
+Hp: int
+Dmg: int
+ChaseRange: int
+Color: ConsoleColor
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>690</x><y>450</y><w>180</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>160;10;160;30;10;30;10;50</additional_attributes></element></diagram>

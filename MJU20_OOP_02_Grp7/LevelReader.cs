@@ -18,7 +18,6 @@ namespace MJU20_OOP_02_Grp7
         public static char[,] LoadLevel(string fileName)
         {
             // Delcare necessary variables
-            Enemy.activeEnemies = new List<Enemy>();
             string filePath = directoryPath + fileName;
             char[,] returnArr;
             int columns = 0;
@@ -35,7 +34,7 @@ namespace MJU20_OOP_02_Grp7
                 {
                     for (int x = 0; x < columns; x++)
                     {
-                        if (fileLines[y][x] != ' ' && fileLines[y][x] != '#')
+                        if (fileLines[y][x] != ' ')
                         {
                             if (CreateEntity(fileLines[y][x], x, y))
                             {

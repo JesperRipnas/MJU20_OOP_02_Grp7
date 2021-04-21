@@ -141,7 +141,7 @@ namespace MJU20_OOP_02_Grp7
              :: :: :   :   : :  :      :   : :: :::       : :. :     ::    : :: :::  :   : :";
             string endString = @$"
 
-                                                Score: {Game.PlayerScore}
+                                                Score: {Game.player.PlayerScore}
 
                                  Press any key to get to the main menu..";
             Console.SetWindowSize(104, 15);
@@ -153,6 +153,7 @@ namespace MJU20_OOP_02_Grp7
             Console.WriteLine(gameOverString);
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(endString);
+            Console.ReadKey();
         }
     }
 }
