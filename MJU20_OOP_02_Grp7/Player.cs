@@ -2,6 +2,9 @@
 
 namespace MJU20_OOP_02_Grp7
 {
+    /// <summary>
+    /// Models the player in the world.
+    /// </summary>
     public class Player : Creature
     {
         public string PlayerName { get; set; }
@@ -23,12 +26,22 @@ namespace MJU20_OOP_02_Grp7
         {
             return PlayerLives;
         }
+        /// <summary>
+        /// Creates a string containing information about which enemy took damage from the player
+        /// and how much damage it took.
+        /// </summary>
+        /// <param name="enemy"></param>
+        /// <returns>The created string.</returns>
         public string Activate(Enemy enemy)
         {
             return $"You did {Dmg} damage to {enemy.Symbol}";
         }
 
         //Move player position
+        /// <summary>
+        /// Takes an input from the player and acts according to the input.
+        /// </summary>
+        /// <param name="input"></param>
         public void MovePlayer(GameControls input)
         {
             switch (input)

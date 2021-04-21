@@ -10,10 +10,13 @@ namespace MJU20_OOP_02_Grp7
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(CurrentDomain_ProcessExit);
             Game.Start();
         }
-
+        /// <summary>
+        /// Checks if player object is null. If not, saves the score.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
-            // Method to save player score to file if a player object isnt null
             try
             {
                 if(Game.player != null) Game.SaveScore();

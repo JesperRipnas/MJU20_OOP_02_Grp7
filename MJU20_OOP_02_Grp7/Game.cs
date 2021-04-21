@@ -19,7 +19,6 @@ namespace MJU20_OOP_02_Grp7
         public static int currentLevel = 0;
         private static int _tick = 0;
         private static int _updateRate = 500;
-
         // string that will contain the root folder of the projekt folder
         private static string DefaultFolder = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"..\..\..\")) + @"scores\";
 
