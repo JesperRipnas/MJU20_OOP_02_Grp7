@@ -88,11 +88,12 @@ namespace MJU20_OOP_02_Grp7
                 Game.GameOver = true;
                 Map = null;
                 Console.Clear();
+                return;
             }
 
             if (input != GameControls.None)
             {
-                player.MovePlayer(input);
+                player.ControlPlayer(input);
             }
 
             Enemy.MoveAround(player);
