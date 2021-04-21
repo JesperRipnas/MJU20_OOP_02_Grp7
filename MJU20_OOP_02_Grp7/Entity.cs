@@ -8,7 +8,7 @@ namespace MJU20_OOP_02_Grp7
     /// <summary>
     /// Represents an entity in the world.
     /// </summary>
-    public class Entity
+    public abstract class Entity
     {
         public Point Position { get; set; }
         public char Symbol { get; private set; }
@@ -41,8 +41,8 @@ namespace MJU20_OOP_02_Grp7
                 things.Add(Game.player);
                 things.Add(Game.endPoint);
                 things.AddRange(Item.activeItems);
-                things.AddRange(Enemy.activeEnemies);
-                //things.AddRange(Traps.activeTraps);
+                things.AddRange(Enemy.ActiveEnemies);
+                //things.AddRange(Traps.ActiveTraps);
                 // Check for items/traps/enemies
 
                 foreach (Entity thing in things)
@@ -96,6 +96,8 @@ namespace MJU20_OOP_02_Grp7
         }
 
         /// <summary>
+        /// NYI: This function is set up for future use and not currently used.
+        /// <para />
         /// Takes an enemy and make its color flicker if it takes damage.
         /// </summary>
         /// <param name="enemy"></param>

@@ -23,8 +23,8 @@ namespace MJU20_OOP_02_Grp7
     /// </summary>
     public class Trap : Entity
     {
-        static public List<Trap> activeTraps = new List<Trap>();
-        static public Dictionary<char, TrapStats> trapTypes = new Dictionary<char, TrapStats>()
+        static public List<Trap> ActiveTraps = new List<Trap>();
+        static public Dictionary<char, TrapStats> TrapTypes = new Dictionary<char, TrapStats>()
         {
             {'·', new TrapStats(25, ConsoleColor.DarkGray)}
         };
