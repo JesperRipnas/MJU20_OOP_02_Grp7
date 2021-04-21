@@ -83,7 +83,6 @@ namespace MJU20_OOP_02_Grp7
                 Position += movement;
             }
         }
-        
         //Method to get enemy to flicker when attacked
         public async Task FlickerAsync(Enemy enemy)
         {
