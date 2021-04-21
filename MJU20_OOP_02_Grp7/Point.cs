@@ -2,6 +2,9 @@
 
 namespace MJU20_OOP_02_Grp7
 {
+    /// <summary>
+    /// Represents a two dimensional point.
+    /// </summary>
     public struct Point
     {
         public int X;
@@ -14,7 +17,7 @@ namespace MJU20_OOP_02_Grp7
         }
 
         /// <summary>
-        /// Calculates the distance to the other Point and the others relative position from this
+        /// Calculates the distance to the other Point and the others relative position from this.
         /// </summary>
         /// <param name="other">The other Point that you want to get the distance to</param>
         /// <param name="relativeTo">Returns the position of the other point, compared to this one</param>

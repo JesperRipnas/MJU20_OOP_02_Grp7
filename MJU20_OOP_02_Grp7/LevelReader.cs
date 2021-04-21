@@ -62,6 +62,7 @@ namespace MJU20_OOP_02_Grp7
         /// <param name="symbol"></param>
         /// <param name="row"></param>
         /// <param name="column"></param>
+        /// <returns>A bool representing if the symbol should render statically or not.</returns>
         public static bool CreateEntity(char symbol, int row, int column)
         {
             Point position = new Point(row, column);

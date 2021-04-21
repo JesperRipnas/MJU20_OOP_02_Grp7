@@ -5,6 +5,9 @@ using System.Timers;
 
 namespace MJU20_OOP_02_Grp7
 {
+    /// <summary>
+    /// Represents an entity in the world.
+    /// </summary>
     public class Entity
     {
         public Point Position { get; set; }
@@ -18,6 +21,14 @@ namespace MJU20_OOP_02_Grp7
             Color = color;
         }
 
+        /// <summary>
+        /// Takes a Point representing the direction an entity wants to move
+        /// along with the caller of the function. Checks if the entity is
+        /// allowed to move to the target square, if so, updates the entitys
+        /// position.
+        /// </summary>
+        /// <param name="movement"></param>
+        /// <param name="sender"></param>
         public void Move(Point movement, object sender)
         {
             //Wall collision check
@@ -83,8 +94,12 @@ namespace MJU20_OOP_02_Grp7
                 Position += movement;
             }
         }
-        
-        //Method to get enemy to flicker when attacked
+
+        /// <summary>
+        /// Takes an enemy and make its color flicker if it takes damage.
+        /// </summary>
+        /// <param name="enemy"></param>
+        /// <returns></returns>
         public async Task FlickerAsync(Enemy enemy)
         {
             ConsoleColor enemyColor = enemy.Color;
