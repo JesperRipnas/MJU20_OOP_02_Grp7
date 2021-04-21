@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace MJU20_OOP_02_Grp7
 {
+    /// <summary>
+    /// Holds all allowed game controls.
+    /// </summary>
     public enum GameControls
     {
         None,
@@ -21,6 +24,9 @@ namespace MJU20_OOP_02_Grp7
         MenuControls
     }
 
+    /// <summary>
+    /// Represents an input from the player coming from the keyboard.
+    /// </summary>
     public class Input
     {
         private static Dictionary<ConsoleKey, inputEvent> events = new Dictionary<ConsoleKey, inputEvent>();
@@ -64,7 +70,7 @@ namespace MJU20_OOP_02_Grp7
 
         /// <summary>
         /// NEW
-        /// Clears all of the current inputs
+        /// Clears all of the current inputs,
         /// </summary>
         public static void PurgeInput()
         {
@@ -73,7 +79,7 @@ namespace MJU20_OOP_02_Grp7
 
         /// <summary>
         /// NEW
-        /// Checks the event list for a matching input 
+        /// Checks the event list for a matching input
         /// and invokes method that was added via AddInput
         /// </summary>
         public static void ReadInput()

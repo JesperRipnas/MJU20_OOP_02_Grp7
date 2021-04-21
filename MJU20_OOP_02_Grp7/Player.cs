@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace MJU20_OOP_02_Grp7
 {
+    /// <summary>
+    /// Models the player in the world.
+    /// </summary>
     public class Player : Creature
     {
         public string PlayerName { get; set; }
@@ -15,11 +18,30 @@ namespace MJU20_OOP_02_Grp7
             PlayerScore = 0;
         }
 
+        public int GetPlayerScore()
+        {
+            return PlayerScore;
+        }
+
+        public int GetPlayerLives()
+        {
+            return PlayerLives;
+        }
+        /// <summary>
+        /// Creates a string containing information about which enemy took damage from the player
+        /// and how much damage it took.
+        /// </summary>
+        /// <param name="enemy"></param>
+        /// <returns>The created string.</returns>
         public string Activate(Enemy enemy)
         {
             return $"You did {Dmg} damage to {enemy.Symbol}";
         }
 
+        /// <summary>
+        /// Takes an input from the player and acts according to the input.
+        /// </summary>
+        /// <param name="input"></param>
         public void ControlPlayer(GameControls input)
         {
             switch (input)
@@ -45,6 +67,10 @@ namespace MJU20_OOP_02_Grp7
             }
         }
 
+        /// <summary>
+        /// Lets the player attack one square around itself. If any enemies are
+        /// inside the players range they will take damage.
+        /// </summary>
         public void Attack()
         {
             //Creates a list of positions around the player to check for enemies

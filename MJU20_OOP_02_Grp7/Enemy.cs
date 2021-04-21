@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace MJU20_OOP_02_Grp7
 {
+    /// <summary>
+    /// Represents the stats of an enemy.
+    /// </summary>
     public struct EnemyStats
     {
         public int Hp, Dmg, ChaseRange;
@@ -16,6 +19,10 @@ namespace MJU20_OOP_02_Grp7
             Color = color;
         }
     }
+    /// <summary>
+    /// Represents an Enemy in the world.
+    /// Inherits from <class><c>Creature</c></class>.
+    /// </summary>
     public class Enemy : Creature
     {
         private int chaseRange;
@@ -37,17 +44,33 @@ namespace MJU20_OOP_02_Grp7
             Score = CalculateScore();
         }
 
+        /// <summary>
+        /// Calculates the score of an enemy based on its Hp, Dmg and the
+        /// games current level.
+        /// </summary>
+        /// <returns>The calculated score as an integer.</returns>
         public int CalculateScore()
         {
             int returnScore = (Dmg + Hp) * Game.currentLevel /* - time elapsed*/;
 
             return returnScore;
         }
+
+        /// <summary>
+        /// Creates a string containing information about damage taken
+        /// and from what enemy.
+        /// </summary>
+        /// <returns>The created string.</returns>
         public string Activate()
         {
             return $"You took {Dmg} damage from enemy {Symbol}";
         }
 
+        /// <summary>
+        /// Causes an enemy chase the player if player is in the enemys <c>ChaseRange</c>.
+        /// Else, makes the enemy move in a random direction.
+        /// </summary>
+        /// <param name="player"></param>
         public static void MoveAround(Player player)
         {
             Random random = new Random(DateTime.Now.Millisecond);

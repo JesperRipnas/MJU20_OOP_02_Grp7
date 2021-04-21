@@ -3,6 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace MJU20_OOP_02_Grp7
 {
+    /// <summary>
+    /// Represents the main menu of the game.
+    /// </summary>
     public class Menu
     {
         private int select;
@@ -60,6 +63,9 @@ namespace MJU20_OOP_02_Grp7
            j          ,,,      .,,                                                              ,,,      .,,  ;       ;@      :,,,,,,,,,,,,,.                  ";
         }
 
+        /// <summary>
+        /// Renders the main menu.
+        /// </summary>
         private void MainMenu()
         {
             Console.SetWindowSize(160, 40);
@@ -69,6 +75,9 @@ namespace MJU20_OOP_02_Grp7
             DrawOptions();
         }
 
+        /// <summary>
+        /// Creates and renders the player choices.
+        /// </summary>
         private void DrawOptions()
         {
             Console.CursorVisible = false;
@@ -89,6 +98,10 @@ namespace MJU20_OOP_02_Grp7
             }
         }
 
+        /// <summary>
+        /// Runs the main menu until the user makes a choice from the available options.
+        /// </summary>
+        /// <returns></returns>
         public int Run()
         {
             GameControls input;
@@ -126,6 +139,9 @@ namespace MJU20_OOP_02_Grp7
             return select;
         }
 
+        /// <summary>
+        /// Renders the game over overlay.
+        /// </summary>
         public static void GameOverOverlay()
         {
 
