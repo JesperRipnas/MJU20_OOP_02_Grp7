@@ -19,7 +19,7 @@ namespace MJU20_OOP_02_Grp7
     {
         public static List<GameMessage> MessageList = new List<GameMessage>();
         // view window size
-        private static int _height;
+        private static int _mapWindowHeight;
         private static int _width;
         private static string _statsClearer = "";
         private const int _statsHeight = 5;
@@ -55,18 +55,25 @@ namespace MJU20_OOP_02_Grp7
         public static void SetUISize(int width, int height)
         {
             _width = width;
-            _height = height - _statsHeight;
+            _mapWindowHeight = height - _statsHeight;
+            Console.Clear();
             Console.SetWindowSize(width, height);
             Console.SetBufferSize(width, height);
             Console.OutputEncoding = System.Text.Encoding.Unicode;
+            _statsClearer = "";
             for (int i = 0; i < _statsHeight; i++)
             {
                 for (int j = 0; j < _width; j++)
                 {
                     _statsClearer += " ";
                 }
-                _statsClearer += "\n";
+                if (i < _statsHeight - 1) _statsClearer += "\n";
             }
+        }
+
+        public static void SetWindowTitle(string s)
+        {
+            Console.Title = s;
         }
 
         /// <summary>
@@ -81,6 +88,10 @@ namespace MJU20_OOP_02_Grp7
             Draw(0, 0, ConsoleColor.DarkRed, titleLogo);
         }
 
+        /// <summary>
+        /// Draws the Game over screen
+        /// </summary>
+        /// <param name="score"></param>
         public static void DrawGameOver(int score)
         {
             string endString = @$"
@@ -122,10 +133,6 @@ namespace MJU20_OOP_02_Grp7
             }
         }
 
-        public static void SetWindowTitle(string s)
-        {
-            Console.Title = s;
-        }
 
         public static void DrawScoreMenu()
         {
@@ -214,15 +221,15 @@ namespace MJU20_OOP_02_Grp7
 
         private static void DrawStats(Player player)
         {
-            Draw(0, _height, ConsoleColor.White, _statsClearer);
-            Draw(5, _height, ConsoleColor.Green, $"Player: {Game.player.PlayerName}  HP: {player.Hp}  Attack Power: {Game.player.Dmg}  Points: {Game.player.PlayerScore} Time: {Game.GetTick() / 2} seconds");
+            Draw(0, _mapWindowHeight, ConsoleColor.White, _statsClearer);
+            Draw(5, _mapWindowHeight, ConsoleColor.Green, $"Player: {Game.player.PlayerName}  HP: {player.Hp}  Attack Power: {Game.player.Dmg}  Points: {Game.player.PlayerScore} Time: {Game.GetTick() / 2} seconds");
 
             int i = 0;
             foreach (Enemy enemy in Enemy.activeEnemies)
             {
-                if (i < _statsHeight - 1 && enemy.ShowHp)
+                if ((i < (_statsHeight - 1)) && enemy.ShowHp)
                 {
-                    Draw(5, _height + 1 + i, enemy.Color, $"Enemy {enemy.Symbol} HP: {enemy.Hp}  ");
+                    Draw(5, _mapWindowHeight + 1 + i, enemy.Color, $"Enemy {enemy.Symbol} HP: {enemy.Hp}  ");
                     if (Game.GetTick() - enemy.showHpTick > 20) enemy.ShowHp = false;
                     i++;
                 }
@@ -231,15 +238,15 @@ namespace MJU20_OOP_02_Grp7
 
         private static void DrawPlayer(Player player)
         {
-            Draw(_width / 2, _height / 2, player.Color, player.Symbol.ToString());
+            Draw(_width / 2, _mapWindowHeight / 2, player.Color, player.Symbol.ToString());
         }
 
         private static void DrawEntities(Entity[] entities, Point playerPosition)
         {
             foreach (Entity entity in entities)
             {
-                Point screenPos = new Point(entity.Position.X + (_width / 2) - playerPosition.X, entity.Position.Y + (_height / 2) - playerPosition.Y);
-                if (screenPos.X >= 0 && screenPos.X < _width && screenPos.Y >= 0 && screenPos.Y < _height)
+                Point screenPos = new Point(entity.Position.X + (_width / 2) - playerPosition.X, entity.Position.Y + (_mapWindowHeight / 2) - playerPosition.Y);
+                if (screenPos.X >= 0 && screenPos.X < _width && screenPos.Y >= 0 && screenPos.Y < _mapWindowHeight)
                 {
                     Draw(screenPos.X, screenPos.Y, entity.Color, entity.Symbol.ToString());
                 }
@@ -250,12 +257,12 @@ namespace MJU20_OOP_02_Grp7
         private static void DrawMap(char[,] map, Point playerPosition)
         {
             string background = "";
-            for (int y = 0; y < _height; y++)
+            for (int y = 0; y < _mapWindowHeight; y++)
             {
                 for (int x = 0; x < _width; x++)
                 {
                     int mapX = playerPosition.X - (_width / 2) + x;
-                    int mapY = playerPosition.Y - (_height / 2) + y;
+                    int mapY = playerPosition.Y - (_mapWindowHeight / 2) + y;
                     if (mapX < 0 || mapY < 0 || mapX >= map.GetLength(0) || mapY >= map.GetLength(1))
                     {
                         background += " ";
@@ -274,7 +281,7 @@ namespace MJU20_OOP_02_Grp7
         {
             Console.SetCursorPosition(left, top);
             Console.ForegroundColor = color;
-            Console.WriteLine(output);
+            Console.Write(output);
         }
     }
 }
