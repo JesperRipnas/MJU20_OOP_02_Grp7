@@ -25,9 +25,11 @@ namespace MJU20_OOP_02_Grp7
     /// </summary>
     public class Enemy : Creature
     {
-        private int chaseRange;
-        private bool hasChased;
+        private int _chaseRange;
+        private bool _hasChased;
         public int Score;
+        public int showHpTick = 0;
+        public bool ShowHp { get; set; }
 
         static public List<Enemy> activeEnemies = new List<Enemy>();
         static public Dictionary<char, EnemyStats> enemyTypes = new Dictionary<char, EnemyStats>()
@@ -39,8 +41,9 @@ namespace MJU20_OOP_02_Grp7
         };
         public Enemy(char symbol, Point position, EnemyStats stats) : base(stats.Hp, stats.Dmg, position, symbol, stats.Color)
         {
-            chaseRange = stats.ChaseRange;
-            hasChased = false;
+            _chaseRange = stats.ChaseRange;
+            _hasChased = false;
+            ShowHp = false;
             Score = CalculateScore();
         }
 
@@ -78,12 +81,12 @@ namespace MJU20_OOP_02_Grp7
             foreach (Enemy enemy in activeEnemies)
             {
                 Point direction = new Point(0, 0);
-                if (enemy.Position.Distance(player.Position, out Point relativePos) < enemy.chaseRange)
+                if (enemy.Position.Distance(player.Position, out Point relativePos) < enemy._chaseRange)
                 {
                     // to prevent enemies sticking like glue only chase every other update
-                    if (enemy.hasChased)
+                    if (enemy._hasChased)
                     {
-                        enemy.hasChased = false;
+                        enemy._hasChased = false;
                     }
                     else
                     {
@@ -110,7 +113,7 @@ namespace MJU20_OOP_02_Grp7
                                 direction = new Point(1, 0);
                             }
                         }
-                        enemy.hasChased = true;
+                        enemy._hasChased = true;
                     }
                 }
                 else

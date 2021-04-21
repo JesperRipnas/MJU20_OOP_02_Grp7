@@ -10,15 +10,11 @@ namespace MJU20_OOP_02_Grp7
     {
         public int Hp { get; private set; }
         public int Dmg { get; private set; }
-        public bool ShowHp { get; set; }
-        public int showHpTick = 0;
 
         public Creature(int hp, int dmg, Point position, char symbol, ConsoleColor color) : base(position, symbol, color)
         {
             Hp = hp;
             Dmg = dmg;
-            ShowHp = false;
-
         }
         /// <summary>
         /// Takes an int which decrements the Creatures Hp.
