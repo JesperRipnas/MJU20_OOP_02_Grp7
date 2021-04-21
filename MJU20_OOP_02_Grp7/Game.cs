@@ -93,7 +93,7 @@ namespace MJU20_OOP_02_Grp7
 
             if (input != GameControls.None)
             {
-                player.MovePlayer(input);
+                player.ControlPlayer(input);
             }
 
             Enemy.MoveAround(player);

@@ -64,19 +64,15 @@ namespace MJU20_OOP_02_Grp7
             Console.SetWindowSize(160, 40);
             ConsoleColor foreground = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine(title);
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine(subTitle);
-            Console.WriteLine();
-            Console.WriteLine();
+            Console.WriteLine(title + "\n\n\n" + subTitle + "\n\n");
             DrawOptions();
         }
 
         private void DrawOptions()
         {
+            Console.CursorVisible = false;
             Console.ForegroundColor = ConsoleColor.DarkGray;
-
+            Console.SetCursorPosition(0, 19);
             for (int i = 0; i < options.Length; i++)
             {
                 string selcar;
@@ -88,52 +84,51 @@ namespace MJU20_OOP_02_Grp7
                 {
                     selcar = "  ";
                 }
-                Console.WriteLine($"{selcar} {options[i]}");
-                Console.WriteLine();
+                Console.WriteLine($"{selcar} {options[i]}\n");
             }
         }
 
         public int Run()
         {
-            ConsoleKey keyPressed;
+            GameControls input;
             select = 0;
+            //display menu
+            MainMenu();
 
             do
             {
-                //display menu
-                Console.Clear();
-                MainMenu();
 
-                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                keyPressed = keyInfo.Key;
+                DrawOptions();
+
+                input = Input.GameInput(GameControls.MenuControls);
 
                 //update select
-                if (keyPressed == ConsoleKey.W)
+                if (input == GameControls.MenuUp)
                 {
                     --select;
                 }
-                else if (keyPressed == ConsoleKey.S)
+                else if (input == GameControls.MenuDown)
                 {
                     ++select;
                 }
 
-                if (select == options.Length)
+                if (select >= options.Length)
                 {
                     select = 0;
                 }
-                if (select == -1)
+                else if (select <= -1)
                 {
                     select = options.Length - 1;
                 }
-            } while (keyPressed != ConsoleKey.Enter);
+            } while (input != GameControls.MenuSelect);
 
             return select;
         }
 
         public static void GameOverOverlay()
         {
-            
-            string gameOverString =  @" 
+
+            string gameOverString = @" 
              @@@@@@@   @@@@@@  @@@@@@@@@@  @@@@@@@@       @@@@@@  @@@  @@@ @@@@@@@@ @@@@@@@
             !@@       @@!  @@@ @@! @@! @@! @@!           @@!  @@@ @@!  @@@ @@!      @@!  @@@
             !@! @!@!@ @!@!@!@! @!! !!@ @!@ @!!!:!        @!@  !@! @!@  !@! @!!!:!   @!@!!@!
