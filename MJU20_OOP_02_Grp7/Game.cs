@@ -88,11 +88,12 @@ namespace MJU20_OOP_02_Grp7
                 Game.GameOver = true;
                 Map = null;
                 Console.Clear();
+                return;
             }
 
             if (input != GameControls.None)
             {
-                player.MovePlayer(input);
+                player.ControlPlayer(input);
             }
 
             Enemy.MoveAround(player);
@@ -206,12 +207,13 @@ namespace MJU20_OOP_02_Grp7
 
         private static void MainMenu()
         {
+            Console.Clear();
             Menu mainMenu = new Menu();
 
             switch (mainMenu.Run())
             {
                 case 0:
-                    //start game
+                    //starts game
                     break;
                 case 1:
                     difficultyMenu();
@@ -220,10 +222,10 @@ namespace MJU20_OOP_02_Grp7
                     ScoreMenu();
                     break;
                 case 3:
-                    //options
+                    HowToPlay();
                     break;
                 case 4:
-                    //exit
+                    Environment.Exit(0);
                     break;
                 default:
                     MainMenu();
@@ -280,6 +282,21 @@ namespace MJU20_OOP_02_Grp7
             Console.ReadKey();
             MainMenu();
 
+        }
+
+        private static void HowToPlay()
+        {
+            Console.Clear();
+            Dictionary<string, int> scores = CreateHighScore();
+
+            Console.WriteLine("How To Play");
+            Console.WriteLine();
+            Console.WriteLine(@"Use 'W', 'A' 'S' and 'D' to move the character.
+
+Attack monsters with the 'Space' button.");
+
+            Console.ReadKey();
+            MainMenu();
         }
     }
 }
