@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace MJU20_OOP_02_Grp7
 {
+    /// <summary>
+    /// Holds stats for the class Item.
+    /// </summary>
     public struct ItemStats
     {
         public int Heal, AttackUp, Score;
@@ -17,6 +20,9 @@ namespace MJU20_OOP_02_Grp7
         }
     }
 
+    /// <summary>
+    /// Represents an Item inside the world. Inherits from <c>Entity</c>.
+    /// </summary>
     public class Item : Entity
     {
         private int _Heal, _AttackUp;
@@ -35,6 +41,10 @@ namespace MJU20_OOP_02_Grp7
             _AttackUp = stats.AttackUp;
             Score = stats.Score * Game.currentLevel;
         }
+        /// <summary>
+        /// Activates the items specialization.
+        /// </summary>
+        /// <returns>A string containing information about what specialization the item had.</returns>
         public string Activate()
         {
             if (Score > 0) return $"You picked up an item giving you {Score} points";

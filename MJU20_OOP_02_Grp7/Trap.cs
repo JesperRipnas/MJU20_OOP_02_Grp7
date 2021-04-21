@@ -4,6 +4,9 @@ using System.Text;
 
 namespace MJU20_OOP_02_Grp7
 {
+    /// <summary>
+    /// Holds information about the Trap.
+    /// </summary>
     public struct TrapStats
     {
         public int Dmg;
@@ -15,7 +18,9 @@ namespace MJU20_OOP_02_Grp7
             Color = color;
         }
     }
-
+    /// <summary>
+    /// Represents a trap inside the world. Inherits from <c>Entity</c>
+    /// </summary>
     public class Trap : Entity
     {
         static public List<Trap> activeTraps = new List<Trap>();

@@ -18,7 +18,6 @@ namespace MJU20_OOP_02_Grp7
         public static int currentLevel = 0;
         private static int _tick = 0;
         private static int _updateRate = 500;
-
         // string that will contain the root folder of the projekt folder
         private static string DefaultFolder = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"..\..\..\")) + @"scores\";
 
@@ -38,7 +37,7 @@ namespace MJU20_OOP_02_Grp7
             {
                 UI.PlayerName();
                 playerName = Input.ReadString();
-            } while (!(playerName.Length >= 3));
+            } while (!(Menu.CheckPlayerName(playerName)));
 
             player = new Player(playerName, 100, 1, new Point(0, 0), '@', ConsoleColor.Green);
             
@@ -203,12 +202,13 @@ namespace MJU20_OOP_02_Grp7
 
         public static void MainMenu()
         {
+            Console.Clear();
             Menu mainMenu = new Menu();
 
             switch (mainMenu.Run())
             {
                 case 0:
-                    //start game
+                    //starts game
                     break;
                 case 1:
                     DifficultyMenu();
@@ -217,10 +217,10 @@ namespace MJU20_OOP_02_Grp7
                     UI.DrawScoreMenu();
                     break;
                 case 3:
-                    //options
+                    HowToPlay();
                     break;
                 case 4:
-                    //exit
+                    Environment.Exit(0);
                     break;
                 default:
                     MainMenu();
@@ -251,6 +251,22 @@ namespace MJU20_OOP_02_Grp7
                     break;
             }
 
+            MainMenu();
+
+        }
+
+        private static void HowToPlay()
+        {
+            Console.Clear();
+            Dictionary<string, int> scores = CreateHighScore();
+
+            Console.WriteLine("How To Play");
+            Console.WriteLine();
+            Console.WriteLine(@"Use 'W', 'A' 'S' and 'D' to move the character.
+
+Attack monsters with the 'Space' button.");
+
+            Console.ReadKey();
             MainMenu();
         }
     }

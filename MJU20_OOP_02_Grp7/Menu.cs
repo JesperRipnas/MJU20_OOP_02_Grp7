@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace MJU20_OOP_02_Grp7
 {
+    /// <summary>
+    /// Represents the main menu of the game.
+    /// </summary>
     public class Menu
     {
         private int select;
@@ -38,13 +42,18 @@ namespace MJU20_OOP_02_Grp7
 
         public Menu() // creates the main menu
         {
-            string[] standardoption = { "Start", "Difficulty", "Score", "Options", "Exit" };
+            string[] standardoption = { "Start", "Difficulty", "Score", "How To Play", "Exit"};
 
             this.options = standardoption;
             this.subTitle = "";
         }
 
 
+
+        /// <summary>
+        /// Runs the main menu until the user makes a choice from the available options.
+        /// </summary>
+        /// <returns></returns>
         public int Run()
         {
             GameControls input;
@@ -80,6 +89,24 @@ namespace MJU20_OOP_02_Grp7
             } while (input != GameControls.MenuSelect);
 
             return select;
+        }
+
+        /// <summary>
+        /// Takes a string and validate that it only contains letters (a-ö/A-Ö), numbers (0-9) or _
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns>returns a bool value based on if input string is following the rules or not</returns>
+        public static bool CheckPlayerName(string input)
+        {
+            if(input.Length >= 3)
+            {
+                if (Regex.IsMatch(input, @"^[a-öA-Ö0-9_]+$")) return true;
+                else return false;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
