@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Timers;
-using static System.Console;
 
 namespace MJU20_OOP_02_Grp7
 {
@@ -29,16 +28,15 @@ namespace MJU20_OOP_02_Grp7
         public static void Start()
         {
             GameOver = false;
-            Title = "MazeCrawler";
+            UI.SetWindowTitle("MazeCrawler");
             string playerName;
             
             MainMenu();
             
             do
             {
-                Console.Clear();
-                Console.Write("Player Name: ");
-                playerName = Console.ReadLine();
+                UI.PlayerName();
+                playerName = Input.ReadString();
             } while (!(Menu.CheckPlayerName(playerName)));
 
             player = new Player(playerName, 100, 1, new Point(0, 0), '@', ConsoleColor.Green);
@@ -55,7 +53,7 @@ namespace MJU20_OOP_02_Grp7
             }
             updateTimer.Elapsed -= Update; // unsubscribe to event when loop dies
             SaveScore(); // Save PlayerScore to file
-            Menu.GameOverOverlay();
+            UI.DrawGameOver(player.PlayerScore);
             ResetGameVariables();
             Start();
         }
@@ -85,8 +83,6 @@ namespace MJU20_OOP_02_Grp7
             if (player.Hp <= 0)
             {
                 Game.GameOver = true;
-                Map = null;
-                Console.Clear();
                 return;
             }
 
@@ -118,7 +114,7 @@ namespace MJU20_OOP_02_Grp7
             return _tick;
         }
 
-        private static Dictionary<string, int> CreateHighScore()
+        public static Dictionary<string, int> CreateHighScore()
         {
             /// <summary>
             /// Reads all .txt files in the scores folder
@@ -153,7 +149,7 @@ namespace MJU20_OOP_02_Grp7
             }
             catch (Exception e)
             {
-                WriteLine(e.Message);
+                UI.Print(e.Message);
                 return playerScores;
             }
         }
@@ -200,13 +196,12 @@ namespace MJU20_OOP_02_Grp7
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                UI.Print(e.ToString());
             }
         }
 
-        private static void MainMenu()
+        public static void MainMenu()
         {
-            Console.Clear();
             Menu mainMenu = new Menu();
 
             switch (mainMenu.Run())
@@ -215,10 +210,10 @@ namespace MJU20_OOP_02_Grp7
                     //starts game
                     break;
                 case 1:
-                    difficultyMenu();
+                    DifficultyMenu();
                     break;
                 case 2:
-                    ScoreMenu();
+                    UI.DrawScoreMenu();
                     break;
                 case 3:
                     HowToPlay();
@@ -232,7 +227,7 @@ namespace MJU20_OOP_02_Grp7
             }
         }
 
-        private static void difficultyMenu()
+        private static void DifficultyMenu()
         {
             string[] options = { "EASY", "NORMAL", "HARD", "INSANE" };
             Menu difficulty = new Menu(options, "  Difficulty");
@@ -256,46 +251,15 @@ namespace MJU20_OOP_02_Grp7
             }
 
             MainMenu();
-        }
-
-        private static void ScoreMenu()
-        {
-            Console.Clear();
-            //score
-            Dictionary<string, int> scores = CreateHighScore();
-
-            Console.WriteLine("Scores");
-            Console.WriteLine();
-
-            foreach (KeyValuePair<string, int> entry in scores)
-            {
-                // do something with entry.Value or entry.Key
-                Console.Write(entry.Key);
-                for (int i = 0; i < 40 - entry.Key.Length; i++)
-                {
-                    Console.Write(".");
-                }
-                Console.WriteLine(entry.Value);
-            }
-
-            Console.ReadKey();
-            MainMenu();
 
         }
 
         private static void HowToPlay()
         {
-            Console.Clear();
-            Dictionary<string, int> scores = CreateHighScore();
-
-            Console.WriteLine("How To Play");
-            Console.WriteLine();
-            Console.WriteLine(@"Use 'W', 'A' 'S' and 'D' to move the character.
-
-Attack monsters with the 'Space' button.");
-
-            Console.ReadKey();
+            UI.DrawHowToPlay();
             MainMenu();
         }
+
+        
     }
 }
