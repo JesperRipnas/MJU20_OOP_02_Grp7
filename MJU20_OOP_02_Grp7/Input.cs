@@ -27,19 +27,15 @@ namespace MJU20_OOP_02_Grp7
         
         public delegate void inputEvent(ConsoleKey key);
 
+
+
         /// <summary>
-        /// Reads all of the ConsoleKeys in the input stack
+        /// Lets user input a string and returns it
         /// </summary>
-        /// <returns>the last key in the ConsoleKey stack</returns>
-        private static ConsoleKey Readkey()
+        /// <returns>the string that was input by the user</returns>
+        public static string ReadString()
         {
-            ConsoleKey key;
-            key = ConsoleKey.NoName;
-            while (Console.KeyAvailable)
-            {
-                key = Console.ReadKey(true).Key;
-            }
-            return key;
+            return Console.ReadLine();
         }
 
         /// <summary>
@@ -152,6 +148,21 @@ namespace MJU20_OOP_02_Grp7
             }
 
             return input;
+        }
+        
+        /// <summary>
+        /// Reads all of the ConsoleKeys in the input stack
+        /// </summary>
+        /// <returns>the last key in the ConsoleKey stack</returns>
+        private static ConsoleKey Readkey()
+        {
+            ConsoleKey key;
+            key = ConsoleKey.NoName;
+            while (Console.KeyAvailable)
+            {
+                key = Console.ReadKey(true).Key;
+            }
+            return key;
         }
     }
 }

@@ -48,7 +48,7 @@ namespace MJU20_OOP_02_Grp7
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                UI.Print(e.Message);
                 throw;
             }
 
