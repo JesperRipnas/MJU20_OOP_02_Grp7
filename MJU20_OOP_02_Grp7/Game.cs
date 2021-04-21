@@ -40,7 +40,7 @@ namespace MJU20_OOP_02_Grp7
                 Console.Clear();
                 Console.Write("Player Name: ");
                 playerName = Console.ReadLine();
-            } while (!(playerName.Length >= 3));
+            } while (!(Menu.CheckPlayerName(playerName)));
 
             player = new Player(playerName, 100, 1, new Point(0, 0), '@', ConsoleColor.Green);
             
