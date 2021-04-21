@@ -85,7 +85,7 @@ namespace MJU20_OOP_02_Grp7
         {
             Console.Clear();
             SetUISize(170, 14 + underLogoSpace);
-            Draw(0, 0, ConsoleColor.DarkRed, titleLogo);
+            Draw(0, 0, ConsoleColor.DarkRed, _titleLogo);
         }
 
         /// <summary>
