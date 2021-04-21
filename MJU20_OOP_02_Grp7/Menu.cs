@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace MJU20_OOP_02_Grp7
 {
@@ -42,7 +43,7 @@ namespace MJU20_OOP_02_Grp7
 
         public Menu() // creates the main menu
         {
-            string[] standardoption = { "Start", "Difficulty", "Score", "Options", "Exit" };
+            string[] standardoption = { "Start", "Difficulty", "Score", "How To Play", "Exit"};
 
             this.options = standardoption;
             this.subTitle = "";
@@ -70,12 +71,7 @@ namespace MJU20_OOP_02_Grp7
             Console.SetWindowSize(160, 40);
             ConsoleColor foreground = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine(title);
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine(subTitle);
-            Console.WriteLine();
-            Console.WriteLine();
+            Console.WriteLine(title + "\n\n\n" + subTitle + "\n\n");
             DrawOptions();
         }
 
@@ -84,8 +80,9 @@ namespace MJU20_OOP_02_Grp7
         /// </summary>
         private void DrawOptions()
         {
+            Console.CursorVisible = false;
             Console.ForegroundColor = ConsoleColor.DarkGray;
-
+            Console.SetCursorPosition(0, 19);
             for (int i = 0; i < options.Length; i++)
             {
                 string selcar;
@@ -97,8 +94,7 @@ namespace MJU20_OOP_02_Grp7
                 {
                     selcar = "  ";
                 }
-                Console.WriteLine($"{selcar} {options[i]}");
-                Console.WriteLine();
+                Console.WriteLine($"{selcar} {options[i]}\n");
             }
         }
 
@@ -108,37 +104,37 @@ namespace MJU20_OOP_02_Grp7
         /// <returns></returns>
         public int Run()
         {
-            ConsoleKey keyPressed;
+            GameControls input;
             select = 0;
+            //display menu
+            MainMenu();
 
             do
             {
-                //display menu
-                Console.Clear();
-                MainMenu();
 
-                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                keyPressed = keyInfo.Key;
+                DrawOptions();
+
+                input = Input.GameInput(GameControls.MenuControls);
 
                 //update select
-                if (keyPressed == ConsoleKey.W)
+                if (input == GameControls.MenuUp)
                 {
                     --select;
                 }
-                else if (keyPressed == ConsoleKey.S)
+                else if (input == GameControls.MenuDown)
                 {
                     ++select;
                 }
 
-                if (select == options.Length)
+                if (select >= options.Length)
                 {
                     select = 0;
                 }
-                if (select == -1)
+                else if (select <= -1)
                 {
                     select = options.Length - 1;
                 }
-            } while (keyPressed != ConsoleKey.Enter);
+            } while (input != GameControls.MenuSelect);
 
             return select;
         }
@@ -148,8 +144,8 @@ namespace MJU20_OOP_02_Grp7
         /// </summary>
         public static void GameOverOverlay()
         {
-            
-            string gameOverString =  @" 
+
+            string gameOverString = @" 
              @@@@@@@   @@@@@@  @@@@@@@@@@  @@@@@@@@       @@@@@@  @@@  @@@ @@@@@@@@ @@@@@@@
             !@@       @@!  @@@ @@! @@! @@! @@!           @@!  @@@ @@!  @@@ @@!      @@!  @@@
             !@! @!@!@ @!@!@!@! @!! !!@ @!@ @!!!:!        @!@  !@! @!@  !@! @!!!:!   @!@!!@!
@@ -170,6 +166,23 @@ namespace MJU20_OOP_02_Grp7
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(endString);
             Console.ReadKey();
+        }
+        /// <summary>
+        /// Takes a string and validate that it only contains letters (a-ö/A-Ö), numbers (0-9) or _
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns>returns a bool value based on if input string is following the rules or not</returns>
+        public static bool CheckPlayerName(string input)
+        {
+            if(input.Length >= 3)
+            {
+                if (Regex.IsMatch(input, @"^[a-öA-Ö0-9_]+$")) return true;
+                else return false;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

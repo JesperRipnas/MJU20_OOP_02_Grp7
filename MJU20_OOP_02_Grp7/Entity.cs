@@ -96,55 +96,6 @@ namespace MJU20_OOP_02_Grp7
         }
 
         /// <summary>
-        /// Lets the player attack one square around itself. If any enemies are
-        /// inside the players range they will take damage.
-        /// </summary>
-        public void Attack()
-        {
-            List<Point> playerArea = new List<Point>();
-            playerArea.Add(new Point(0, 1));
-            playerArea.Add(new Point(0, -1));
-            playerArea.Add(new Point(1, 0));
-            playerArea.Add(new Point(-1, 0));
-            playerArea.Add(new Point(-1, -1));
-            playerArea.Add(new Point(-1, 1));
-            playerArea.Add(new Point(1, 1));
-            playerArea.Add(new Point(1, -1));
-
-            foreach (Point area in playerArea)
-            {
-                Point tempPosition = Position + area;
-                Enemy tempEnemy = null;
-                foreach (Enemy enemy in Enemy.activeEnemies)
-                {
-                    if (enemy.Position == tempPosition)
-                    {
-                        enemy.Damage(Game.player.Dmg);
-                        enemy.ShowHp = true;
-                        enemy.showHpTick = Game.GetTick();
-                        //FlickerAsync(enemy);
-                        UI.MessageList.Add(new GameMessage(Game.player.Activate(enemy), Game.GetTick() + 10));
-                        Point tempEnemyPosition = enemy.Position + area + area;
-
-                        enemy.Move(area, this);
-
-                        tempEnemy = enemy;
-                    }
-                }
-                if (tempEnemy != null)
-                {
-                    if (tempEnemy.Hp <= 0)
-                    {
-                        Game.player.AddPlayerScore(tempEnemy.Score); // Add score for killing enemy
-                        tempEnemy.ShowHp = false;
-                        Enemy.activeEnemies.Remove(tempEnemy);
-                        UI.MessageList.Add(new GameMessage($"Enemy {tempEnemy.Symbol} died!, you recieved {tempEnemy.Score} points", Game.GetTick() + 10));
-                    }
-                }
-            }
-        }
-
-        /// <summary>
         /// Takes an enemy and make its color flicker if it takes damage.
         /// </summary>
         /// <param name="enemy"></param>
