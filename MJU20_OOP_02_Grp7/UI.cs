@@ -21,12 +21,13 @@ namespace MJU20_OOP_02_Grp7
         // view window size
         public static int height;
         public static int width;
+        private const int _statsHeight = 5;
         //private static int _messageCounter;
 
         public static void SetUISize(int x, int y)
         {
             width = x;
-            height = y - 5;
+            height = y - _statsHeight;
             Console.SetWindowSize(x, y);
             Console.SetBufferSize(x, y);
             Console.OutputEncoding = System.Text.Encoding.Unicode;
@@ -42,12 +43,12 @@ namespace MJU20_OOP_02_Grp7
             //DrawEnemyHp();
             DrawMessages();
         }
-        
+
         public static void DrawMessages()
         {
             Console.SetCursorPosition(0, 0);
 
-            if (MessageList.Count > 5) MessageList.RemoveAt(0);
+            if (MessageList.Count > _statsHeight) MessageList.RemoveAt(0);
             if (MessageList.Count >= 0)
             {
                 foreach (var msg in MessageList)
@@ -78,7 +79,7 @@ namespace MJU20_OOP_02_Grp7
         private static void DrawStats(Player player)
         {
             string statsClearer = "";
-            for (int y = 0; y < 5; y++)
+            for (int y = 0; y < _statsHeight; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
@@ -87,33 +88,16 @@ namespace MJU20_OOP_02_Grp7
                 statsClearer += "\n";
             }
             Draw(0, height, ConsoleColor.White, statsClearer);
-            Draw(5, height, ConsoleColor.Green, $"Player: {Game.player.PlayerName}  HP: {player.Hp}  Attack Power: {Game.player.Dmg}  Points: {Game.player.PlayerScore} Time: {Game.GetTick()/2} seconds");
+            Draw(5, height, ConsoleColor.Green, $"Player: {Game.player.PlayerName}  HP: {player.Hp}  Attack Power: {Game.player.Dmg}  Points: {Game.player.PlayerScore} Time: {Game.GetTick() / 2} seconds");
             int i = 0;
             foreach (Enemy enemy in Enemy.activeEnemies)
             {
-                if (i < 4 && enemy.ShowHp)
+                if (i < _statsHeight - 1 && enemy.ShowHp)
                 {
-                    Draw(5, height+ 1 + i, enemy.Color, $"Enemy {enemy.Symbol} HP: {enemy.Hp}  ");
+                    Draw(5, height + 1 + i, enemy.Color, $"Enemy {enemy.Symbol} HP: {enemy.Hp}  ");
                     if (Game.GetTick() - enemy.showHpTick > 20) enemy.ShowHp = false;
                     i++;
                 }
-            }
-        }
-
-        private static void DrawEnemyHp()
-        {
-            int i = 0;
-            foreach (Enemy enemy in Enemy.activeEnemies)
-            {
-                if (enemy.ShowHp)
-                {
-                    Draw(5, height - i, enemy.Color, $"Enemy {enemy.Symbol} HP: {enemy.Hp}  ");
-                }
-                i++;
-            }
-            if (Enemy.activeEnemies.Count == 0)
-            {
-                Draw(5, height, ConsoleColor.Black, $"                                      ");
             }
         }
 
