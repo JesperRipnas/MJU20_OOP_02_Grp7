@@ -10,7 +10,6 @@ namespace MJU20_OOP_02_Grp7
     {
         public string PlayerName { get; set; }
         public int PlayerScore { get; set; }
-        public int PlayerLives { get; private set; }
 
         public Player(string playerName, int hp, int dmg, Point position, char symbol, ConsoleColor color) : base(hp, dmg, position, symbol, color)
         {
@@ -23,10 +22,6 @@ namespace MJU20_OOP_02_Grp7
             return PlayerScore;
         }
 
-        public int GetPlayerLives()
-        {
-            return PlayerLives;
-        }
         /// <summary>
         /// Creates a string containing information about which enemy took damage from the player
         /// and how much damage it took.
@@ -89,13 +84,13 @@ namespace MJU20_OOP_02_Grp7
                 //Check for enemy in current position
                 Point tempPosition = Position + area;
                 Enemy tempEnemy = null;
-                foreach (Enemy enemy in Enemy.activeEnemies)
+                foreach (Enemy enemy in Enemy.ActiveEnemies)
                 {
                     if (enemy.Position == tempPosition)
                     {
                         enemy.Damage(Game.player.Dmg); //Make damage to enemy
                         enemy.ShowHp = true;
-                        enemy.showHpTick = Game.GetTick();
+                        enemy.ShowHopTick = Game.GetTick();
                         //FlickerAsync(enemy);
                         UI.MessageList.Add(new GameMessage(Game.player.Activate(enemy), Game.GetTick() + 10));
                         Point tempEnemyPosition = enemy.Position + area + area;
@@ -111,7 +106,7 @@ namespace MJU20_OOP_02_Grp7
                     {
                         Game.player.AddPlayerScore(tempEnemy.Score); // Add score for killing enemy
                         tempEnemy.ShowHp = false; //Remove hp when enemy is dead
-                        Enemy.activeEnemies.Remove(tempEnemy); //Remove enemy from list when dead
+                        Enemy.ActiveEnemies.Remove(tempEnemy); //Remove enemy from list when dead
                         UI.MessageList.Add(new GameMessage($"Enemy {tempEnemy.Symbol} died!, you recieved {tempEnemy.Score} points", Game.GetTick() + 10));
                     }
                 }

@@ -31,8 +31,8 @@ namespace MJU20_OOP_02_Grp7
         public int showHpTick = 0;
         public bool ShowHp { get; set; }
 
-        static public List<Enemy> activeEnemies = new List<Enemy>();
-        static public Dictionary<char, EnemyStats> enemyTypes = new Dictionary<char, EnemyStats>()
+        static public List<Enemy> ActiveEnemies = new List<Enemy>();
+        static public Dictionary<char, EnemyStats> EnemyTypes = new Dictionary<char, EnemyStats>()
         {
             {'Q', new EnemyStats(3, 1, 3, ConsoleColor.DarkYellow)},
             {'ö', new EnemyStats(7, 3, 3, ConsoleColor.DarkGreen)},
@@ -54,7 +54,7 @@ namespace MJU20_OOP_02_Grp7
         /// <returns>The calculated score as an integer.</returns>
         public int CalculateScore()
         {
-            int returnScore = (Dmg + Hp) * Game.currentLevel /* - time elapsed*/;
+            int returnScore = (Dmg + Hp) * Game.CurrentLevel /* - time elapsed*/;
 
             return returnScore;
         }
@@ -70,7 +70,7 @@ namespace MJU20_OOP_02_Grp7
         }
 
         /// <summary>
-        /// Causes an enemy chase the player if player is in the enemys <c>ChaseRange</c>.
+        /// Causes an enemy chase the player if player is in the enemys <c>_chaseRange</c>.
         /// Else, makes the enemy move in a random direction.
         /// </summary>
         /// <param name="player"></param>
@@ -78,7 +78,7 @@ namespace MJU20_OOP_02_Grp7
         {
             Random random = new Random(DateTime.Now.Millisecond);
 
-            foreach (Enemy enemy in activeEnemies)
+            foreach (Enemy enemy in ActiveEnemies)
             {
                 Point direction = new Point(0, 0);
                 if (enemy.Position.Distance(player.Position, out Point relativePos) < enemy._chaseRange)

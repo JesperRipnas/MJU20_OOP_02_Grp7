@@ -8,18 +8,18 @@ namespace MJU20_OOP_02_Grp7
 {
     public class Game
     {
+        public static int CurrentLevel = 0;
         public static bool GameOver { get; set; }
         public static char[,] Map { get; private set; }
-
         public static Player player;
         public static EndPoint endPoint;
         public static int currentLevel = 0;
 
-        private static string levelName = "Level";
+        private static string _levelName = "Level";
         private static int _tick = 0;
         private static int _updateRate = 500;
         // string that will contain the root folder of the projekt folder
-        private static string DefaultFolder = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"..\..\..\")) + @"scores\";
+        private static string _defaultFolder = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"..\..\..\")) + @"scores\";
 
         public static void Start()
         {
@@ -57,19 +57,19 @@ namespace MJU20_OOP_02_Grp7
         public static void NextLevel()
         {
             // clearing current level data
-            Enemy.activeEnemies = new List<Enemy>();
+            Enemy.ActiveEnemies = new List<Enemy>();
             Item.activeItems = new List<Item>();
           
             UI.SetUISize(80, 40);
-            player.AddPlayerScore(currentLevel * 100);
-            currentLevel++;
-            Map = LevelReader.LoadLevel($"{levelName}{currentLevel}.txt");
+            player.AddPlayerScore(CurrentLevel * 100);
+            CurrentLevel++;
+            Map = LevelReader.LoadLevel($"{_levelName}{CurrentLevel}.txt");
         }
 
         public static void ResetGameVariables()
         {
             Game.player.PlayerScore = 0;
-            currentLevel = 0;
+            CurrentLevel = 0;
         }
 
         // Method we call each time the OnTimedEvent get triggered (atm every 100 ms)
@@ -95,7 +95,7 @@ namespace MJU20_OOP_02_Grp7
         public static void RunUI()
         {
             List<Entity> entities = new List<Entity>();
-            entities.AddRange(Enemy.activeEnemies);
+            entities.AddRange(Enemy.ActiveEnemies);
             entities.AddRange(Item.activeItems);
             entities.Add(endPoint);
             UI.DrawScreen(Map, player, entities.ToArray());
@@ -122,11 +122,11 @@ namespace MJU20_OOP_02_Grp7
             Dictionary<string, int> playerScores = new Dictionary<string, int>();
             try
             {
-                if (!Directory.Exists(DefaultFolder))
+                if (!Directory.Exists(_defaultFolder))
                 {
-                    Directory.CreateDirectory(DefaultFolder);
+                    Directory.CreateDirectory(_defaultFolder);
                 }
-                foreach (string file in Directory.EnumerateFiles(DefaultFolder, "*.txt"))
+                foreach (string file in Directory.EnumerateFiles(_defaultFolder, "*.txt"))
                 {
                     List<int> personalScores = new List<int>();
                     string[] text = File.ReadAllLines(file);
@@ -160,12 +160,12 @@ namespace MJU20_OOP_02_Grp7
             /// </summary>
 
             DateTime today = DateTime.Today;
-            string _fullPath = DefaultFolder + Game.player.PlayerName.ToLower() + ".txt";
+            string _fullPath = _defaultFolder + Game.player.PlayerName.ToLower() + ".txt";
             try
             {
-                if (!Directory.Exists(DefaultFolder))
+                if (!Directory.Exists(_defaultFolder))
                 {
-                    Directory.CreateDirectory(DefaultFolder);
+                    Directory.CreateDirectory(_defaultFolder);
                 }
                 if (!File.Exists(_fullPath))
                 {
@@ -253,7 +253,5 @@ namespace MJU20_OOP_02_Grp7
             UI.DrawHowToPlay();
             MainMenu();
         }
-
-        
     }
 }

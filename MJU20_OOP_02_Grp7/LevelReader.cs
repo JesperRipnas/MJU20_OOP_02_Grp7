@@ -7,7 +7,7 @@ namespace MJU20_OOP_02_Grp7
     public class LevelReader
     {
         // Path to the levels folder
-        public static string directoryPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\..\MJU20_OOP_02_Grp7\")) + @"Levels\";
+        public static string DirectoryPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\..\MJU20_OOP_02_Grp7\")) + @"Levels\";
 
         /// <summary>
         /// Takes the file name of a textfile inside the levels folder,
@@ -18,7 +18,7 @@ namespace MJU20_OOP_02_Grp7
         public static char[,] LoadLevel(string fileName)
         {
             // Delcare necessary variables
-            string filePath = directoryPath + fileName;
+            string filePath = DirectoryPath + fileName;
             char[,] returnArr;
             int columns = 0;
             int rows = 0;
@@ -66,9 +66,9 @@ namespace MJU20_OOP_02_Grp7
         public static bool CreateEntity(char symbol, int row, int column)
         {
             Point position = new Point(row, column);
-            if (Enemy.enemyTypes.ContainsKey(symbol))
+            if (Enemy.EnemyTypes.ContainsKey(symbol))
             {
-                Enemy.activeEnemies.Add(new Enemy(symbol, position, Enemy.enemyTypes[symbol]));
+                Enemy.ActiveEnemies.Add(new Enemy(symbol, position, Enemy.EnemyTypes[symbol]));
                 return true;
             }
             else if (symbol == 'ῼ')     // This is the end point

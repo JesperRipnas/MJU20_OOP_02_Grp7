@@ -24,7 +24,7 @@ namespace MJU20_OOP_02_Grp7
         private static string _statsClearer = "";
         private const int _statsHeight = 5;
 
-        private const string titleLogo = @"
+        private const string _titleLogo = @"
                                                                         ,;             .,                                                              ,;           
                                                                       f#i             ,Wt j.                                                  i      f#i j.         
                  ..       :           ..                            .E#t             i#D. EW,                   ..           ;               LE    .E#t  EW,        
@@ -39,7 +39,7 @@ namespace MJU20_OOP_02_Grp7
        ...      #G      .. ;##D.    L##, .fLLLLLLLLLLLLLLLLLi          tt              jt DWi   ,KK: ;##D.    L##, EG      LE.     :W##########Wt     tt DWi   ,KK: 
                 j          ,,,      .,,                                                              ,,,      .,,  ;       ;@      :,,,,,,,,,,,,,.                  ";
 
-        private const string gameOverLogo = @" 
+        private const string _gameOverLogo = @" 
              @@@@@@@   @@@@@@  @@@@@@@@@@  @@@@@@@@       @@@@@@  @@@  @@@ @@@@@@@@ @@@@@@@
             !@@       @@!  @@@ @@! @@! @@! @@!           @@!  @@@ @@!  @@@ @@!      @@!  @@@
             !@! @!@!@ @!@!@!@! @!! !!@ @!@ @!!!:!        @!@  !@! @!@  !@! @!!!:!   @!@!!@!
@@ -102,7 +102,7 @@ namespace MJU20_OOP_02_Grp7
             Console.SetBufferSize(104, 15);
             Console.CursorVisible = false;
             Console.Clear();
-            Draw(0, 2, ConsoleColor.Red, gameOverLogo);
+            Draw(0, 2, ConsoleColor.Red, _gameOverLogo);
             Draw(0, 10, ConsoleColor.White, endString);
             Input.ReadString();
         }
@@ -225,7 +225,7 @@ namespace MJU20_OOP_02_Grp7
             Draw(5, _mapWindowHeight, ConsoleColor.Green, $"Player: {Game.player.PlayerName}  HP: {player.Hp}  Attack Power: {Game.player.Dmg}  Points: {Game.player.PlayerScore} Time: {Game.GetTick() / 2} seconds");
 
             int i = 0;
-            foreach (Enemy enemy in Enemy.activeEnemies)
+            foreach (Enemy enemy in Enemy.ActiveEnemies)
             {
                 if ((i < (_statsHeight - 1)) && enemy.ShowHp)
                 {

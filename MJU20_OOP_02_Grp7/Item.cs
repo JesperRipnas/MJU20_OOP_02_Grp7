@@ -25,7 +25,7 @@ namespace MJU20_OOP_02_Grp7
     /// </summary>
     public class Item : Entity
     {
-        private int _Heal, _AttackUp;
+        private int _heal, _attackUp;
         public int Score;
         static public List<Item> activeItems = new List<Item>();
         static public Dictionary<char, ItemStats> itemTypes = new Dictionary<char, ItemStats>()
@@ -37,9 +37,9 @@ namespace MJU20_OOP_02_Grp7
 
         public Item(char symbol, Point position, ItemStats stats) : base(position, symbol, stats.Color)
         {
-            _Heal = stats.Heal;
-            _AttackUp = stats.AttackUp;
-            Score = stats.Score * Game.currentLevel;
+            _heal = stats.Heal;
+            _attackUp = stats.AttackUp;
+            Score = stats.Score * Game.CurrentLevel;
         }
         /// <summary>
         /// Activates the items specialization.
@@ -48,12 +48,12 @@ namespace MJU20_OOP_02_Grp7
         public string Activate()
         {
             if (Score > 0) return $"You picked up an item giving you {Score} points";
-            if (_Heal > 0)
+            if (_heal > 0)
             {
-                Game.player.Heal(_Heal);
-                return $"You healed for {_Heal} HP";
+                Game.player.Heal(_heal);
+                return $"You healed for {_heal} HP";
             }
-            if (_AttackUp > 0) Game.player.SetDamage(_AttackUp); return $"You upgraded your attack power to {Game.player.Dmg}";
+            if (_attackUp > 0) Game.player.SetDamage(_attackUp); return $"You upgraded your attack power to {Game.player.Dmg}";
         }
     }
 }

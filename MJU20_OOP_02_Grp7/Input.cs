@@ -29,7 +29,7 @@ namespace MJU20_OOP_02_Grp7
     /// </summary>
     public class Input
     {
-        private static Dictionary<ConsoleKey, inputEvent> events = new Dictionary<ConsoleKey, inputEvent>();
+        private static Dictionary<ConsoleKey, inputEvent> _events = new Dictionary<ConsoleKey, inputEvent>();
         
         public delegate void inputEvent(ConsoleKey key);
 
@@ -51,7 +51,7 @@ namespace MJU20_OOP_02_Grp7
         /// <param name="input">ConsoleKey that triggers</param>
         /// <param name="e">Method that gets invoked by the input</param>
         public static void AddInput(ConsoleKey input, inputEvent e){
-            events.Add(input, e);
+            _events.Add(input, e);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace MJU20_OOP_02_Grp7
         /// <param name="input">ConsoleKey that should be removed from list</param>
         public static void RemoveInput(ConsoleKey input)
         {
-            events.Remove(input);
+            _events.Remove(input);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace MJU20_OOP_02_Grp7
         /// </summary>
         public static void PurgeInput()
         {
-            events.Clear();
+            _events.Clear();
         }
 
         /// <summary>
@@ -81,9 +81,9 @@ namespace MJU20_OOP_02_Grp7
         public static void ReadInput()
         {
             ConsoleKey input = ConsoleKey.NoName;
-            if (events.ContainsKey(input))
+            if (_events.ContainsKey(input))
             {
-                events[input].Invoke(input);
+                _events[input].Invoke(input);
             }
         }
 
