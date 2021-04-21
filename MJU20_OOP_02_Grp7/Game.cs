@@ -246,7 +246,6 @@ namespace MJU20_OOP_02_Grp7
             }
 
             MainMenu();
-
         }
 
         private static void HowToPlay()
