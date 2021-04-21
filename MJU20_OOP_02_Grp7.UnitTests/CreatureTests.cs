@@ -7,7 +7,7 @@ namespace MJU20_OOP_02_Grp7.UnitTests
     public class CreatureTests
     {
         [TestMethod]
-        public void subtractDamageFromHp()
+        public void SubtractDamageFromHp()
         {
             // Arrange
             Player player = new Player("Olivia", 100, 1, new Point(0, 0), '@', ConsoleColor.Green);
@@ -20,7 +20,7 @@ namespace MJU20_OOP_02_Grp7.UnitTests
         }
 
         [TestMethod]
-        public void addHealToHp()
+        public void AddHealToHp()
         {
             Player player = new Player("Olivia", 100, 1, new Point(0, 0), '@', ConsoleColor.Green);
 
@@ -30,7 +30,7 @@ namespace MJU20_OOP_02_Grp7.UnitTests
         }
 
         [TestMethod]
-        public void addNewDamageToCurrentDamage()
+        public void AddNewDamageToCurrentDamage()
         {
             Player player = new Player("Olivia", 100, 1, new Point(0, 0), '@', ConsoleColor.Green);
 

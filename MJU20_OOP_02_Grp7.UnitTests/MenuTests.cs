@@ -8,7 +8,7 @@ namespace MJU20_OOP_02_Grp7.UnitTests
     public class Menutests
     {
         [TestMethod]
-        public void Test_CheckPlayerName_ExpectReturnTrue()
+        public void CheckPlayerName_ExpectReturnTrue()
         {
             // Arrange
             bool expected = true;
@@ -24,7 +24,7 @@ namespace MJU20_OOP_02_Grp7.UnitTests
         }
 
         [TestMethod]
-        public void Test_CheckPlayerName_ExpectReturnFalse()
+        public void CheckPlayerName_ExpectReturnFalse()
         {
             // Arrange
             bool expected = false;
