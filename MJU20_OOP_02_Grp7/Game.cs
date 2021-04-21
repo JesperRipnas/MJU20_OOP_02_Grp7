@@ -207,6 +207,7 @@ namespace MJU20_OOP_02_Grp7
 
         private static void MainMenu()
         {
+            Console.Clear();
             Menu mainMenu = new Menu();
 
             switch (mainMenu.Run())
@@ -222,6 +223,9 @@ namespace MJU20_OOP_02_Grp7
                     break;
                 case 3:
                     HowToPlay();
+                    break;
+                case 4:
+                    Environment.Exit(0);
                     break;
                 default:
                     MainMenu();
